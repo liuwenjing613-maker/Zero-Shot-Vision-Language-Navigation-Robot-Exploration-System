@@ -1,0 +1,52 @@
+# 大型场景文件（不上传到 GitHub）
+scenes/
+*.glb
+*.ply
+
+# InternNav 子模块（建议单独 clone 或作为 submodule）
+InternNav/
+
+# Python 缓存
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info/
+.eggs/
+dist/
+build/
+
+# 日志文件
+*.log
+
+# 评估中间文件
+val/checkpoints/
+val/success_topdown/
+val/detailed_results/
+val/__pycache__/
+
+# 模型文件
+*.pt
+*.pth
+*.bin
+*.safetensors
+
+# 环境文件
+.env
+.venv/
+venv/
+ENV/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS 文件
+.DS_Store
+Thumbs.db
+
+# Jupyter
+.ipynb_checkpoints/

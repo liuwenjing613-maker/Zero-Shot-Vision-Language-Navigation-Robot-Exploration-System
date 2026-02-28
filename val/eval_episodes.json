@@ -1,0 +1,797 @@
+[
+  {
+    "scene_id": "2azQ1b91cZZ",
+    "instruction": "the first flowers you see",
+    "start_position": [
+      8.23,
+      0.13,
+      3.41
+    ],
+    "gt_position": [
+      14.36,
+      0.13,
+      2.01
+    ],
+    "episode_id": 0
+  },
+  {
+    "scene_id": "2azQ1b91cZZ",
+    "instruction": "fireplace",
+    "start_position": [
+      0.47,
+      0.13,
+      4.71
+    ],
+    "gt_position": [
+      -2.05,
+      0.13,
+      2.54
+    ],
+    "episode_id": 1
+  },
+  {
+    "scene_id": "2azQ1b91cZZ",
+    "instruction": "toilet",
+    "start_position": [
+      2.68,
+      0.13,
+      -3.04
+    ],
+    "gt_position": [
+      2.94,
+      0.13,
+      -3.78
+    ],
+    "episode_id": 2
+  },
+  {
+    "scene_id": "2azQ1b91cZZ",
+    "instruction": "plant",
+    "start_position": [
+      -8.46,
+      0.13,
+      1.14
+    ],
+    "gt_position": [
+      -4.65,
+      0.13,
+      2.74
+    ],
+    "episode_id": 3
+  },
+  {
+    "scene_id": "2azQ1b91cZZ",
+    "instruction": "mirror",
+    "start_position": [
+      21.1,
+      3.53,
+      0.24
+    ],
+    "gt_position": [
+      19.25,
+      3.53,
+      -1.81
+    ],
+    "episode_id": 4
+  },
+  {
+    "scene_id": "2azQ1b91cZZ",
+    "instruction": "bed in the bedroom",
+    "start_position": [
+      11.32,
+      3.53,
+      1.59
+    ],
+    "gt_position": [
+      6.45,
+      3.53,
+      1.99
+    ],
+    "episode_id": 5
+  },
+  {
+    "scene_id": "2azQ1b91cZZ",
+    "instruction": "stairs",
+    "start_position": [
+      15.85,
+      0.13,
+      -3.06
+    ],
+    "gt_position": [
+      18.26,
+      0.53,
+      0.76
+    ],
+    "episode_id": 6
+  },
+  {
+    "scene_id": "Z6MFQCViBuw",
+    "instruction": "chair under the painting",
+    "start_position": [
+      23.57,
+      0.01,
+      0.05
+    ],
+    "gt_position": [
+      23.23,
+      0.01,
+      -1.84
+    ],
+    "episode_id": 7
+  },
+  {
+    "scene_id": "Z6MFQCViBuw",
+    "instruction": "red stool in front of the red curtain",
+    "start_position": [
+      21.55,
+      0.04,
+      4.02
+    ],
+    "gt_position": [
+      18.85,
+      0.21,
+      2.49
+    ],
+    "episode_id": 8
+  },
+  {
+    "scene_id": "Z6MFQCViBuw",
+    "instruction": "red bed",
+    "start_position": [
+      5.52,
+      0.01,
+      -12.28
+    ],
+    "gt_position": [
+      2.27,
+      0.01,
+      -13.5
+    ],
+    "episode_id": 9
+  },
+  {
+    "scene_id": "8194nk5LbLH",
+    "instruction": "plant between two sofas",
+    "start_position": [
+      -3.86,
+      0.1,
+      -1.86
+    ],
+    "gt_position": [
+      -1.8,
+      0.1,
+      1.36
+    ],
+    "episode_id": 10
+  },
+  {
+    "scene_id": "8194nk5LbLH",
+    "instruction": "TV in the living room",
+    "start_position": [
+      -1.13,
+      0.1,
+      -3.04
+    ],
+    "gt_position": [
+      2.52,
+      0.1,
+      0.07
+    ],
+    "episode_id": 11
+  },
+  {
+    "scene_id": "8194nk5LbLH",
+    "instruction": "blue rubbish bin",
+    "start_position": [
+      6.27,
+      2.9,
+      0.47
+    ],
+    "gt_position": [
+      5.43,
+      2.9,
+      -1.83
+    ],
+    "episode_id": 12
+  },
+  {
+    "scene_id": "8194nk5LbLH",
+    "instruction": "green ball",
+    "start_position": [
+      1.22,
+      2.9,
+      -1.75
+    ],
+    "gt_position": [
+      5.44,
+      2.9,
+      0.49
+    ],
+    "episode_id": 13
+  },
+  {
+    "scene_id": "8194nk5LbLH",
+    "instruction": "armchair",
+    "start_position": [
+      -2.06,
+      0.1,
+      -2.76
+    ],
+    "gt_position": [
+      0.69,
+      0.1,
+      -1.24
+    ],
+    "episode_id": 14
+  },
+  {
+    "scene_id": "EU6Fwq7SyZv",
+    "instruction": "animal",
+    "start_position": [
+      10.16,
+      3.62,
+      3.15
+    ],
+    "gt_position": [
+      9.62,
+      3.62,
+      0.12
+    ],
+    "episode_id": 15
+  },
+  {
+    "scene_id": "EU6Fwq7SyZv",
+    "instruction": "purple cushion",
+    "start_position": [
+      9.18,
+      3.62,
+      5.59
+    ],
+    "gt_position": [
+      10.15,
+      3.62,
+      9.62
+    ],
+    "episode_id": 16
+  },
+  {
+    "scene_id": "X7HyMhZNoso",
+    "instruction": "toilet",
+    "start_position": [
+      1.13,
+      -0.14,
+      5.24
+    ],
+    "gt_position": [
+      2.82,
+      -0.14,
+      4.45
+    ],
+    "episode_id": 17
+  },
+  {
+    "scene_id": "X7HyMhZNoso",
+    "instruction": "red book on the table",
+    "start_position": [
+      -2.48,
+      0.46,
+      2.29
+    ],
+    "gt_position": [
+      0.74,
+      0.46,
+      2.37
+    ],
+    "episode_id": 18
+  },
+  {
+    "scene_id": "X7HyMhZNoso",
+    "instruction": "clock on the wall",
+    "start_position": [
+      -1.0,
+      -0.54,
+      12.17
+    ],
+    "gt_position": [
+      3.27,
+      -0.54,
+      13.17
+    ],
+    "episode_id": 19
+  },
+  {
+    "scene_id": "X7HyMhZNoso",
+    "instruction": "blue table in the living room",
+    "start_position": [
+      -0.46,
+      -0.54,
+      11.4
+    ],
+    "gt_position": [
+      -3.76,
+      -0.54,
+      13.3
+    ],
+    "episode_id": 20
+  },
+  {
+    "scene_id": "X7HyMhZNoso",
+    "instruction": "yellow blanket on the sofa",
+    "start_position": [
+      -2.88,
+      -0.54,
+      11.7
+    ],
+    "gt_position": [
+      -3.59,
+      -0.54,
+      14.97
+    ],
+    "episode_id": 21
+  },
+  {
+    "scene_id": "X7HyMhZNoso",
+    "instruction": "blue cushion",
+    "start_position": [
+      2.38,
+      3.26,
+      2.41
+    ],
+    "gt_position": [
+      0.09,
+      3.26,
+      -0.11
+    ],
+    "episode_id": 22
+  },
+  {
+    "scene_id": "X7HyMhZNoso",
+    "instruction": "bathtub",
+    "start_position": [
+      -2.61,
+      3.26,
+      5.78
+    ],
+    "gt_position": [
+      -4.02,
+      3.26,
+      5.2
+    ],
+    "episode_id": 23
+  },
+  {
+    "scene_id": "X7HyMhZNoso",
+    "instruction": "closed door",
+    "start_position": [
+      -2.59,
+      3.26,
+      5.65
+    ],
+    "gt_position": [
+      0.7,
+      3.26,
+      4.28
+    ],
+    "episode_id": 24
+  },
+  {
+    "scene_id": "X7HyMhZNoso",
+    "instruction": "washing machine",
+    "start_position": [
+      1.23,
+      -0.09,
+      4.81
+    ],
+    "gt_position": [
+      2.24,
+      -0.14,
+      7.39
+    ],
+    "episode_id": 25
+  },
+  {
+    "scene_id": "pLe4wQe7qrG",
+    "instruction": "the central pillar",
+    "start_position": [
+      1.58,
+      0.09,
+      -0.07
+    ],
+    "gt_position": [
+      3.67,
+      0.08,
+      -0.06
+    ],
+    "episode_id": 26
+  },
+  {
+    "scene_id": "x8F5xyUWy9e",
+    "instruction": "chair near the door",
+    "start_position": [
+      -1.27,
+      0.05,
+      6.03
+    ],
+    "gt_position": [
+      -0.58,
+      0.05,
+      3.07
+    ],
+    "episode_id": 27
+  },
+  {
+    "scene_id": "x8F5xyUWy9e",
+    "instruction": "fire extinguisher beside the door",
+    "start_position": [
+      -5.32,
+      1.05,
+      0.46
+    ],
+    "gt_position": [
+      -1.95,
+      0.65,
+      -1.1
+    ],
+    "episode_id": 28
+  },
+  {
+    "scene_id": "x8F5xyUWy9e",
+    "instruction": "plant beside the fire extinguisher",
+    "start_position": [
+      -5.92,
+      1.05,
+      0.0
+    ],
+    "gt_position": [
+      -2.82,
+      0.65,
+      -1.25
+    ],
+    "episode_id": 29
+  },
+  {
+    "scene_id": "x8F5xyUWy9e",
+    "instruction": "stairs",
+    "start_position": [
+      -5.94,
+      1.05,
+      -1.33
+    ],
+    "gt_position": [
+      -7.67,
+      1.21,
+      -4.68
+    ],
+    "episode_id": 30
+  },
+  {
+    "scene_id": "x8F5xyUWy9e",
+    "instruction": "three lounge chairs",
+    "start_position": [
+      -0.35,
+      0.05,
+      2.63
+    ],
+    "gt_position": [
+      3.63,
+      0.05,
+      -1.84
+    ],
+    "episode_id": 31
+  },
+  {
+    "scene_id": "TbHJrupSAjP",
+    "instruction": "first white door you see",
+    "start_position": [
+      -4.35,
+      -2.58,
+      -1.39
+    ],
+    "gt_position": [
+      -1.76,
+      -2.58,
+      -3.32
+    ],
+    "episode_id": 32
+  },
+  {
+    "scene_id": "TbHJrupSAjP",
+    "instruction": "black single sofa",
+    "start_position": [
+      4.45,
+      -2.58,
+      -7.94
+    ],
+    "gt_position": [
+      1.01,
+      -2.58,
+      -8.25
+    ],
+    "episode_id": 33
+  },
+  {
+    "scene_id": "TbHJrupSAjP",
+    "instruction": "the potted plant between the two sofas",
+    "start_position": [
+      1.33,
+      -2.58,
+      -7.9
+    ],
+    "gt_position": [
+      1.41,
+      -2.58,
+      -11.99
+    ],
+    "episode_id": 34
+  },
+  {
+    "scene_id": "TbHJrupSAjP",
+    "instruction": "potted plant beside the door",
+    "start_position": [
+      2.06,
+      0.02,
+      -2.69
+    ],
+    "gt_position": [
+      2.41,
+      0.02,
+      0.19
+    ],
+    "episode_id": 35
+  },
+  {
+    "scene_id": "TbHJrupSAjP",
+    "instruction": "black board",
+    "start_position": [
+      9.26,
+      0.34,
+      -0.43
+    ],
+    "gt_position": [
+      2.41,
+      0.02,
+      0.19
+    ],
+    "episode_id": 36
+  },
+  {
+    "scene_id": "TbHJrupSAjP",
+    "instruction": "orange single sofa",
+    "start_position": [
+      -3.14,
+      0.02,
+      -3.35
+    ],
+    "gt_position": [
+      -2.1,
+      0.02,
+      -0.32
+    ],
+    "episode_id": 37
+  },
+  {
+    "scene_id": "TbHJrupSAjP",
+    "instruction": "bedside lamp",
+    "start_position": [
+      1.88,
+      3.42,
+      -2.85
+    ],
+    "gt_position": [
+      4.98,
+      3.59,
+      0.9
+    ],
+    "episode_id": 38
+  },
+  {
+    "scene_id": "TbHJrupSAjP",
+    "instruction": "shelf beside the door",
+    "start_position": [
+      2.38,
+      3.62,
+      -10.79
+    ],
+    "gt_position": [
+      2.73,
+      3.42,
+      -7.49
+    ],
+    "episode_id": 39
+  },
+  {
+    "scene_id": "TbHJrupSAjP",
+    "instruction": "white carpet in the bedroom",
+    "start_position": [
+      0.98,
+      3.54,
+      -6.53
+    ],
+    "gt_position": [
+      -2.41,
+      3.56,
+      -5.8
+    ],
+    "episode_id": 40
+  },
+  {
+    "scene_id": "zsNo4HB9uLZ",
+    "instruction": "TV",
+    "start_position": [
+      13.75,
+      0.17,
+      -2.23
+    ],
+    "gt_position": [
+      11.12,
+      0.17,
+      4.31
+    ],
+    "episode_id": 41
+  },
+  {
+    "scene_id": "zsNo4HB9uLZ",
+    "instruction": "toilet in the bathroom.",
+    "start_position": [
+      13.82,
+      0.17,
+      -2.24
+    ],
+    "gt_position": [
+      2.56,
+      0.17,
+      -1.57
+    ],
+    "episode_id": 42
+  },
+  {
+    "scene_id": "TbHJrupSAjP",
+    "instruction": "stairs between floors.",
+    "start_position": [
+      8.52,
+      -2.58,
+      -6.34
+    ],
+    "gt_position": [
+      5.45,
+      -1.51,
+      -5.11
+    ],
+    "episode_id": 43
+  },
+  {
+    "scene_id": "TbHJrupSAjP",
+    "instruction": "stairs between floors.",
+    "start_position": [
+      -0.06,
+      3.62,
+      -10.61
+    ],
+    "gt_position": [
+      0.68,
+      2.75,
+      -4.84
+    ],
+    "episode_id": 44
+  },
+  {
+    "scene_id": "QUCTc6BB5sX",
+    "instruction": "wall-themed wall art.",
+    "start_position": [
+      -8.86,
+      -3.22,
+      -11.44
+    ],
+    "gt_position": [
+      -9.98,
+      -3.05,
+      -10.53
+    ],
+    "episode_id": 45
+  },
+  {
+    "scene_id": "QUCTc6BB5sX",
+    "instruction": "car.",
+    "start_position": [
+      3.68,
+      -1.51,
+      -9.28
+    ],
+    "gt_position": [
+      -3.41,
+      -3.05,
+      -21.54
+    ],
+    "episode_id": 46
+  },
+  {
+    "scene_id": "TbHJrupSAjP",
+    "instruction": "gym.",
+    "start_position": [
+      1.74,
+      -2.58,
+      -4.84
+    ],
+    "gt_position": [
+      -3.05,
+      -2.58,
+      -2.37
+    ],
+    "episode_id": 47
+  },
+  {
+    "scene_id": "x8F5xyUWy9e",
+    "instruction": "sink.",
+    "start_position": [
+      -5.19,
+      1.05,
+      -0.41
+    ],
+    "gt_position": [
+      -1.93,
+      1.05,
+      -2.36
+    ],
+    "episode_id": 48
+  },
+  {
+    "scene_id": "X7HyMhZNoso",
+    "instruction": "white bouquet on the bedside table.",
+    "start_position": [
+      -4.18,
+      3.86,
+      2.85
+    ],
+    "gt_position": [
+      -5.38,
+      3.86,
+      1.3
+    ],
+    "episode_id": 49
+  },
+  {
+    "scene_id": "8194nk5LbLH",
+    "instruction": "stairs between floors.",
+    "start_position": [
+      7.95,
+      2.9,
+      -1.19
+    ],
+    "gt_position": [
+      8.49,
+      2.44,
+      2.96
+    ],
+    "episode_id": 50
+  },
+  {
+    "scene_id": "Z6MFQCViBuw",
+    "instruction": "oil painting of the man in the red coat.",
+    "start_position": [
+      26.32,
+      0.01,
+      0.3
+    ],
+    "gt_position": [
+      19.4,
+      0.01,
+      -2.45
+    ],
+    "episode_id": 51
+  },
+  {
+    "scene_id": "2azQ1b91cZZ",
+    "instruction": "toilet.",
+    "start_position": [
+      22.05,
+      0.13,
+      -2.67
+    ],
+    "gt_position": [
+      20.2,
+      0.13,
+      -6.58
+    ],
+    "episode_id": 52
+  }
+]
