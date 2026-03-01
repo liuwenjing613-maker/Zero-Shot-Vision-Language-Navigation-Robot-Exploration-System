@@ -278,20 +278,20 @@ def execute_action(agent, action_id):
     elif action_id == ACTION_TURN_LEFT_LARGE:
         # 左转 90°: 约 9 次 turn_left (每次 ~10°)
         for _ in range(9):
-            agent.act(1)  # turn_left
+            agent.act("turn_left")  # turn_left
     elif action_id == ACTION_TURN_LEFT_SMALL:
         # 左转 15°: 约 1-2 次 turn_left
-        agent.act(1)
+        agent.act("turn_left")
     elif action_id == ACTION_TURN_RIGHT_SMALL:
         # 右转 15°: 约 1-2 次 turn_right
-        agent.act(2)  # turn_right
+        agent.act("turn_right")  # turn_right
     elif action_id == ACTION_TURN_RIGHT_LARGE:
         # 右转 90°: 约 9 次 turn_right
         for _ in range(9):
-            agent.act(2)
+            agent.act("turn_right")
     elif action_id == ACTION_MOVE_FORWARD:
         # 前进
-        agent.act(0)  # move_forward
+        agent.act("move_forward")  # move_forward
     
     return False
 
@@ -478,7 +478,7 @@ def main():
             
             # 平滑转向 (撞墙无探索点时)
             if smooth_turn_remaining > 0:
-                agent.act(2)  # turn_right
+                agent.act("turn_right")  # turn_right
                 smooth_turn_remaining -= 1
             # FBE 模式：跟踪路径
             elif in_fbe_mode and path_points:
@@ -505,11 +505,11 @@ def main():
                     
                     if abs(yaw_diff) > 0.15:
                         if yaw_diff > 0:
-                            agent.act(2)  # turn_right
+                            agent.act("turn_right")  # turn_right
                         else:
-                            agent.act(1)  # turn_left
+                            agent.act("turn_left")  # turn_left
                     else:
-                        agent.act(0)  # move_forward
+                        agent.act("move_forward")  # move_forward
             # 正常导航：执行 S2 输出的动作
             elif action and len(action) > 0:
                 # 如果动作队列为空，添加新动作
@@ -524,7 +524,7 @@ def main():
                             shared_state.latest_stop = True
             else:
                 # 默认前进
-                agent.act(0)
+                agent.act("move_forward")
             
             # Searching 帧计数
             if status == "Searching...":

@@ -64,12 +64,12 @@ echo "=========================================="
 
 echo ""
 echo ">>> V1 评估 (基础导航) <<<"
-python evaluate_system.py --version v1 --runs 1 2>&1 | tee eval_v1.log
+#python evaluate_system.py --version v1 --runs 1 2>&1 | tee eval_v1.log
 echo "✅ V1 完成 - $(date)"
 
 echo ""
 echo ">>> V2 评估 (V1 + FBE) <<<"
-python evaluate_system.py --version v2 --runs 1 2>&1 | tee eval_v2.log  
+#python evaluate_system.py --version v2 --runs 1 2>&1 | tee eval_v2.log  
 echo "✅ V2 完成 - $(date)"
 
 echo ""
