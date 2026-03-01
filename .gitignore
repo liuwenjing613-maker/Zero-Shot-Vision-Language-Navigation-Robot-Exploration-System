@@ -21,9 +21,6 @@ build/
 *.log
 
 # 评估中间文件
-val/checkpoints/
-val/success_topdown/
-val/detailed_results/
 val/__pycache__/
 
 # 模型文件
