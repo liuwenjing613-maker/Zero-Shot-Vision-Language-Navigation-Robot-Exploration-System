@@ -69,12 +69,12 @@ echo "✅ V1 完成 - $(date)"
 
 echo ""
 echo ">>> V2 评估 (V1 + FBE) <<<"
-#python evaluate_system.py --version v2 --runs 1 2>&1 | tee eval_v2.log  
+python evaluate_system.py --version v2 --runs 1 2>&1 | tee eval_v2.log  
 echo "✅ V2 完成 - $(date)"
 
 echo ""
 echo ">>> V3 评估 (V2 + 出生地环视 + 目标锁定) <<<"
-python evaluate_system.py --version v3 --runs 1 2>&1 | tee eval_v3.log
+#python evaluate_system.py --version v3 --runs 1 2>&1 | tee eval_v3.log
 echo "✅ V3 完成 - $(date)"
 
 echo ""

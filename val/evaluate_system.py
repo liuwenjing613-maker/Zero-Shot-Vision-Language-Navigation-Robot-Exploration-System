@@ -66,7 +66,7 @@ MEMORY_BLACKLIST_TOLERANCE = 0.5
 # 评估专用：
 # SR (Success Rate): 最终停止位置距离目标 < 阈值才算成功
 # OSR (Oracle Success Rate): 导航过程中曾经有一次距离目标 < 阈值即算成功
-EVAL_SUCCESS_DISTANCE = 2.0   # 2.0m：与原论文对齐（论文用 3.0m，这里用 2.0m）
+EVAL_SUCCESS_DISTANCE = 3.0   # 2.0m：与原论文对齐（论文用 3.0m，这里用 2.0m）
 # 单 episode 最大步数，避免死循环
 EVAL_MAX_STEPS = 800  # 800 步，给机器人充足时间探索
 EPISODE_TIMEOUT = 300  # 单个 episode 最大运行时间（秒）
