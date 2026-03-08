@@ -48,7 +48,7 @@ SCENE_INDEX = 0
 
 # 支持单目标或多目标序列，如 "First find a chair, then find a plant, finally go to the door"
 #INSTRUCTION = "First find a chair, then find a plant, finally go to the door"
-INSTRUCTION = "the first flowers you see"
+INSTRUCTION = "find the bed in the bedroom"
 #INSTRUCTION = "fireplace"
 
 # 核心参数
@@ -58,10 +58,10 @@ REPLAN_DISTANCE_THRESHOLD = 1.5
 STUCK_DEPTH_THRESHOLD = 0.6
 STUCK_FRAMES = 4
 DEPTH_MIN, DEPTH_MAX = 0.3, 5.0
-TURN_INTERVAL = 12
-INFER_SMOOTH_ALPHA = 0.25
-INFER_TURN_COMMIT_FRAMES = 15
-INFER_DEAD_ZONE = 100
+TURN_INTERVAL = 1          # 每帧根据推理结果决策，与模型输出一致，无延迟
+INFER_SMOOTH_ALPHA = 1.0   # 不平滑，直接使用当前帧 (u,v) 偏移
+INFER_TURN_COMMIT_FRAMES = 0  # 不锁定转向，每帧按最新推理结果转向
+INFER_DEAD_ZONE = 80       # 死区略缩小，更快响应
 SUCCESS_DEPTH_THRESHOLD = 0.5   # 判定成功的深度阈值（米），越小要求越近
 TURN_ANGLE_THRESHOLD = 0.15
 
@@ -70,29 +70,44 @@ FBE_EXPLORE_RADIUS = 2.5       # 探索点距离当前位置 2-3 米
 FBE_MIN_DISTANCE = 1.2         # 探索点至少距当前位置 1.2m
 FBE_SEARCHING_FRAMES = 350     # Searching 连续 N 帧后触发 FBE（约 5s，原 80 约 1.6s 太易触发）
 FBE_BLIND_TURN_FRAMES = 60     # 撞墙后盲目转向 N 帧后触发 FBE
+# v3：FBE 同层约束，避免跨楼层探索导致路径过远（Matterport 层高约 2.5~3m，同层 Y 差约 <0.5m）
+FBE_SAME_FLOOR_MAX_DY = 0.5    # 探索点与当前位置的 Y 轴（高度）差不超过此值视为同层
+FBE_SAME_FLOOR_TRIES = 25      # 同层约束下多试几次以找到有效探索点
 
 # v2 新增：短期记忆防死锁 (Think, Remember, Navigate)
-MEMORY_DISTANCE_CHECK_INTERVAL = 5.0   # 5 秒内检查距离是否缩短
+MEMORY_DISTANCE_CHECK_INTERVAL = 10.0   # 5 秒内检查距离是否缩短
 MEMORY_DISTANCE_IMPROVE_THRESHOLD = 0.15  # 至少缩短 0.15m 才算有进展
 MEMORY_BLACKLIST_TOLERANCE = 0.5      # 黑名单内距离此范围内的目标视为已黑名单
+# v3：推理短期记忆 - 目标锁定后一段时间内若新推理为反方向则忽略，避免因推理抖动突然反向
+LOCKED_MEMORY_DURATION = 6.0          # 目标锁定后 6 秒内信任原方向
+LOCKED_OPPOSITE_CX_MARGIN = 80        # 新 (u,v) 与上次锁定在图像中心两侧且超过此像素差视为“反方向”
 
 # 出生地：为 True 时使用下方坐标作为起点（会 snap 到 navmesh），否则随机
 #USE_FIXED_START = False
 USE_FIXED_START = True
-FIXED_START_POSITION =  [
-      8.23,
-      0.13,
-      3.41
-    ] # [x, y, z]，按场景修改
+#FIXED_START_POSITION =  [
+#      8.23,
+#      0.13,
+#      3.41
+#    ] # [x, y, z]，按场景修改
+FIXED_START_POSITION = [
+      11.32,
+      3.53,
+      1.59
+    ]
 
 # GT 目标位置（可选）：如果提供，会在俯视图上显示目标标记，但不影响导航逻辑
 # 设为 None 则不显示
+#GT_TARGET_POSITION = [
+#      14.36,
+#      0.13,
+#      2.01
+#    ]# 例如 [1.5, 0.1, -3.2] 或 None
 GT_TARGET_POSITION = [
-      14.36,
-      0.13,
-      2.01
-    ]# 例如 [1.5, 0.1, -3.2] 或 None
-
+      6.45,
+      3.53,
+      1.99
+    ]
 # 成功前二次验证：为 True 时在“深度够近”后再请求云端 verify，避免红桌子当红衣服等误判
 USE_VERIFY_BEFORE_SUCCESS = True
 
@@ -104,8 +119,9 @@ STUCK_TURN_WHEN_TARGET_LOCKED = 0  # 目标已锁定时撞墙不转向（0）；
 
 # v3：出生地 4 个视野各让模型给出目标可能性，选最高方向出发（Robot Eye 中可视化）
 SPAWN_SCAN_VIEWS = 4       # 4 个视野 (0°, 90°, 180°, 270°)，转满一周 360°
-DEGREES_PER_TURN = 10      # 本环境中单次 turn_right 的转角（度）。若未转满一周请改小此值，如 10→每步 10°；若为 30° 则改为 30
-TURNS_PER_90 = max(1, int(math.ceil(90.0 / DEGREES_PER_TURN)))  # 每 90° 至少这么多步，保证转满一周
+# 本环境中单次 turn_right 的实际转角（度）。若环视一段只转了约 40° 可改为 8~10，使每 90° 步数增多
+DEGREES_PER_TURN = 7.5       # 实测约 8° 时 TURNS_PER_90=12，每段约 96°≈90°
+TURNS_PER_90 = max(1, int(math.ceil(90.0 / DEGREES_PER_TURN)))  # 每 90° 的旋转步数，保证每段接近 90°
 
 # ============== 2. 共享状态 ==============
 class SharedState:
@@ -125,6 +141,9 @@ class SharedState:
         self.latest_instruction_used = None  # 最近一次云端请求用的指令，用于多目标成功判定
         self.first_request_done = {}  # 记录每个目标是否已发送过首次请求（含推理原因）
         self.latest_reason = None  # 最近一次推理原因
+        # 推理短期记忆：目标锁定后一段时间内若新推理为反方向则保留原方向
+        self.last_locked_uv = None      # 最近一次 Target Locked 的 (u, v)
+        self.last_locked_time = None   # 最近一次锁定的时间
 
 shared_state = SharedState()
 
@@ -157,13 +176,32 @@ def make_cfg(scene_path):
 
 # ============== 5. 工具函数 ==============
 def get_depth_at_uv(u, v, depth_img):
+    """目标点 5x5 邻域深度：取最小值（最近点），便于走到目标附近再停；中位数易偏大导致提前停。"""
     u_idx = int(np.clip(u, 0, IMG_WIDTH - 1))
     v_idx = int(np.clip(v, 0, IMG_HEIGHT - 1))
     patch = depth_img[max(0, v_idx-2):v_idx+3, max(0, u_idx-2):u_idx+3]
     valid = patch[(patch > 0.1) & (patch < 10.0)]
     if len(valid) == 0:
         return None
-    return float(np.median(valid))
+    return float(np.min(valid))
+
+
+def get_depth_at_uv_with_position(u, v, depth_img):
+    """与 get_depth_at_uv 相同逻辑，但返回 (深度值, 取深度的像素u, 取深度的像素v)，用于第一视角可视化 5x5 与最终取深度的位置。"""
+    u_idx = int(np.clip(u, 0, IMG_WIDTH - 1))
+    v_idx = int(np.clip(v, 0, IMG_HEIGHT - 1))
+    u_lo, u_hi = max(0, u_idx - 2), min(IMG_WIDTH, u_idx + 3)
+    v_lo, v_hi = max(0, v_idx - 2), min(IMG_HEIGHT, v_idx + 3)
+    patch = depth_img[v_lo:v_hi, u_lo:u_hi]
+    mask = (patch > 0.1) & (patch < 10.0)
+    if not np.any(mask):
+        return None, None, None
+    min_val = np.min(patch[mask])
+    rows, cols = np.where((patch == min_val) & mask)
+    r, c = int(rows[0]), int(cols[0])
+    u_used = u_lo + c
+    v_used = v_lo + r
+    return float(min_val), u_used, v_used
 
 def get_agent_forward_yaw(agent_state):
     cam = agent_state.sensor_states["color_sensor"]
@@ -175,15 +213,17 @@ def get_agent_forward_yaw(agent_state):
     return math.atan2(fwd_x, fwd_z)
 
 def get_3d_point(u, v, depth_img, agent_state, sim, camera_snapshot=None):
+    """将图像 (u,v) + 深度 转为世界 3D。返回 (用于路径的 snap 点, 深度, 用于显示的原始点)。
+    原始点即模型所指位置；snap 点会贴到 navmesh，可能被拉到地面导致与真实目标偏差，故俯视图用原始点绘制。"""
     u_idx = int(np.clip(u, 0, IMG_WIDTH - 1))
     v_idx = int(np.clip(v, 0, IMG_HEIGHT - 1))
     patch = depth_img[max(0, v_idx-2):v_idx+3, max(0, u_idx-2):u_idx+3]
     valid = patch[(patch > 0.1) & (patch < 10.0)]
     if len(valid) == 0:
-        return None, None
-    z_depth = float(np.median(valid))
+        return None, None, None
+    z_depth = float(np.min(valid))
     if z_depth < DEPTH_MIN or z_depth > DEPTH_MAX:
-        return None, None
+        return None, None, None
 
     f = (IMG_WIDTH / 2.0) / np.tan(np.deg2rad(HFOV) / 2.0)
     cx, cy = IMG_WIDTH / 2.0, IMG_HEIGHT / 2.0
@@ -207,23 +247,27 @@ def get_3d_point(u, v, depth_img, agent_state, sim, camera_snapshot=None):
     if sim.pathfinder.is_loaded:
         snapped = sim.pathfinder.snap_point(raw_3d)
         if not np.isnan(snapped).any():
-            return snapped, z_depth
-    return raw_3d, z_depth
+            return snapped, z_depth, raw_3d
+    return raw_3d, z_depth, raw_3d
 
-# ============== 6. FBE 前沿探索：获取 2-3 米外的随机可达点 ==============
+# ============== 6. FBE 前沿探索：获取 2-3 米外的随机可达点（同层约束）==============
 def get_explore_waypoint(sim, curr_pos):
-    """使用 pathfinder 获取距离当前位置 2-3m 的随机可达点作为探索点 (主动探索)"""
+    """使用 pathfinder 获取距离当前位置 2-3m 的随机可达点作为探索点；仅接受与当前同层的点，避免跨楼层过远。"""
     if not sim.pathfinder.is_loaded:
         return None
     try:
-        start_snap = sim.pathfinder.snap_point(np.array(curr_pos, dtype=np.float32))
+        curr_pos = np.array(curr_pos, dtype=np.float32)
+        start_snap = sim.pathfinder.snap_point(curr_pos)
         island_idx = sim.pathfinder.get_island(start_snap)
-        for _ in range(10):
-            # Habitat: get_random_navigable_point_near(center, radius) 或 (center, radius, island_index=)
+        curr_y = float(curr_pos[1])
+        for _ in range(FBE_SAME_FLOOR_TRIES):
             pt = sim.pathfinder.get_random_navigable_point_near(
                 start_snap, FBE_EXPLORE_RADIUS, island_index=island_idx
             )
             if pt is not None and not np.isnan(pt).any():
+                # 同层约束：Y 轴（高度）差不超过阈值，避免跨楼层
+                if abs(float(pt[1]) - curr_y) > FBE_SAME_FLOOR_MAX_DY:
+                    continue
                 dist = np.linalg.norm(np.array(pt) - curr_pos)
                 if dist >= FBE_MIN_DISTANCE:
                     path = habitat_sim.ShortestPath()
@@ -309,8 +353,22 @@ def cloud_worker():
                         shared_state.latest_goal_depth = depth_snap
                         shared_state.latest_goal_camera_snapshot = cam_snap
                         shared_state.latest_status = "Target Locked"
+                        shared_state.last_locked_uv = (j['u'], j['v'])
+                        shared_state.last_locked_time = time.time()
                     elif j.get('message') == 'Inferred' and 'u' in j and 'v' in j:
-                        shared_state.latest_goal_uv = (j['u'], j['v'])
+                        new_u, new_v = j['u'], j['v']
+                        # 短期记忆：若最近曾锁定目标，且新推理方向与锁定方向相反，则忽略新结果、继续沿原方向
+                        now = time.time()
+                        if (shared_state.last_locked_uv is not None and shared_state.last_locked_time is not None
+                                and (now - shared_state.last_locked_time) < LOCKED_MEMORY_DURATION):
+                            old_u = shared_state.last_locked_uv[0]
+                            cx = IMG_WIDTH / 2.0
+                            # 新点在中心另一侧且偏移足够大则视为反方向
+                            opposite = (new_u - cx) * (old_u - cx) < 0 and abs(new_u - old_u) > LOCKED_OPPOSITE_CX_MARGIN
+                            if opposite:
+                                # 保留原方向：不更新任何推理结果，沿用上一帧的 goal_uv/depth/snapshot
+                                continue
+                        shared_state.latest_goal_uv = (new_u, new_v)
                         shared_state.latest_goal_depth = depth_snap
                         shared_state.latest_goal_camera_snapshot = cam_snap
                         shared_state.latest_status = "Inferred"
@@ -319,6 +377,8 @@ def cloud_worker():
                         shared_state.latest_goal_uv = None
                         shared_state.latest_goal_depth = None
                         shared_state.latest_goal_camera_snapshot = None
+                        shared_state.last_locked_uv = None
+                        shared_state.last_locked_time = None
             except Exception as e:
                 print(f"云端请求失败: {e}")
         time.sleep(0.3)
@@ -381,6 +441,7 @@ def main():
 
     path_points = []
     current_goal_3d = None
+    current_goal_3d_raw = None   # 模型所指的原始 3D（未 snap），用于俯视图显示，与真实目标一致
     goal_set_at = None
     stuck_count = 0
     step_count = 0
@@ -515,12 +576,15 @@ def main():
                     else:
                         path_points = []
                         current_goal_3d = None
+                        current_goal_3d_raw = None
                         target_fully_verified = False
                         stuck_count = 0
                         with shared_state.lock:
                             shared_state.latest_goal_uv = None
                             shared_state.latest_goal_depth = None
                             shared_state.latest_goal_camera_snapshot = None
+                            shared_state.last_locked_uv = None
+                            shared_state.last_locked_time = None
 
                         explore_waypoint = get_explore_waypoint(sim, curr_pos)
                         if explore_waypoint is not None:
@@ -568,6 +632,8 @@ def main():
                                         shared_state.latest_goal_uv = None
                                         shared_state.latest_goal_depth = None
                                         shared_state.latest_goal_camera_snapshot = None
+                                        shared_state.last_locked_uv = None
+                                        shared_state.last_locked_time = None
                                         shared_state.latest_status = "Searching..."
                             except Exception as e:
                                 print(f"⚠️ 成功前验证请求失败: {e}，按未通过处理")
@@ -590,9 +656,12 @@ def main():
                                 shared_state.latest_goal_uv = None
                                 shared_state.latest_goal_depth = None
                                 shared_state.latest_goal_camera_snapshot = None
+                                shared_state.last_locked_uv = None
+                                shared_state.last_locked_time = None
                                 shared_state.latest_status = "Searching..."
                             path_points = []
                             current_goal_3d = None
+                            current_goal_3d_raw = None
                             target_fully_verified = False
                             time.sleep(0.5)
 
@@ -608,12 +677,15 @@ def main():
                                 goal_blacklist.append(np.array(current_goal_3d, dtype=np.float32))
                                 path_points = []
                                 current_goal_3d = None
+                                current_goal_3d_raw = None
                                 target_fully_verified = False
                                 goal_3d_recorded_at = None
                                 with shared_state.lock:
                                     shared_state.latest_goal_uv = None
                                     shared_state.latest_goal_depth = None
                                     shared_state.latest_goal_camera_snapshot = None
+                                    shared_state.last_locked_uv = None
+                                    shared_state.last_locked_time = None
                             else:
                                 goal_3d_recorded_at = time.time()
                                 goal_3d_recorded_dist = curr_dist
@@ -623,13 +695,14 @@ def main():
 
                 # 规划逻辑（FBE 中断后 has_path 已为 False，此处立刻对目标做 A*）
                 if not in_fbe_mode and status == "Target Locked" and not has_path and use_goal:
-                    goal_3d, gdepth = get_3d_point(uv[0], uv[1], snap_d, curr_state, sim, camera_snapshot=snap_c)
+                    goal_3d, gdepth, goal_3d_raw = get_3d_point(uv[0], uv[1], snap_d, curr_state, sim, camera_snapshot=snap_c)
                     if goal_3d is None and snap_d is not None:
-                        goal_3d, gdepth = get_3d_point(uv[0], uv[1], depth, curr_state, sim, camera_snapshot=None)
+                        goal_3d, gdepth, goal_3d_raw = get_3d_point(uv[0], uv[1], depth, curr_state, sim, camera_snapshot=None)
                     if goal_3d is not None and gdepth is not None:
                         if is_goal_in_blacklist(goal_3d, goal_blacklist):
                             path_points = []
                             current_goal_3d = None
+                            current_goal_3d_raw = None
                             target_fully_verified = False
                         else:
                             replan = current_goal_3d is None or np.linalg.norm(goal_3d - current_goal_3d) > REPLAN_DISTANCE_THRESHOLD
@@ -639,6 +712,7 @@ def main():
                                 path.requested_end = goal_3d
                                 if sim.pathfinder.find_path(path) and len(path.points) > 0:
                                     current_goal_3d = goal_3d
+                                    current_goal_3d_raw = goal_3d_raw if goal_3d_raw is not None else goal_3d
                                     goal_set_at = curr_pos.copy()
                                     path_points = list(path.points)
                                     goal_3d_recorded_at = time.time()
@@ -661,6 +735,7 @@ def main():
                     if not in_fbe_mode and not target_fully_verified:
                         path_points = []
                         current_goal_3d = None
+                        current_goal_3d_raw = None
                     if status == "Searching":
                         smoothed_offset = None
                         turn_commit_remaining = 0
@@ -794,7 +869,7 @@ def main():
                 trajectory=trajectory,
                 path_points=path_points,
                 current_pos=curr_pos,
-                goal_pos=current_goal_3d,
+                goal_pos=current_goal_3d_raw if current_goal_3d_raw is not None else current_goal_3d,
                 start_pos=start_pos,
                 current_yaw=current_yaw,
                 title=status_display,
@@ -807,6 +882,21 @@ def main():
             viz = rgb.copy()
             if uv:
                 cv2.circle(viz, uv, 12, (0, 255, 0), 2)
+                # 5x5 深度邻域与最终取深度位置的可视化
+                if depth is not None:
+                    depth_val, u_used, v_used = get_depth_at_uv_with_position(uv[0], uv[1], depth)
+                    u_idx = int(np.clip(uv[0], 0, IMG_WIDTH - 1))
+                    v_idx = int(np.clip(uv[1], 0, IMG_HEIGHT - 1))
+                    u_lo = max(0, u_idx - 2)
+                    u_hi = min(IMG_WIDTH, u_idx + 3)
+                    v_lo = max(0, v_idx - 2)
+                    v_hi = min(IMG_HEIGHT, v_idx + 3)
+                    cv2.rectangle(viz, (u_lo, v_lo), (u_hi, v_hi), (255, 255, 0), 2)
+                    cv2.putText(viz, "5x5", (u_lo, v_lo - 4), cv2.FONT_HERSHEY_SIMPLEX, 0.45, (255, 255, 0), 1)
+                    if depth_val is not None and u_used is not None and v_used is not None:
+                        cv2.circle(viz, (u_used, v_used), 6, (0, 255, 255), 2)
+                        cv2.circle(viz, (u_used, v_used), 2, (0, 255, 255), -1)
+                        cv2.putText(viz, f"d={depth_val:.2f}m", (u_used + 8, v_used), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 255), 1)
             cv2.putText(viz, status_display, (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 255, 255), 2)
             cv2.putText(viz, f"Goal: {current_instruction_display}", (10, 58), cv2.FONT_HERSHEY_SIMPLEX, 0.9, (255, 255, 255), 2)
             cv2.imshow("Robot Eye", viz)

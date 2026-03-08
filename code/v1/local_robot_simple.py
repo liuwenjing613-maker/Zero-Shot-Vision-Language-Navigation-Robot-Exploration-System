@@ -28,9 +28,9 @@ SCENE_LIST = [
     "MatterPort3D/mp3d/Z6MFQCViBuw/Z6MFQCViBuw.glb",
     "MatterPort3D/mp3d/zsNo4HB9uLZ/zsNo4HB9uLZ.glb",
 ]
-SCENE_INDEX = 2
+SCENE_INDEX = 0
 
-INSTRUCTION = "plant"
+INSTRUCTION = "flowers"
 
 # 核心参数
 CLOUD_SEND_INTERVAL = 1.2
@@ -80,14 +80,14 @@ def make_cfg(scene_path):
 
 # ============== 4. 工具函数 ==============
 def get_depth_at_uv(u, v, depth_img):
-    """取 (u,v) 处 5x5 邻域有效深度中值"""
+    """取 (u,v) 处 5x5 邻域有效深度最小值（最近点），便于走到目标附近再停。"""
     u_idx = int(np.clip(u, 0, IMG_WIDTH - 1))
     v_idx = int(np.clip(v, 0, IMG_HEIGHT - 1))
     patch = depth_img[max(0, v_idx-2):v_idx+3, max(0, u_idx-2):u_idx+3]
     valid = patch[(patch > 0.1) & (patch < 10.0)]
     if len(valid) == 0:
         return None
-    return float(np.median(valid))
+    return float(np.min(valid))
 
 def get_agent_forward_yaw(agent_state):
     """从 agent 旋转提取 XZ 平面朝向角 (弧度)，Habitat 前向为 -Z"""
@@ -107,7 +107,7 @@ def get_3d_point(u, v, depth_img, agent_state, sim, camera_snapshot=None):
     valid = patch[(patch > 0.1) & (patch < 10.0)]
     if len(valid) == 0:
         return None, None
-    z_depth = float(np.median(valid))
+    z_depth = float(np.min(valid))
     if z_depth < DEPTH_MIN or z_depth > DEPTH_MAX:
         return None, None
 

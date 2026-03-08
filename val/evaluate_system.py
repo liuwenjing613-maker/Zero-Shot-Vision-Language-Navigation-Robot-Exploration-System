@@ -28,7 +28,7 @@ def episode_timeout_handler(signum, frame):
 # 无头：不弹窗，不依赖 GUI
 os.environ["MPLBACKEND"] = "Agg"
 
-# ============== 配置（与 v2 一致）==============
+# ============== 配置（v3 与 code/v3_lookaround/local_robot_simple_v3.py 完全一致）==============
 CLOUD_URL = "http://127.0.0.1:5000/plan"
 SCENES_BASE = "/home/abc/ZeroShot_VLN/assets/scenes"
 SCENE_LIST = [
@@ -44,32 +44,43 @@ SCENE_LIST = [
 ]
 
 IMG_WIDTH, IMG_HEIGHT, HFOV = 640, 480, 110
-CLOUD_SEND_INTERVAL = 0.6  # 与原版 v2/v3 一致
+CLOUD_SEND_INTERVAL = 0.6
 MOVE_STEP_SIZE = 0.06
 REPLAN_DISTANCE_THRESHOLD = 1.5
 STUCK_DEPTH_THRESHOLD = 0.6
 STUCK_FRAMES = 4
 DEPTH_MIN, DEPTH_MAX = 0.3, 5.0
+# v1/v2 用原参数；v3 与 local_robot_simple_v3 一致：无转向延迟、推理短期记忆
 TURN_INTERVAL = 12
 INFER_SMOOTH_ALPHA = 0.25
 INFER_TURN_COMMIT_FRAMES = 15
 INFER_DEAD_ZONE = 100
-SUCCESS_DEPTH_THRESHOLD_V1_V2 = 0.6  # v1/v2 使用
-SUCCESS_DEPTH_THRESHOLD_V3 = 0.5    # v3 使用更严格的阈值
+TURN_INTERVAL_V3 = 1
+INFER_SMOOTH_ALPHA_V3 = 1.0
+INFER_TURN_COMMIT_FRAMES_V3 = 0
+INFER_DEAD_ZONE_V3 = 80
+SUCCESS_DEPTH_THRESHOLD_V1_V2 = 0.6
+SUCCESS_DEPTH_THRESHOLD_V3 = 0.5
 FBE_EXPLORE_RADIUS = 2.5
 FBE_MIN_DISTANCE = 1.2
-FBE_SEARCHING_FRAMES = 150  # Searching 状态持续 150 帧触发 FBE（约 3 秒）
-MEMORY_DISTANCE_CHECK_INTERVAL = 5.0
+FBE_SEARCHING_FRAMES = 150       # v1/v2
+FBE_SEARCHING_FRAMES_V3 = 350    # v3 与 local_robot_simple_v3 一致
+FBE_SAME_FLOOR_MAX_DY = 0.5      # v3 FBE 同层约束
+FBE_SAME_FLOOR_TRIES = 25
+MEMORY_DISTANCE_CHECK_INTERVAL = 5.0      # v1/v2
+MEMORY_DISTANCE_CHECK_INTERVAL_V3 = 10.0  # v3
 MEMORY_DISTANCE_IMPROVE_THRESHOLD = 0.15
 MEMORY_BLACKLIST_TOLERANCE = 0.5
+LOCKED_MEMORY_DURATION = 6.0     # v3 推理短期记忆
+LOCKED_OPPOSITE_CX_MARGIN = 80
 
 # 评估专用：
 # SR (Success Rate): 最终停止位置距离目标 < 阈值才算成功
 # OSR (Oracle Success Rate): 导航过程中曾经有一次距离目标 < 阈值即算成功
 EVAL_SUCCESS_DISTANCE = 3.0   # 2.0m：与原论文对齐（论文用 3.0m，这里用 2.0m）
 # 单 episode 最大步数，避免死循环
-EVAL_MAX_STEPS = 800  # 800 步，给机器人充足时间探索
-EPISODE_TIMEOUT = 300  # 单个 episode 最大运行时间（秒）
+EVAL_MAX_STEPS = 1200  # 800 步，给机器人充足时间探索
+EPISODE_TIMEOUT = 420  # 单个 episode 最大运行时间（秒）
 
 # 保存成功案例的俯视轨迹图
 SAVE_SUCCESS_TOPDOWN = True
@@ -79,14 +90,18 @@ EVAL_EPISODES_JSON = os.path.join(os.path.dirname(__file__), "eval_episodes.json
 # 详细结果保存目录
 DETAILED_RESULTS_DIR = os.path.join(os.path.dirname(__file__), "detailed_results")
 
-# v3 出生地环视
+# v3 出生地环视（与 local_robot_simple_v3 一致）
 SPAWN_SCAN_VIEWS = 4
-DEGREES_PER_TURN = 10
+DEGREES_PER_TURN = 7.5
 TURNS_PER_90 = max(1, int(math.ceil(90.0 / DEGREES_PER_TURN)))
 FBE_SMOOTH_TURN_FRAMES = 12
 STUCK_SMOOTH_TURN_FRAMES = 4
 STUCK_TURN_WHEN_TARGET_LOCKED = 0
 USE_VERIFY_BEFORE_SUCCESS = True
+# v3 位置卡住检测（与 v3 一致）
+STUCK_POSITION_CHECK_INTERVAL_V3 = 100
+STUCK_POSITION_THRESHOLD_V3 = 0.3
+STUCK_FBE_TRIGGER_FRAMES_V3 = 300
 
 # ============== 根据 scene_id 解析场景路径 ==============
 def get_scene_path_by_id(scene_id):
@@ -97,7 +112,7 @@ def get_scene_path_by_id(scene_id):
                 return full
     return None
 
-# ============== 共享状态（与 v2 一致）==============
+# ============== 共享状态（v3 含推理短期记忆）==============
 class SharedState:
     def __init__(self):
         self.lock = threading.Lock()
@@ -113,10 +128,12 @@ class SharedState:
         self.target_list = []
         self.target_index = 0
         self.latest_instruction_used = None
+        self.last_locked_uv = None
+        self.last_locked_time = None
         # 云端错误追踪
         self.cloud_error_count = 0
         self.cloud_last_success_time = time.time()
-        self.cloud_fatal_error = False  # 严重错误标志（如连续多次失败）
+        self.cloud_fatal_error = False
 
 # ============== Habitat 配置 ==============
 def make_cfg(scene_path):
@@ -135,13 +152,14 @@ def make_cfg(scene_path):
 
 # ============== 工具函数（与 v2 一致）==============
 def get_depth_at_uv(u, v, depth_img):
+    """目标点 5x5 邻域深度：取最小值（最近点），便于走到目标附近再停。"""
     u_idx = int(np.clip(u, 0, IMG_WIDTH - 1))
     v_idx = int(np.clip(v, 0, IMG_HEIGHT - 1))
     patch = depth_img[max(0, v_idx-2):v_idx+3, max(0, u_idx-2):u_idx+3]
     valid = patch[(patch > 0.1) & (patch < 10.0)]
     if len(valid) == 0:
         return None
-    return float(np.median(valid))
+    return float(np.min(valid))
 
 def get_3d_point(u, v, depth_img, agent_state, sim, camera_snapshot=None):
     u_idx = int(np.clip(u, 0, IMG_WIDTH - 1))
@@ -150,7 +168,7 @@ def get_3d_point(u, v, depth_img, agent_state, sim, camera_snapshot=None):
     valid = patch[(patch > 0.1) & (patch < 10.0)]
     if len(valid) == 0:
         return None, None
-    z_depth = float(np.median(valid))
+    z_depth = float(np.min(valid))
     if z_depth < DEPTH_MIN or z_depth > DEPTH_MAX:
         return None, None
     f = (IMG_WIDTH / 2.0) / np.tan(np.deg2rad(HFOV) / 2.0)
@@ -176,17 +194,23 @@ def get_3d_point(u, v, depth_img, agent_state, sim, camera_snapshot=None):
             return snapped, z_depth
     return raw_3d, z_depth
 
-def get_explore_waypoint(sim, curr_pos):
+def get_explore_waypoint(sim, curr_pos, same_floor=False):
+    """same_floor=True 时与 v3 一致：仅接受与当前同层的探索点。"""
     if not sim.pathfinder.is_loaded:
         return None
     try:
-        start_snap = sim.pathfinder.snap_point(np.array(curr_pos, dtype=np.float32))
+        curr_pos = np.array(curr_pos, dtype=np.float32)
+        start_snap = sim.pathfinder.snap_point(curr_pos)
         island_idx = sim.pathfinder.get_island(start_snap)
-        for _ in range(10):
+        curr_y = float(curr_pos[1])
+        tries = FBE_SAME_FLOOR_TRIES if same_floor else 10
+        for _ in range(tries):
             pt = sim.pathfinder.get_random_navigable_point_near(
                 start_snap, FBE_EXPLORE_RADIUS, island_index=island_idx
             )
             if pt is not None and not np.isnan(pt).any():
+                if same_floor and abs(float(pt[1]) - curr_y) > FBE_SAME_FLOOR_MAX_DY:
+                    continue
                 dist = np.linalg.norm(np.array(pt) - curr_pos)
                 if dist >= FBE_MIN_DISTANCE:
                     path = habitat_sim.ShortestPath()
@@ -264,8 +288,19 @@ def cloud_worker(shared_state):
                         shared_state.latest_goal_depth = depth_snap
                         shared_state.latest_goal_camera_snapshot = cam_snap
                         shared_state.latest_status = "Target Locked"
+                        shared_state.last_locked_uv = (j['u'], j['v'])
+                        shared_state.last_locked_time = time.time()
                     elif j.get('message') == 'Inferred' and 'u' in j and 'v' in j:
-                        shared_state.latest_goal_uv = (j['u'], j['v'])
+                        new_u, new_v = j['u'], j['v']
+                        now = time.time()
+                        if (shared_state.last_locked_uv is not None and shared_state.last_locked_time is not None
+                                and (now - shared_state.last_locked_time) < LOCKED_MEMORY_DURATION):
+                            old_u = shared_state.last_locked_uv[0]
+                            cx = IMG_WIDTH / 2.0
+                            opposite = (new_u - cx) * (old_u - cx) < 0 and abs(new_u - old_u) > LOCKED_OPPOSITE_CX_MARGIN
+                            if opposite:
+                                continue
+                        shared_state.latest_goal_uv = (new_u, new_v)
                         shared_state.latest_goal_depth = depth_snap
                         shared_state.latest_goal_camera_snapshot = cam_snap
                         shared_state.latest_status = "Inferred"
@@ -274,6 +309,8 @@ def cloud_worker(shared_state):
                         shared_state.latest_goal_uv = None
                         shared_state.latest_goal_depth = None
                         shared_state.latest_goal_camera_snapshot = None
+                        shared_state.last_locked_uv = None
+                        shared_state.last_locked_time = None
             except Exception as e:
                 with shared_state.lock:
                     shared_state.cloud_error_count += 1
@@ -327,6 +364,8 @@ def run_episode(episode, shared_state, version="v2"):
         shared_state.latest_goal_uv = None
         shared_state.latest_goal_depth = None
         shared_state.latest_goal_camera_snapshot = None
+        shared_state.last_locked_uv = None
+        shared_state.last_locked_time = None
 
     thr = threading.Thread(target=cloud_worker, args=(shared_state,), daemon=True)
     thr.start()
@@ -360,14 +399,14 @@ def run_episode(episode, shared_state, version="v2"):
     spawn_scan_best_direction = 0
     target_fully_verified = False
     
-    # 位置卡住检测（v2/v3 通用）：即使状态是 Inferred，如果位置长时间不变也触发 FBE
-    stuck_position_check_interval = 50   # 每 50 帧检查一次（更频繁）
-    stuck_position_threshold = 0.25      # 位置移动小于 0.25m 视为卡住
-    stuck_position_frames = 0            # 连续卡住帧数
-    stuck_position_last_pos = None       # 上次检查的位置
-    STUCK_FBE_TRIGGER_FRAMES = 150       # 连续卡住 150 帧触发 FBE（约 3 秒）
-    fbe_trigger_count = 0                # FBE 触发次数统计（仅用于日志）
-    fbe_start_step = 0                   # FBE 开始的步数（仅用于日志）
+    # 位置卡住检测：v3 与 local_robot_simple_v3 一致（100 帧间隔、0.3m、300 帧触发）
+    stuck_position_check_interval = STUCK_POSITION_CHECK_INTERVAL_V3 if version == "v3" else 50
+    stuck_position_threshold = STUCK_POSITION_THRESHOLD_V3 if version == "v3" else 0.25
+    stuck_position_frames = 0
+    stuck_position_last_pos = None
+    STUCK_FBE_TRIGGER_FRAMES = STUCK_FBE_TRIGGER_FRAMES_V3 if version == "v3" else 150
+    fbe_trigger_count = 0
+    fbe_start_step = 0
 
     trajectory = [np.array(agent.get_state().position)]
     actual_path_length = 0.0
@@ -486,9 +525,11 @@ def run_episode(episode, shared_state, version="v2"):
                         shared_state.latest_goal_uv = None
                         shared_state.latest_goal_depth = None
                         shared_state.latest_goal_camera_snapshot = None
+                        shared_state.last_locked_uv = None
+                        shared_state.last_locked_time = None
                     # v1 没有 FBE，只简单转向；v2/v3 有 FBE
                     if version in ("v2", "v3"):
-                        explore_waypoint = get_explore_waypoint(sim, curr_pos)
+                        explore_waypoint = get_explore_waypoint(sim, curr_pos, same_floor=(version == "v3"))
                         if explore_waypoint is not None:
                             path = habitat_sim.ShortestPath()
                             path.requested_start = sim.pathfinder.snap_point(curr_pos)
@@ -558,6 +599,8 @@ def run_episode(episode, shared_state, version="v2"):
                                     shared_state.latest_goal_uv = None
                                     shared_state.latest_goal_depth = None
                                     shared_state.latest_goal_camera_snapshot = None
+                                    shared_state.last_locked_uv = None
+                                    shared_state.last_locked_time = None
                                     shared_state.latest_status = "Searching..."
                         except Exception:
                             verified = False
@@ -578,6 +621,8 @@ def run_episode(episode, shared_state, version="v2"):
                             shared_state.latest_goal_uv = None
                             shared_state.latest_goal_depth = None
                             shared_state.latest_goal_camera_snapshot = None
+                            shared_state.last_locked_uv = None
+                            shared_state.last_locked_time = None
                             shared_state.latest_status = "Searching..."
                         path_points = []
                         current_goal_3d = None
@@ -585,9 +630,10 @@ def run_episode(episode, shared_state, version="v2"):
                             target_fully_verified = False
                         time.sleep(0.5)
 
+            memory_check_interval = MEMORY_DISTANCE_CHECK_INTERVAL_V3 if version == "v3" else MEMORY_DISTANCE_CHECK_INTERVAL
             if current_goal_3d is not None and goal_3d_recorded_at is not None:
                 elapsed = time.time() - goal_3d_recorded_at
-                if elapsed >= MEMORY_DISTANCE_CHECK_INTERVAL:
+                if elapsed >= memory_check_interval:
                     curr_dist = np.linalg.norm(curr_pos - current_goal_3d)
                     if goal_3d_recorded_dist is not None:
                         improved = goal_3d_recorded_dist - curr_dist
@@ -600,6 +646,8 @@ def run_episode(episode, shared_state, version="v2"):
                                 shared_state.latest_goal_uv = None
                                 shared_state.latest_goal_depth = None
                                 shared_state.latest_goal_camera_snapshot = None
+                                shared_state.last_locked_uv = None
+                                shared_state.last_locked_time = None
                         else:
                             goal_3d_recorded_at = time.time()
                             goal_3d_recorded_dist = curr_dist
@@ -642,9 +690,9 @@ def run_episode(episode, shared_state, version="v2"):
                 else:
                     searching_frames = 0
 
-            # FBE 触发条件：Searching 状态 + 不在 FBE 模式
-            # 与原始 v3 代码一致：target_fully_verified 或有 current_goal_3d 时不触发
-            if status == "Searching" and not in_fbe_mode and searching_frames >= FBE_SEARCHING_FRAMES:
+            # FBE 触发条件：Searching 状态 + 不在 FBE 模式；v3 用 FBE_SEARCHING_FRAMES_V3=350
+            fbe_searching_threshold = FBE_SEARCHING_FRAMES_V3 if version == "v3" else FBE_SEARCHING_FRAMES
+            if status == "Searching" and not in_fbe_mode and searching_frames >= fbe_searching_threshold:
                 should_trigger = True
                 if version == "v3" and target_fully_verified:
                     should_trigger = False  # 完全确认后不触发 FBE
@@ -652,7 +700,7 @@ def run_episode(episode, shared_state, version="v2"):
                     should_trigger = False  # 有导航目标也不触发
                 
                 if should_trigger:
-                    explore_waypoint = get_explore_waypoint(sim, curr_pos)
+                    explore_waypoint = get_explore_waypoint(sim, curr_pos, same_floor=(version == "v3"))
                     if explore_waypoint is not None:
                         path = habitat_sim.ShortestPath()
                         path.requested_start = sim.pathfinder.snap_point(curr_pos)
@@ -680,9 +728,13 @@ def run_episode(episode, shared_state, version="v2"):
                     s.position = step_pos
                     agent.set_state(s)
             else:
+                turn_interval = TURN_INTERVAL_V3 if version == "v3" else TURN_INTERVAL
+                smooth_alpha = INFER_SMOOTH_ALPHA_V3 if version == "v3" else INFER_SMOOTH_ALPHA
+                commit_frames = INFER_TURN_COMMIT_FRAMES_V3 if version == "v3" else INFER_TURN_COMMIT_FRAMES
+                dead_zone = INFER_DEAD_ZONE_V3 if version == "v3" else INFER_DEAD_ZONE
                 if status == "Inferred" and turn_commit_remaining > 0:
                     turn_commit_remaining -= 1
-                if step_count % TURN_INTERVAL != 0:
+                if step_count % turn_interval != 0:
                     pass
                 elif status == "Inferred" and uv is not None:
                     cx = IMG_WIDTH / 2.0
@@ -690,24 +742,24 @@ def run_episode(episode, shared_state, version="v2"):
                     if smoothed_offset is None:
                         smoothed_offset = float(raw_offset)
                     else:
-                        smoothed_offset = (1 - INFER_SMOOTH_ALPHA) * smoothed_offset + INFER_SMOOTH_ALPHA * raw_offset
+                        smoothed_offset = (1 - smooth_alpha) * smoothed_offset + smooth_alpha * raw_offset
                     offset = smoothed_offset
                     if turn_commit_remaining > 0:
                         agent.act("turn_right" if last_turn_direction == "right" else "turn_left")
-                    elif offset > INFER_DEAD_ZONE:
+                    elif offset > dead_zone:
                         agent.act("turn_right")
-                        turn_commit_remaining = INFER_TURN_COMMIT_FRAMES
+                        turn_commit_remaining = commit_frames
                         last_turn_direction = "right"
-                    elif offset < -INFER_DEAD_ZONE:
+                    elif offset < -dead_zone:
                         agent.act("turn_left")
-                        turn_commit_remaining = INFER_TURN_COMMIT_FRAMES
+                        turn_commit_remaining = commit_frames
                         last_turn_direction = "left"
                     elif front_clear:
                         agent.act("move_forward")
                         turn_commit_remaining = 0
                     else:
                         agent.act("turn_right")
-                        turn_commit_remaining = INFER_TURN_COMMIT_FRAMES // 2
+                        turn_commit_remaining = commit_frames // 2
                         last_turn_direction = "right"
                 else:
                     agent.act("turn_right")
@@ -727,11 +779,11 @@ def run_episode(episode, shared_state, version="v2"):
                 final_pos = curr_pos.copy()
                 break  # 结束 episode
             
-            # v2/v3: 位置卡住触发 FBE（与原始代码一致）
+            # v2/v3: 位置卡住触发 FBE；v3 用同层 FBE
             if version in ("v2", "v3") and spawn_scan_done and not in_fbe_mode:
                 should_check = True if version == "v2" else not target_fully_verified
                 if should_check and stuck_position_frames >= STUCK_FBE_TRIGGER_FRAMES:
-                    explore_waypoint = get_explore_waypoint(sim, curr_pos)
+                    explore_waypoint = get_explore_waypoint(sim, curr_pos, same_floor=(version == "v3"))
                     if explore_waypoint is not None:
                         path = habitat_sim.ShortestPath()
                         path.requested_start = sim.pathfinder.snap_point(curr_pos)

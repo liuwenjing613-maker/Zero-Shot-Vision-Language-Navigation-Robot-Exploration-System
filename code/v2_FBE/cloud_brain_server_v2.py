@@ -72,18 +72,18 @@ def parse_instruction_sequence(instruction):
 MAX_IMAGE_SIZE = 512  # 长边最大像素，减少 KV Cache 占用（降到 512 进一步减轻 OOM）
 
 def resize_image_if_needed(image_path):
-    """若图片长边 > MAX_IMAGE_SIZE，则缩放并覆盖原文件，返回 (h, w)"""
+    """若图片长边 > MAX_IMAGE_SIZE，则缩放并覆盖原文件。返回 (orig_h, orig_w, resized_h, resized_w)，便于云端将模型输出的 (u,v) 从缩小图坐标换算回原图。"""
     img = cv2.imread(image_path)
     if img is None:
         return None
-    h, w = img.shape[:2]
-    if max(h, w) > MAX_IMAGE_SIZE:
-        scale = MAX_IMAGE_SIZE / max(h, w)
-        new_w, new_h = int(w * scale), int(h * scale)
+    orig_h, orig_w = img.shape[:2]
+    if max(orig_h, orig_w) > MAX_IMAGE_SIZE:
+        scale = MAX_IMAGE_SIZE / max(orig_h, orig_w)
+        new_w, new_h = int(orig_w * scale), int(orig_h * scale)
         img = cv2.resize(img, (new_w, new_h), interpolation=cv2.INTER_AREA)
         cv2.imwrite(image_path, img)
-        return new_h, new_w
-    return h, w
+        return orig_h, orig_w, new_h, new_w
+    return orig_h, orig_w, orig_h, orig_w
 
 # ============== 4. 推理核心逻辑 ==============
 def inference_logic(image_path, target_name, scan_mode=False, first_request=False):
@@ -91,22 +91,22 @@ def inference_logic(image_path, target_name, scan_mode=False, first_request=Fals
     scan_mode: 初始扫描模式，要求输出找到目标的可能性分数 (0.0-1.0)
     first_request: 是否为该目标的首次请求，首次请求输出推理原因，后续只输出坐标
     """
-    # 限制分辨率，减少显存占用
+    # 限制分辨率，减少显存占用；记录原图尺寸以便将模型输出的 (u,v) 换算回原图坐标
     hw = resize_image_if_needed(image_path)
     if hw is None:
         return None, "无法读取图片", 0.0, None
-    h_real, w_real = hw
+    orig_h, orig_w, h_real, w_real = hw
 
     if scan_mode:
         prompt_text = (
             f"The image size is {w_real} x {h_real} pixels (width x height). "
-            f"For the {target_name}: If it is clearly visible, output PIXEL: (u, v) CONFIDENCE: 1.0. "
+            f"For the {target_name}: If it is clearly visible, output PIXEL: (u, v) as the **center** of the object (not edge or corner). CONFIDENCE: 1.0. "
             f"If NOT visible, infer the most likely direction and output INFER: (u, v) CONFIDENCE: X "
             f"where X is 0.0-1.0 (how likely the {target_name} is in that direction, 0=unlikely, 1=very likely). "
-            f"Use integer pixels. Example: INFER: (320, 240) CONFIDENCE: 0.7"
+            f"Use integer pixels. (u,v) must be the object center when visible. Example: INFER: (320, 240) CONFIDENCE: 0.7"
         )
     elif first_request:
-        # 首次请求：输出推理原因 + 坐标
+        # 首次请求：输出推理原因 + 坐标；要求 (u,v) 为物体中心，减少偏移
         prompt_text = (
             f"The image size is {w_real} x {h_real} pixels (width x height). "
             f"Find the target: \"{target_name}\". "
@@ -118,18 +118,19 @@ def inference_logic(image_path, target_name, scan_mode=False, first_request=Fals
             f"REASON: <your brief reasoning>\n"
             f"STATUS: Inferred\nPIXEL: (u, v)\n"
             f"- Use 'Target Locked' ONLY when you CLEARLY SEE the EXACT target \"{target_name}\" in the image.\n"
-            f"- Use 'Inferred' when the target is NOT visible. (u,v) = direction to search.\n"
+            f"- (u, v) MUST be the **center** of the target object (geometric center, not edge/corner), so the robot navigates to the object center.\n"
+            f"- Use 'Inferred' when the target is NOT visible. Then (u,v) = direction to search.\n"
             f"Use integer pixel coordinates."
         )
     else:
-        # 后续请求：只输出坐标，节省 token
+        # 后续请求：只输出坐标；(u,v)=物体中心
         prompt_text = (
             f"Image: {w_real}x{h_real}. Target: \"{target_name}\". "
-            f"Output ONLY:\n"
+            f"(u,v) = center of the object (not edge). Output ONLY:\n"
             f"STATUS: Target Locked\nPIXEL: (u, v)\n"
             f"OR\n"
             f"STATUS: Inferred\nPIXEL: (u, v)\n"
-            f"No explanation needed. Integer pixels only."
+            f"No explanation. Integer pixels only."
         )
     messages = [
         {
@@ -193,11 +194,20 @@ def inference_logic(image_path, target_name, scan_mode=False, first_request=Fals
         except ValueError:
             pass
 
+    def scale_to_original(u_resized, v_resized):
+        """将模型输出的缩小图坐标 (u_resized, v_resized) 换算回原图坐标，本地按 640x480 使用。"""
+        u_orig = round(u_resized * (orig_w / max(1, w_real)))
+        v_orig = round(v_resized * (orig_h / max(1, h_real)))
+        u_orig = max(0, min(u_orig, orig_w - 1))
+        v_orig = max(0, min(v_orig, orig_h - 1))
+        return u_orig, v_orig
+
     match_coords = re.search(r'(?:PIXEL|INFER):\s*\((\d+),\s*(\d+)\)', output_text, re.IGNORECASE)
     if match_coords:
         u, v = int(match_coords.group(1)), int(match_coords.group(2))
         u = max(0, min(u, w_real - 1))
         v = max(0, min(v, h_real - 1))
+        u, v = scale_to_original(u, v)
         if re.search(r'STATUS:\s*Target\s*Locked', output_text, re.IGNORECASE):
             return (u, v), "Success", 1.0, reason
         if re.search(r'STATUS:\s*Inferred', output_text, re.IGNORECASE):
@@ -212,6 +222,7 @@ def inference_logic(image_path, target_name, scan_mode=False, first_request=Fals
     if len(nums) >= 2:
         u = max(0, min(int(nums[0]), w_real - 1))
         v = max(0, min(int(nums[1]), h_real - 1))
+        u, v = scale_to_original(u, v)
         return (u, v), "Inferred", 0.5, reason
 
     return None, "SEARCHING", 0.0, None

@@ -1,0 +1,1162 @@
+{
+  "version": "v3",
+  "run_idx": 0,
+  "timestamp": "20260308_144718",
+  "config": {
+    "success_distance": 3.0,
+    "max_steps": 1200,
+    "episode_timeout": 420
+  },
+  "summary": {
+    "total_episodes": 45,
+    "success_count": 19,
+    "oracle_success_count": 32,
+    "SR": 0.4222222222222222,
+    "OSR": 0.7111111111111111,
+    "SPL": 0.15600553179596016,
+    "NE": 4.217457720968459,
+    "success_episodes": [
+      1,
+      2,
+      6,
+      7,
+      12,
+      15,
+      18,
+      19,
+      21,
+      23,
+      24,
+      28,
+      30,
+      31,
+      43,
+      45,
+      48,
+      49,
+      50
+    ],
+    "oracle_success_episodes": [
+      1,
+      2,
+      3,
+      4,
+      6,
+      7,
+      9,
+      11,
+      12,
+      15,
+      16,
+      17,
+      18,
+      19,
+      21,
+      23,
+      24,
+      25,
+      26,
+      27,
+      28,
+      30,
+      31,
+      32,
+      33,
+      35,
+      43,
+      44,
+      45,
+      48,
+      49,
+      50
+    ]
+  },
+  "analysis": {
+    "avg_NE_success": 1.8028220691178973,
+    "avg_NE_failed": 5.981999158859253,
+    "avg_steps_success": 792.7368421052631,
+    "avg_steps_failed": 543.5
+  },
+  "episodes": [
+    {
+      "episode_id": 0,
+      "scene_id": "2azQ1b91cZZ",
+      "instruction": "the first flowers you see",
+      "success": false,
+      "oracle_success": false,
+      "SPL": 0.0,
+      "NE": 6.819397449493408,
+      "geodesic": 6.5849528312683105,
+      "min_dist": 5.79396915435791,
+      "trajectory_length": 5.800000373274088,
+      "steps": 656,
+      "start_pos": [
+        8.229999542236328,
+        0.12710899114608765,
+        3.4100000858306885
+      ],
+      "gt_pos": [
+        14.35980224609375,
+        0.12710899114608765,
+        2.0099802017211914
+      ],
+      "timestamp": "2026-03-07 11:10:21"
+    },
+    {
+      "episode_id": 1,
+      "scene_id": "2azQ1b91cZZ",
+      "instruction": "fireplace",
+      "success": true,
+      "oracle_success": true,
+      "SPL": 0.7325355969815363,
+      "NE": 1.2270407676696777,
+      "geodesic": 3.445223808288574,
+      "min_dist": 0.8798905611038208,
+      "trajectory_length": 4.703148655826226,
+      "steps": 516,
+      "start_pos": [
+        0.4699999988079071,
+        0.12710899114608765,
+        4.710000038146973
+      ],
+      "gt_pos": [
+        -2.049999952316284,
+        0.12710899114608765,
+        2.5399999618530273
+      ],
+      "timestamp": "2026-03-07 11:10:49"
+    },
+    {
+      "episode_id": 2,
+      "scene_id": "2azQ1b91cZZ",
+      "instruction": "toilet",
+      "success": true,
+      "oracle_success": true,
+      "SPL": 0.21845108065397834,
+      "NE": 2.014979839324951,
+      "geodesic": 0.7820550799369812,
+      "min_dist": 0.12144386023283005,
+      "trajectory_length": 3.5800009667873383,
+      "steps": 533,
+      "start_pos": [
+        2.680000066757202,
+        0.12710899114608765,
+        -3.0399999618530273
+      ],
+      "gt_pos": [
+        2.937142848968506,
+        0.12710899114608765,
+        -3.778571367263794
+      ],
+      "timestamp": "2026-03-07 11:11:19"
+    },
+    {
+      "episode_id": 3,
+      "scene_id": "2azQ1b91cZZ",
+      "instruction": "plant",
+      "success": false,
+      "oracle_success": true,
+      "SPL": 0.0,
+      "NE": 3.3166725635528564,
+      "geodesic": 4.341352462768555,
+      "min_dist": 1.7259948253631592,
+      "trajectory_length": 10.237632335163653,
+      "steps": 527,
+      "start_pos": [
+        -8.460000038146973,
+        0.12710899114608765,
+        1.1399999856948853
+      ],
+      "gt_pos": [
+        -4.653261661529541,
+        0.12710899114608765,
+        2.740619659423828
+      ],
+      "timestamp": "2026-03-07 12:10:58"
+    },
+    {
+      "episode_id": 4,
+      "scene_id": "2azQ1b91cZZ",
+      "instruction": "mirror",
+      "success": false,
+      "oracle_success": true,
+      "SPL": 0.0,
+      "NE": 3.6774754524230957,
+      "geodesic": 2.758695602416992,
+      "min_dist": 0.2728239595890045,
+      "trajectory_length": 6.705169789493084,
+      "steps": 494,
+      "start_pos": [
+        21.096738815307617,
+        3.527109146118164,
+        0.23999999463558197
+      ],
+      "gt_pos": [
+        19.25,
+        3.527109146118164,
+        -1.8093795776367188
+      ],
+      "timestamp": "2026-03-07 12:11:29"
+    },
+    {
+      "episode_id": 5,
+      "scene_id": "2azQ1b91cZZ",
+      "instruction": "bed in the bedroom",
+      "success": false,
+      "oracle_success": false,
+      "SPL": 0.0,
+      "NE": 14.034490585327148,
+      "geodesic": 5.158387184143066,
+      "min_dist": 3.8706555366516113,
+      "trajectory_length": 16.499982103705406,
+      "steps": 456,
+      "start_pos": [
+        11.319999694824219,
+        3.527109146118164,
+        1.590000033378601
+      ],
+      "gt_pos": [
+        6.449999809265137,
+        3.527109146118164,
+        1.9900000095367432
+      ],
+      "timestamp": "2026-03-07 12:11:57"
+    },
+    {
+      "episode_id": 6,
+      "scene_id": "2azQ1b91cZZ",
+      "instruction": "stairs",
+      "success": true,
+      "oracle_success": true,
+      "SPL": 0.18675894806066037,
+      "NE": 2.4612035751342773,
+      "geodesic": 4.533610820770264,
+      "min_dist": 0.3412776291370392,
+      "trajectory_length": 24.275200025745065,
+      "steps": 1007,
+      "start_pos": [
+        15.850000381469727,
+        0.12710899114608765,
+        -3.0593795776367188
+      ],
+      "gt_pos": [
+        18.260000228881836,
+        0.5244337320327759,
+        0.7599999904632568
+      ],
+      "timestamp": "2026-03-07 12:12:54"
+    },
+    {
+      "episode_id": 7,
+      "scene_id": "Z6MFQCViBuw",
+      "instruction": "chair under the painting",
+      "success": true,
+      "oracle_success": true,
+      "SPL": 0.28865366758142486,
+      "NE": 0.9261443018913269,
+      "geodesic": 1.92033851146698,
+      "min_dist": 0.09119772911071777,
+      "trajectory_length": 6.6527424631640315,
+      "steps": 701,
+      "start_pos": [
+        23.56999969482422,
+        0.009526252746582031,
+        0.05000000074505806
+      ],
+      "gt_pos": [
+        23.229999542236328,
+        0.009526252746582031,
+        -1.840000033378601
+      ],
+      "timestamp": "2026-03-07 12:13:36"
+    },
+    {
+      "episode_id": 8,
+      "scene_id": "Z6MFQCViBuw",
+      "instruction": "red stool in front of the red curtain",
+      "success": false,
+      "oracle_success": false,
+      "SPL": 0.0,
+      "NE": 3.105455160140991,
+      "geodesic": 3.105455160140991,
+      "min_dist": 3.105455160140991,
+      "trajectory_length": 0.0,
+      "steps": 403,
+      "start_pos": [
+        21.549999237060547,
+        0.036842092871665955,
+        4.019999980926514
+      ],
+      "gt_pos": [
+        18.853124618530273,
+        0.20952630043029785,
+        2.490000009536743
+      ],
+      "timestamp": "2026-03-07 12:14:14"
+    },
+    {
+      "episode_id": 9,
+      "scene_id": "Z6MFQCViBuw",
+      "instruction": "red bed",
+      "success": false,
+      "oracle_success": true,
+      "SPL": 0.0,
+      "NE": 3.4405789375305176,
+      "geodesic": 3.46992826461792,
+      "min_dist": 0.8474547266960144,
+      "trajectory_length": 13.15269644651562,
+      "steps": 733,
+      "start_pos": [
+        5.519999980926514,
+        0.010153457522392273,
+        -12.279999732971191
+      ],
+      "gt_pos": [
+        2.2714357376098633,
+        0.009526252746582031,
+        -13.499521255493164
+      ],
+      "timestamp": "2026-03-07 12:15:21"
+    },
+    {
+      "episode_id": 10,
+      "scene_id": "8194nk5LbLH",
+      "instruction": "plant between two sofas",
+      "success": false,
+      "oracle_success": false,
+      "SPL": 0.0,
+      "NE": 4.717878341674805,
+      "geodesic": 3.821549415588379,
+      "min_dist": 3.2204513549804688,
+      "trajectory_length": 9.344933144748211,
+      "steps": 536,
+      "start_pos": [
+        -3.859999895095825,
+        0.098595529794693,
+        -1.8600000143051147
+      ],
+      "gt_pos": [
+        -1.801605224609375,
+        0.098595529794693,
+        1.3598216772079468
+      ],
+      "timestamp": "2026-03-07 12:16:05"
+    },
+    {
+      "episode_id": 11,
+      "scene_id": "8194nk5LbLH",
+      "instruction": "TV in the living room",
+      "success": false,
+      "oracle_success": true,
+      "SPL": 0.0,
+      "NE": 5.530367374420166,
+      "geodesic": 4.851971626281738,
+      "min_dist": 0.8593123555183411,
+      "trajectory_length": 14.47000002861023,
+      "steps": 685,
+      "start_pos": [
+        -1.1299999952316284,
+        0.098595529794693,
+        -3.0399999618530273
+      ],
+      "gt_pos": [
+        2.5199999809265137,
+        0.098595529794693,
+        0.07000000029802322
+      ],
+      "timestamp": "2026-03-07 12:17:02"
+    },
+    {
+      "episode_id": 12,
+      "scene_id": "8194nk5LbLH",
+      "instruction": "blue rubbish bin",
+      "success": true,
+      "oracle_success": true,
+      "SPL": 0.16965341290040764,
+      "NE": 2.999516487121582,
+      "geodesic": 2.449030876159668,
+      "min_dist": 0.2771179974079132,
+      "trajectory_length": 14.435494307428598,
+      "steps": 497,
+      "start_pos": [
+        6.273454189300537,
+        2.8985955715179443,
+        0.46913647651672363
+      ],
+      "gt_pos": [
+        5.429999828338623,
+        2.8985955715179443,
+        -1.8300000429153442
+      ],
+      "timestamp": "2026-03-07 12:17:52"
+    },
+    {
+      "episode_id": 13,
+      "scene_id": "8194nk5LbLH",
+      "instruction": "green ball",
+      "success": false,
+      "oracle_success": false,
+      "SPL": 0.0,
+      "NE": 6.8747992515563965,
+      "geodesic": 5.350196361541748,
+      "min_dist": 4.493284702301025,
+      "trajectory_length": 3.306437313556671,
+      "steps": 488,
+      "start_pos": [
+        1.2200000286102295,
+        2.8985955715179443,
+        -1.75
+      ],
+      "gt_pos": [
+        5.44040584564209,
+        2.8985955715179443,
+        0.48952633142471313
+      ],
+      "timestamp": "2026-03-07 12:18:49"
+    },
+    {
+      "episode_id": 15,
+      "scene_id": "EU6Fwq7SyZv",
+      "instruction": "animal",
+      "success": true,
+      "oracle_success": true,
+      "SPL": 0.2512928053912393,
+      "NE": 2.3906404972076416,
+      "geodesic": 3.08182430267334,
+      "min_dist": 0.11830201745033264,
+      "trajectory_length": 12.263877980411053,
+      "steps": 874,
+      "start_pos": [
+        10.15999984741211,
+        3.6180622577667236,
+        3.1500000953674316
+      ],
+      "gt_pos": [
+        9.619999885559082,
+        3.6180622577667236,
+        0.11999999731779099
+      ],
+      "timestamp": "2026-03-07 12:32:27"
+    },
+    {
+      "episode_id": 16,
+      "scene_id": "EU6Fwq7SyZv",
+      "instruction": "purple cushion",
+      "success": false,
+      "oracle_success": true,
+      "SPL": 0.0,
+      "NE": 3.1248109340667725,
+      "geodesic": 4.143625259399414,
+      "min_dist": 0.08999467641115189,
+      "trajectory_length": 8.78181966394186,
+      "steps": 628,
+      "start_pos": [
+        9.180000305175781,
+        3.6180622577667236,
+        5.590000152587891
+      ],
+      "gt_pos": [
+        10.149999618530273,
+        3.6180622577667236,
+        9.618490219116211
+      ],
+      "timestamp": "2026-03-07 12:32:59"
+    },
+    {
+      "episode_id": 17,
+      "scene_id": "X7HyMhZNoso",
+      "instruction": "toilet",
+      "success": false,
+      "oracle_success": true,
+      "SPL": 0.0,
+      "NE": 4.4250569343566895,
+      "geodesic": 1.8828365802764893,
+      "min_dist": 0.06216517090797424,
+      "trajectory_length": 11.704505022615194,
+      "steps": 618,
+      "start_pos": [
+        1.1299999952316284,
+        -0.13573718070983887,
+        5.239999771118164
+      ],
+      "gt_pos": [
+        2.822258234024048,
+        -0.13573718070983887,
+        4.452709674835205
+      ],
+      "timestamp": "2026-03-07 12:33:34"
+    },
+    {
+      "episode_id": 18,
+      "scene_id": "X7HyMhZNoso",
+      "instruction": "red book on the table",
+      "success": true,
+      "oracle_success": true,
+      "SPL": 0.37303993879571185,
+      "NE": 2.2883212566375732,
+      "geodesic": 3.220993757247925,
+      "min_dist": 0.8881810903549194,
+      "trajectory_length": 8.63444747403264,
+      "steps": 701,
+      "start_pos": [
+        -2.4800000190734863,
+        0.4642627239227295,
+        2.2899999618530273
+      ],
+      "gt_pos": [
+        0.7400000095367432,
+        0.4642627239227295,
+        2.369999885559082
+      ],
+      "timestamp": "2026-03-07 12:34:09"
+    },
+    {
+      "episode_id": 19,
+      "scene_id": "X7HyMhZNoso",
+      "instruction": "clock on the wall",
+      "success": true,
+      "oracle_success": true,
+      "SPL": 0.385560219580547,
+      "NE": 0.5105158686637878,
+      "geodesic": 4.511610507965088,
+      "min_dist": 0.06306251138448715,
+      "trajectory_length": 11.701441898941994,
+      "steps": 1005,
+      "start_pos": [
+        -1.0,
+        -0.5357372760772705,
+        12.170000076293945
+      ],
+      "gt_pos": [
+        3.2699999809265137,
+        -0.5357372760772705,
+        13.170000076293945
+      ],
+      "timestamp": "2026-03-07 12:35:01"
+    },
+    {
+      "episode_id": 20,
+      "scene_id": "X7HyMhZNoso",
+      "instruction": "blue table in the living room",
+      "success": false,
+      "oracle_success": false,
+      "SPL": 0.0,
+      "NE": 7.31653356552124,
+      "geodesic": 3.8060879707336426,
+      "min_dist": 3.5519232749938965,
+      "trajectory_length": 17.669365361332893,
+      "steps": 451,
+      "start_pos": [
+        -0.4599999189376831,
+        -0.5357372760772705,
+        11.402576446533203
+      ],
+      "gt_pos": [
+        -3.7593789100646973,
+        -0.5357372760772705,
+        13.300049781799316
+      ],
+      "timestamp": "2026-03-07 12:35:48"
+    },
+    {
+      "episode_id": 21,
+      "scene_id": "X7HyMhZNoso",
+      "instruction": "yellow blanket on the sofa",
+      "success": true,
+      "oracle_success": true,
+      "SPL": 0.12173653735528663,
+      "NE": 2.358339309692383,
+      "geodesic": 3.3461921215057373,
+      "min_dist": 0.017373770475387573,
+      "trajectory_length": 27.48716362565756,
+      "steps": 888,
+      "start_pos": [
+        -2.880000114440918,
+        -0.5357372760772705,
+        11.699999809265137
+      ],
+      "gt_pos": [
+        -3.5899999141693115,
+        -0.5357372760772705,
+        14.970000267028809
+      ],
+      "timestamp": "2026-03-07 12:37:08"
+    },
+    {
+      "episode_id": 22,
+      "scene_id": "X7HyMhZNoso",
+      "instruction": "blue cushion",
+      "success": false,
+      "oracle_success": false,
+      "SPL": 0.0,
+      "NE": 5.746474742889404,
+      "geodesic": 3.742877244949341,
+      "min_dist": 3.119751453399658,
+      "trajectory_length": 7.91999938711524,
+      "steps": 450,
+      "start_pos": [
+        2.380000114440918,
+        3.2642629146575928,
+        2.4100000858306885
+      ],
+      "gt_pos": [
+        0.09000000357627869,
+        3.2642629146575928,
+        -0.10999999940395355
+      ],
+      "timestamp": "2026-03-07 12:37:53"
+    },
+    {
+      "episode_id": 23,
+      "scene_id": "X7HyMhZNoso",
+      "instruction": "bathtub",
+      "success": true,
+      "oracle_success": true,
+      "SPL": 1.0,
+      "NE": 2.186189889907837,
+      "geodesic": 1.5359578132629395,
+      "min_dist": 1.5236531496047974,
+      "trajectory_length": 1.0799987688660622,
+      "steps": 403,
+      "start_pos": [
+        -2.609999895095825,
+        3.2642629146575928,
+        5.78000020980835
+      ],
+      "gt_pos": [
+        -4.019999980926514,
+        3.2642629146575928,
+        5.202576160430908
+      ],
+      "timestamp": "2026-03-07 12:38:25"
+    },
+    {
+      "episode_id": 24,
+      "scene_id": "X7HyMhZNoso",
+      "instruction": "closed door",
+      "success": true,
+      "oracle_success": true,
+      "SPL": 0.734077400308293,
+      "NE": 0.4335904121398926,
+      "geodesic": 3.5676140785217285,
+      "min_dist": 0.4152175784111023,
+      "trajectory_length": 4.859997157007456,
+      "steps": 789,
+      "start_pos": [
+        -2.5899999141693115,
+        3.2642629146575928,
+        5.650000095367432
+      ],
+      "gt_pos": [
+        0.6990087032318115,
+        3.2642629146575928,
+        4.280030250549316
+      ],
+      "timestamp": "2026-03-07 12:39:41"
+    },
+    {
+      "episode_id": 25,
+      "scene_id": "X7HyMhZNoso",
+      "instruction": "washing machine",
+      "success": false,
+      "oracle_success": true,
+      "SPL": 0.0,
+      "NE": 4.56888484954834,
+      "geodesic": 2.7710070610046387,
+      "min_dist": 0.31285765767097473,
+      "trajectory_length": 26.389277882874012,
+      "steps": 804,
+      "start_pos": [
+        1.2300000190734863,
+        -0.09124095737934113,
+        4.809999942779541
+      ],
+      "gt_pos": [
+        2.240000009536743,
+        -0.13573718070983887,
+        7.389999866485596
+      ],
+      "timestamp": "2026-03-07 12:40:45"
+    },
+    {
+      "episode_id": 26,
+      "scene_id": "pLe4wQe7qrG",
+      "instruction": "the central pillar",
+      "success": false,
+      "oracle_success": true,
+      "SPL": 0.0,
+      "NE": 3.2468020915985107,
+      "geodesic": 2.0888431072235107,
+      "min_dist": 1.6656290292739868,
+      "trajectory_length": 21.31002126261592,
+      "steps": 529,
+      "start_pos": [
+        1.5800000429153442,
+        0.08894051611423492,
+        -0.07000000029802322
+      ],
+      "gt_pos": [
+        3.668773889541626,
+        0.07521793246269226,
+        -0.059905678033828735
+      ],
+      "timestamp": "2026-03-07 12:47:28"
+    },
+    {
+      "episode_id": 27,
+      "scene_id": "x8F5xyUWy9e",
+      "instruction": "chair near the door",
+      "success": false,
+      "oracle_success": true,
+      "SPL": 0.0,
+      "NE": 6.604202747344971,
+      "geodesic": 3.0402214527130127,
+      "min_dist": 0.3514960706233978,
+      "trajectory_length": 14.103368380106986,
+      "steps": 773,
+      "start_pos": [
+        -1.2694778442382812,
+        0.04610876739025116,
+        6.03000020980835
+      ],
+      "gt_pos": [
+        -0.5799999833106995,
+        0.04610876739025116,
+        3.069999933242798
+      ],
+      "timestamp": "2026-03-07 12:48:03"
+    },
+    {
+      "episode_id": 28,
+      "scene_id": "x8F5xyUWy9e",
+      "instruction": "fire extinguisher beside the door",
+      "success": true,
+      "oracle_success": true,
+      "SPL": 0.4187334867577104,
+      "NE": 2.093461513519287,
+      "geodesic": 3.735037088394165,
+      "min_dist": 0.8226199150085449,
+      "trajectory_length": 8.919843304902315,
+      "steps": 944,
+      "start_pos": [
+        -5.320000171661377,
+        1.0461088418960571,
+        0.46000000834465027
+      ],
+      "gt_pos": [
+        -1.9500000476837158,
+        0.6461087465286255,
+        -1.100000023841858
+      ],
+      "timestamp": "2026-03-07 12:48:42"
+    },
+    {
+      "episode_id": 29,
+      "scene_id": "x8F5xyUWy9e",
+      "instruction": "plant beside the fire extinguisher",
+      "success": false,
+      "oracle_success": false,
+      "SPL": 0.0,
+      "NE": 3.366319417953491,
+      "geodesic": 3.366319417953491,
+      "min_dist": 3.366319417953491,
+      "trajectory_length": 0.0,
+      "steps": 403,
+      "start_pos": [
+        -5.920000076293945,
+        1.0461088418960571,
+        0.0
+      ],
+      "gt_pos": [
+        -2.819999933242798,
+        0.6466034054756165,
+        -1.25
+      ],
+      "timestamp": "2026-03-07 12:49:09"
+    },
+    {
+      "episode_id": 30,
+      "scene_id": "x8F5xyUWy9e",
+      "instruction": "stairs",
+      "success": true,
+      "oracle_success": true,
+      "SPL": 0.5351321617186252,
+      "NE": 1.1203233003616333,
+      "geodesic": 3.774027109146118,
+      "min_dist": 0.299545556306839,
+      "trajectory_length": 7.052514087408781,
+      "steps": 693,
+      "start_pos": [
+        -5.940000057220459,
+        1.0461088418960571,
+        -1.3300000429153442
+      ],
+      "gt_pos": [
+        -7.670000076293945,
+        1.2130850553512573,
+        -4.679999828338623
+      ],
+      "timestamp": "2026-03-07 12:49:51"
+    },
+    {
+      "episode_id": 31,
+      "scene_id": "x8F5xyUWy9e",
+      "instruction": "three lounge chairs",
+      "success": true,
+      "oracle_success": true,
+      "SPL": 0.40199026525914544,
+      "NE": 1.62847101688385,
+      "geodesic": 5.9850897789001465,
+      "min_dist": 0.22096233069896698,
+      "trajectory_length": 14.888643572106957,
+      "steps": 1201,
+      "start_pos": [
+        -0.3499999940395355,
+        0.04610876739025116,
+        2.630000114440918
+      ],
+      "gt_pos": [
+        3.630000114440918,
+        0.04610876739025116,
+        -1.840000033378601
+      ],
+      "timestamp": "2026-03-07 12:50:52"
+    },
+    {
+      "episode_id": 32,
+      "scene_id": "TbHJrupSAjP",
+      "instruction": "first white door you see",
+      "success": false,
+      "oracle_success": true,
+      "SPL": 0.0,
+      "NE": 6.498551845550537,
+      "geodesic": 3.2300326824188232,
+      "min_dist": 0.02846820466220379,
+      "trajectory_length": 23.10626507177949,
+      "steps": 623,
+      "start_pos": [
+        -4.349999904632568,
+        -2.5756006240844727,
+        -1.3899999856948853
+      ],
+      "gt_pos": [
+        -1.7599999904632568,
+        -2.5756006240844727,
+        -3.319999933242798
+      ],
+      "timestamp": "2026-03-07 12:51:46"
+    },
+    {
+      "episode_id": 33,
+      "scene_id": "TbHJrupSAjP",
+      "instruction": "black single sofa",
+      "success": false,
+      "oracle_success": true,
+      "SPL": 0.0,
+      "NE": 4.592531681060791,
+      "geodesic": 3.4515488147735596,
+      "min_dist": 2.124701499938965,
+      "trajectory_length": 20.74546893313527,
+      "steps": 472,
+      "start_pos": [
+        4.449999809265137,
+        -2.5756006240844727,
+        -7.940000057220459
+      ],
+      "gt_pos": [
+        1.0126396417617798,
+        -2.5756006240844727,
+        -8.252639770507812
+      ],
+      "timestamp": "2026-03-07 12:52:31"
+    },
+    {
+      "episode_id": 34,
+      "scene_id": "TbHJrupSAjP",
+      "instruction": "the potted plant between the two sofas",
+      "success": false,
+      "oracle_success": false,
+      "SPL": 0.0,
+      "NE": 8.386301040649414,
+      "geodesic": 4.088552474975586,
+      "min_dist": 4.088552474975586,
+      "trajectory_length": 11.519989162683487,
+      "steps": 403,
+      "start_pos": [
+        1.3300000429153442,
+        -2.5756006240844727,
+        -7.900000095367432
+      ],
+      "gt_pos": [
+        1.409999966621399,
+        -2.5756006240844727,
+        -11.987770080566406
+      ],
+      "timestamp": "2026-03-07 12:53:25"
+    },
+    {
+      "episode_id": 35,
+      "scene_id": "TbHJrupSAjP",
+      "instruction": "potted plant beside the door",
+      "success": false,
+      "oracle_success": true,
+      "SPL": 0.0,
+      "NE": 3.81390380859375,
+      "geodesic": 2.9011895656585693,
+      "min_dist": 0.31612542271614075,
+      "trajectory_length": 10.92418020684272,
+      "steps": 667,
+      "start_pos": [
+        2.059999942779541,
+        0.024399280548095703,
+        -2.690000057220459
+      ],
+      "gt_pos": [
+        2.4100000858306885,
+        0.024399280548095703,
+        0.1899999976158142
+      ],
+      "timestamp": "2026-03-07 12:54:18"
+    },
+    {
+      "episode_id": 43,
+      "scene_id": "TbHJrupSAjP",
+      "instruction": "stairs between floors.",
+      "success": true,
+      "oracle_success": true,
+      "SPL": 0.36178580407502464,
+      "NE": 1.7204092741012573,
+      "geodesic": 3.9420692920684814,
+      "min_dist": 1.059862732887268,
+      "trajectory_length": 10.896141439676285,
+      "steps": 606,
+      "start_pos": [
+        8.520000457763672,
+        -2.5756006240844727,
+        -6.340000152587891
+      ],
+      "gt_pos": [
+        5.449999809265137,
+        -1.512874722480774,
+        -5.110000133514404
+      ],
+      "timestamp": "2026-03-08 14:39:47"
+    },
+    {
+      "episode_id": 44,
+      "scene_id": "TbHJrupSAjP",
+      "instruction": "stairs between floors.",
+      "success": false,
+      "oracle_success": true,
+      "SPL": 0.0,
+      "NE": 3.8970205783843994,
+      "geodesic": 7.994224548339844,
+      "min_dist": 0.09407009929418564,
+      "trajectory_length": 25.334983311477117,
+      "steps": 578,
+      "start_pos": [
+        -0.05999999865889549,
+        3.624399423599243,
+        -10.609999656677246
+      ],
+      "gt_pos": [
+        0.6800000071525574,
+        2.748492956161499,
+        -4.840000152587891
+      ],
+      "timestamp": "2026-03-08 14:40:25"
+    },
+    {
+      "episode_id": 45,
+      "scene_id": "QUCTc6BB5sX",
+      "instruction": "wall-themed wall art.",
+      "success": true,
+      "oracle_success": true,
+      "SPL": 0.15967574704502366,
+      "NE": 2.926814556121826,
+      "geodesic": 1.5559250116348267,
+      "min_dist": 1.4336671829223633,
+      "trajectory_length": 9.744278892874718,
+      "steps": 543,
+      "start_pos": [
+        -8.859999656677246,
+        -3.2172746658325195,
+        -11.4399995803833
+      ],
+      "gt_pos": [
+        -9.975844383239746,
+        -3.0451972484588623,
+        -10.530692100524902
+      ],
+      "timestamp": "2026-03-08 14:40:56"
+    },
+    {
+      "episode_id": 46,
+      "scene_id": "QUCTc6BB5sX",
+      "instruction": "car.",
+      "success": false,
+      "oracle_success": false,
+      "SPL": 0.0,
+      "NE": 13.604161262512207,
+      "geodesic": 15.577110290527344,
+      "min_dist": 13.461648941040039,
+      "trajectory_length": 10.821826510131359,
+      "steps": 545,
+      "start_pos": [
+        3.680000066757202,
+        -1.5082467794418335,
+        -9.279999732971191
+      ],
+      "gt_pos": [
+        -3.4100000858306885,
+        -3.0451972484588623,
+        -21.540000915527344
+      ],
+      "timestamp": "2026-03-08 14:41:29"
+    },
+    {
+      "episode_id": 47,
+      "scene_id": "TbHJrupSAjP",
+      "instruction": "gym.",
+      "success": false,
+      "oracle_success": false,
+      "SPL": 0.0,
+      "NE": 8.444981575012207,
+      "geodesic": 5.394352912902832,
+      "min_dist": 5.389341354370117,
+      "trajectory_length": 4.739999294281006,
+      "steps": 403,
+      "start_pos": [
+        1.7400000095367432,
+        -2.5756006240844727,
+        -4.840000152587891
+      ],
+      "gt_pos": [
+        -3.049999952316284,
+        -2.5756006240844727,
+        -2.369999885559082
+      ],
+      "timestamp": "2026-03-08 14:42:02"
+    },
+    {
+      "episode_id": 48,
+      "scene_id": "x8F5xyUWy9e",
+      "instruction": "sink.",
+      "success": true,
+      "oracle_success": true,
+      "SPL": 0.29720223161443726,
+      "NE": 2.9025278091430664,
+      "geodesic": 4.080666542053223,
+      "min_dist": 1.6056617498397827,
+      "trajectory_length": 13.730268847197294,
+      "steps": 800,
+      "start_pos": [
+        -5.190000057220459,
+        1.0461088418960571,
+        -0.4099999964237213
+      ],
+      "gt_pos": [
+        -1.9326571226119995,
+        1.0461088418960571,
+        -2.358405590057373
+      ],
+      "timestamp": "2026-03-08 14:42:54"
+    },
+    {
+      "episode_id": 49,
+      "scene_id": "X7HyMhZNoso",
+      "instruction": "white bouquet on the bedside table.",
+      "success": true,
+      "oracle_success": true,
+      "SPL": 0.22598569022885773,
+      "NE": 1.1418349742889404,
+      "geodesic": 1.9681439399719238,
+      "min_dist": 0.0,
+      "trajectory_length": 8.709152946714312,
+      "steps": 1160,
+      "start_pos": [
+        -4.179999828338623,
+        3.864262819290161,
+        2.8499999046325684
+      ],
+      "gt_pos": [
+        -5.3775811195373535,
+        3.864262819290161,
+        1.3025764226913452
+      ],
+      "timestamp": "2026-03-08 14:44:04"
+    },
+    {
+      "episode_id": 50,
+      "scene_id": "8194nk5LbLH",
+      "instruction": "stairs between floors.",
+      "success": true,
+      "oracle_success": true,
+      "SPL": 0.15798393651029785,
+      "NE": 0.9232946634292603,
+      "geodesic": 4.247094631195068,
+      "min_dist": 0.16488796472549438,
+      "trajectory_length": 26.883078906685114,
+      "steps": 1201,
+      "start_pos": [
+        7.949999809265137,
+        2.8985955715179443,
+        -1.190000057220459
+      ],
+      "gt_pos": [
+        8.489999771118164,
+        2.4381868839263916,
+        2.9600000381469727
+      ],
+      "timestamp": "2026-03-08 14:45:31"
+    },
+    {
+      "episode_id": 51,
+      "scene_id": "Z6MFQCViBuw",
+      "instruction": "oil painting of the man in the red coat.",
+      "success": false,
+      "oracle_success": false,
+      "SPL": 0.0,
+      "NE": 11.319514274597168,
+      "geodesic": 7.4434967041015625,
+      "min_dist": 7.4434967041015625,
+      "trajectory_length": 6.6299903355538845,
+      "steps": 403,
+      "start_pos": [
+        26.31999969482422,
+        0.009526252746582031,
+        0.30000001192092896
+      ],
+      "gt_pos": [
+        19.403125762939453,
+        0.009526252746582031,
+        -2.450000047683716
+      ],
+      "timestamp": "2026-03-08 14:46:24"
+    },
+    {
+      "episode_id": 52,
+      "scene_id": "2azQ1b91cZZ",
+      "instruction": "toilet.",
+      "success": false,
+      "oracle_success": false,
+      "SPL": 0.0,
+      "NE": 5.058811664581299,
+      "geodesic": 5.361924171447754,
+      "min_dist": 4.3255743980407715,
+      "trajectory_length": 7.636199809610844,
+      "steps": 403,
+      "start_pos": [
+        22.049999237060547,
+        0.12710899114608765,
+        -2.6700000762939453
+      ],
+      "gt_pos": [
+        20.200000762939453,
+        0.12710899114608765,
+        -6.579999923706055
+      ],
+      "timestamp": "2026-03-08 14:47:18"
+    }
+  ]
+}
