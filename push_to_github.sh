@@ -32,6 +32,17 @@ echo "📁 仓库: $REPO_ROOT"
 echo "📝 提交说明: $COMMIT_MSG"
 echo ""
 
+# 不再跟踪 .mp4 文件（从索引移除，后续由 .gitignore 忽略）
+while IFS= read -r f; do
+    [ -z "$f" ] && continue
+    git rm --cached --ignore-unmatch "$f" 2>/dev/null && echo "  已取消跟踪: $f"
+done < <(git ls-files '*.mp4' 2>/dev/null)
+
+# 确保 .gitignore 忽略 .mp4
+if ! grep -q '\.mp4' .gitignore 2>/dev/null; then
+    echo "*.mp4" >> .gitignore
+fi
+
 # 添加所有变更（遵守 .gitignore）
 git add -A
 STATUS=$(git status --short)
