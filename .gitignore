@@ -3,7 +3,7 @@ scenes/
 *.glb
 *.ply
 
-*.mp4
+
 
 # InternNav 子模块（建议单独 clone 或作为 submodule）
 InternNav/
@@ -21,7 +21,7 @@ build/
 
 # 日志文件
 *.log
-
+*.mp4
 # 评估中间文件
 val/__pycache__/
 
