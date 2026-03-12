@@ -1,0 +1,1386 @@
+[
+    {
+        "image_path": "custom_video_frames/frame_00000.jpg",
+        "instruction": "Move forward safely",
+        "target_pixel": [
+            636,
+            465
+        ]
+    },
+    {
+        "image_path": "custom_video_frames/frame_00001.jpg",
+        "instruction": "Move forward safely",
+        "target_pixel": [
+            635,
+            463
+        ]
+    },
+    {
+        "image_path": "custom_video_frames/frame_00002.jpg",
+        "instruction": "Move forward safely",
+        "target_pixel": [
+            630,
+            462
+        ]
+    },
+    {
+        "image_path": "custom_video_frames/frame_00003.jpg",
+        "instruction": "Move forward safely",
+        "target_pixel": [
+            630,
+            461
+        ]
+    },
+    {
+        "image_path": "custom_video_frames/frame_00004.jpg",
+        "instruction": "Move forward safely",
+        "target_pixel": [
+            625,
+            446
+        ]
+    },
+    {
+        "image_path": "custom_video_frames/frame_00005.jpg",
+        "instruction": "Move forward safely",
+        "target_pixel": [
+            621,
+            452
+        ]
+    },
+    {
+        "image_path": "custom_video_frames/frame_00006.jpg",
+        "instruction": "Move forward safely",
+        "target_pixel": [
+            612,
+            430
+        ]
+    },
+    {
+        "image_path": "custom_video_frames/frame_00007.jpg",
+        "instruction": "Move forward safely",
+        "target_pixel": [
+            609,
+            453
+        ]
+    },
+    {
+        "image_path": "custom_video_frames/frame_00008.jpg",
+        "instruction": "Move forward safely",
+        "target_pixel": [
+            590,
+            467
+        ]
+    },
+    {
+        "image_path": "custom_video_frames/frame_00009.jpg",
+        "instruction": "Move forward safely",
+        "target_pixel": [
+            566,
+            489
+        ]
+    },
+    {
+        "image_path": "custom_video_frames/frame_00010.jpg",
+        "instruction": "Move forward safely",
+        "target_pixel": [
+            414,
+            518
+        ]
+    },
+    {
+        "image_path": "custom_video_frames/frame_00011.jpg",
+        "instruction": "Move forward safely",
+        "target_pixel": [
+            710,
+            487
+        ]
+    },
+    {
+        "image_path": "custom_video_frames/frame_00012.jpg",
+        "instruction": "Move forward safely",
+        "target_pixel": [
+            801,
+            500
+        ]
+    },
+    {
+        "image_path": "custom_video_frames/frame_00013.jpg",
+        "instruction": "Move forward safely",
+        "target_pixel": [
+            1079,
+            490
+        ]
+    },
+    {
+        "image_path": "custom_video_frames/frame_00014.jpg",
+        "instruction": "Move forward safely",
+        "target_pixel": [
+            967,
+            475
+        ]
+    },
+    {
+        "image_path": "custom_video_frames/frame_00015.jpg",
+        "instruction": "Move forward safely",
+        "target_pixel": [
+            830,
+            468
+        ]
+    },
+    {
+        "image_path": "custom_video_frames/frame_00016.jpg",
+        "instruction": "Move forward safely",
+        "target_pixel": [
+            734,
+            470
+        ]
+    },
+    {
+        "image_path": "custom_video_frames/frame_00017.jpg",
+        "instruction": "Move forward safely",
+        "target_pixel": [
+            688,
+            453
+        ]
+    },
+    {
+        "image_path": "custom_video_frames/frame_00018.jpg",
+        "instruction": "Move forward safely",
+        "target_pixel": [
+            688,
+            453
+        ]
+    },
+    {
+        "image_path": "custom_video_frames/frame_00019.jpg",
+        "instruction": "Move forward safely",
+        "target_pixel": [
+            579,
+            457
+        ]
+    },
+    {
+        "image_path": "custom_video_frames/frame_00020.jpg",
+        "instruction": "Move forward safely",
+        "target_pixel": [
+            526,
+            472
+        ]
+    },
+    {
+        "image_path": "custom_video_frames/frame_00021.jpg",
+        "instruction": "Move forward safely",
+        "target_pixel": [
+            509,
+            454
+        ]
+    },
+    {
+        "image_path": "custom_video_frames/frame_00022.jpg",
+        "instruction": "Move forward safely",
+        "target_pixel": [
+            572,
+            468
+        ]
+    },
+    {
+        "image_path": "custom_video_frames/frame_00023.jpg",
+        "instruction": "Move forward safely",
+        "target_pixel": [
+            586,
+            477
+        ]
+    },
+    {
+        "image_path": "custom_video_frames/frame_00024.jpg",
+        "instruction": "Move forward safely",
+        "target_pixel": [
+            622,
+            471
+        ]
+    },
+    {
+        "image_path": "custom_video_frames/frame_00025.jpg",
+        "instruction": "Move forward safely",
+        "target_pixel": [
+            648,
+            490
+        ]
+    },
+    {
+        "image_path": "custom_video_frames/frame_00026.jpg",
+        "instruction": "Move forward safely",
+        "target_pixel": [
+            648,
+            490
+        ]
+    },
+    {
+        "image_path": "custom_video_frames/frame_00027.jpg",
+        "instruction": "Move forward safely",
+        "target_pixel": [
+            648,
+            490
+        ]
+    },
+    {
+        "image_path": "custom_video_frames/frame_00028.jpg",
+        "instruction": "Move forward safely",
+        "target_pixel": [
+            663,
+            484
+        ]
+    },
+    {
+        "image_path": "custom_video_frames/frame_00029.jpg",
+        "instruction": "Move forward safely",
+        "target_pixel": [
+            669,
+            501
+        ]
+    },
+    {
+        "image_path": "custom_video_frames/frame_00030.jpg",
+        "instruction": "Move forward safely",
+        "target_pixel": [
+            902,
+            400
+        ]
+    },
+    {
+        "image_path": "custom_video_frames/frame_00031.jpg",
+        "instruction": "find the white chair",
+        "target_pixel": [
+            965,
+            398
+        ]
+    },
+    {
+        "image_path": "custom_video_frames/frame_00032.jpg",
+        "instruction": "find the white chair",
+        "target_pixel": [
+            1075,
+            392
+        ]
+    },
+    {
+        "image_path": "custom_video_frames/frame_00033.jpg",
+        "instruction": "find the white chair",
+        "target_pixel": [
+            862,
+            401
+        ]
+    },
+    {
+        "image_path": "custom_video_frames/frame_00034.jpg",
+        "instruction": "find the white chair",
+        "target_pixel": [
+            768,
+            360
+        ]
+    },
+    {
+        "image_path": "custom_video_frames/frame_00035.jpg",
+        "instruction": "find the white chair",
+        "target_pixel": [
+            673,
+            283
+        ]
+    },
+    {
+        "image_path": "custom_video_frames/frame_00036.jpg",
+        "instruction": "find the white chair",
+        "target_pixel": [
+            687,
+            256
+        ]
+    },
+    {
+        "image_path": "custom_video_frames/frame_00037.jpg",
+        "instruction": "find the white chair",
+        "target_pixel": [
+            620,
+            165
+        ]
+    },
+    {
+        "image_path": "custom_video_frames/frame_00038.jpg",
+        "instruction": "find the white chair",
+        "target_pixel": [
+            588,
+            236
+        ]
+    },
+    {
+        "image_path": "custom_video_frames/frame_00039.jpg",
+        "instruction": "find the white chair",
+        "target_pixel": [
+            868,
+            412
+        ]
+    },
+    {
+        "image_path": "custom_video_frames/frame_00040.jpg",
+        "instruction": "find the fire hydrant",
+        "target_pixel": [
+            871,
+            421
+        ]
+    },
+    {
+        "image_path": "custom_video_frames/frame_00041.jpg",
+        "instruction": "find the fire hydrant",
+        "target_pixel": [
+            871,
+            421
+        ]
+    },
+    {
+        "image_path": "custom_video_frames/frame_00042.jpg",
+        "instruction": "find the fire hydrant",
+        "target_pixel": [
+            872,
+            421
+        ]
+    },
+    {
+        "image_path": "custom_video_frames/frame_00043.jpg",
+        "instruction": "find the fire hydrant",
+        "target_pixel": [
+            872,
+            421
+        ]
+    },
+    {
+        "image_path": "custom_video_frames/frame_00044.jpg",
+        "instruction": "find the fire hydrant",
+        "target_pixel": [
+            872,
+            421
+        ]
+    },
+    {
+        "image_path": "custom_video_frames/frame_00045.jpg",
+        "instruction": "find the fire hydrant",
+        "target_pixel": [
+            872,
+            421
+        ]
+    },
+    {
+        "image_path": "custom_video_frames/frame_00046.jpg",
+        "instruction": "find the fire hydrant",
+        "target_pixel": [
+            872,
+            421
+        ]
+    },
+    {
+        "image_path": "custom_video_frames/frame_00047.jpg",
+        "instruction": "find the fire hydrant",
+        "target_pixel": [
+            870,
+            420
+        ]
+    },
+    {
+        "image_path": "custom_video_frames/frame_00048.jpg",
+        "instruction": "find the fire hydrant",
+        "target_pixel": [
+            869,
+            417
+        ]
+    },
+    {
+        "image_path": "custom_video_frames/frame_00049.jpg",
+        "instruction": "find the fire hydrant",
+        "target_pixel": [
+            854,
+            404
+        ]
+    },
+    {
+        "image_path": "custom_video_frames/frame_00050.jpg",
+        "instruction": "find the fire hydrant",
+        "target_pixel": [
+            866,
+            412
+        ]
+    },
+    {
+        "image_path": "custom_video_frames/frame_00051.jpg",
+        "instruction": "find the fire hydrant",
+        "target_pixel": [
+            866,
+            412
+        ]
+    },
+    {
+        "image_path": "custom_video_frames/frame_00052.jpg",
+        "instruction": "find the fire hydrant",
+        "target_pixel": [
+            866,
+            412
+        ]
+    },
+    {
+        "image_path": "custom_video_frames/frame_00053.jpg",
+        "instruction": "find the fire hydrant",
+        "target_pixel": [
+            866,
+            412
+        ]
+    },
+    {
+        "image_path": "custom_video_frames/frame_00054.jpg",
+        "instruction": "find the fire hydrant",
+        "target_pixel": [
+            866,
+            412
+        ]
+    },
+    {
+        "image_path": "custom_video_frames/frame_00055.jpg",
+        "instruction": "find the fire hydrant",
+        "target_pixel": [
+            808,
+            415
+        ]
+    },
+    {
+        "image_path": "custom_video_frames/frame_00056.jpg",
+        "instruction": "find the fire hydrant",
+        "target_pixel": [
+            479,
+            411
+        ]
+    },
+    {
+        "image_path": "custom_video_frames/frame_00057.jpg",
+        "instruction": "find the fire hydrant",
+        "target_pixel": [
+            573,
+            551
+        ]
+    },
+    {
+        "image_path": "custom_video_frames/frame_00058.jpg",
+        "instruction": "Move forward safely",
+        "target_pixel": [
+            413,
+            551
+        ]
+    },
+    {
+        "image_path": "custom_video_frames/frame_00059.jpg",
+        "instruction": "Move forward safely",
+        "target_pixel": [
+            299,
+            563
+        ]
+    },
+    {
+        "image_path": "custom_video_frames/frame_00060.jpg",
+        "instruction": "Move forward safely",
+        "target_pixel": [
+            205,
+            550
+        ]
+    },
+    {
+        "image_path": "custom_video_frames/frame_00061.jpg",
+        "instruction": "Move forward safely",
+        "target_pixel": [
+            486,
+            463
+        ]
+    },
+    {
+        "image_path": "custom_video_frames/frame_00062.jpg",
+        "instruction": "Move forward safely",
+        "target_pixel": [
+            495,
+            463
+        ]
+    },
+    {
+        "image_path": "custom_video_frames/frame_00063.jpg",
+        "instruction": "Move forward safely",
+        "target_pixel": [
+            411,
+            444
+        ]
+    },
+    {
+        "image_path": "custom_video_frames/frame_00064.jpg",
+        "instruction": "Move forward safely",
+        "target_pixel": [
+            548,
+            475
+        ]
+    },
+    {
+        "image_path": "custom_video_frames/frame_00065.jpg",
+        "instruction": "Move forward safely",
+        "target_pixel": [
+            584,
+            455
+        ]
+    },
+    {
+        "image_path": "custom_video_frames/frame_00066.jpg",
+        "instruction": "Move forward safely",
+        "target_pixel": [
+            561,
+            460
+        ]
+    },
+    {
+        "image_path": "custom_video_frames/frame_00067.jpg",
+        "instruction": "Move forward safely",
+        "target_pixel": [
+            560,
+            467
+        ]
+    },
+    {
+        "image_path": "custom_video_frames/frame_00068.jpg",
+        "instruction": "Move forward safely",
+        "target_pixel": [
+            537,
+            476
+        ]
+    },
+    {
+        "image_path": "custom_video_frames/frame_00069.jpg",
+        "instruction": "Move forward safely",
+        "target_pixel": [
+            585,
+            470
+        ]
+    },
+    {
+        "image_path": "custom_video_frames/frame_00070.jpg",
+        "instruction": "Move forward safely",
+        "target_pixel": [
+            596,
+            473
+        ]
+    },
+    {
+        "image_path": "custom_video_frames/frame_00071.jpg",
+        "instruction": "Move forward safely",
+        "target_pixel": [
+            646,
+            471
+        ]
+    },
+    {
+        "image_path": "custom_video_frames/frame_00072.jpg",
+        "instruction": "Move forward safely",
+        "target_pixel": [
+            654,
+            494
+        ]
+    },
+    {
+        "image_path": "custom_video_frames/frame_00073.jpg",
+        "instruction": "Move forward safely",
+        "target_pixel": [
+            646,
+            495
+        ]
+    },
+    {
+        "image_path": "custom_video_frames/frame_00074.jpg",
+        "instruction": "Move forward safely",
+        "target_pixel": [
+            646,
+            495
+        ]
+    },
+    {
+        "image_path": "custom_video_frames/frame_00075.jpg",
+        "instruction": "Move forward safely",
+        "target_pixel": [
+            639,
+            507
+        ]
+    },
+    {
+        "image_path": "custom_video_frames/frame_00076.jpg",
+        "instruction": "Move forward safely",
+        "target_pixel": [
+            638,
+            508
+        ]
+    },
+    {
+        "image_path": "custom_video_frames/frame_00077.jpg",
+        "instruction": "Move forward safely",
+        "target_pixel": [
+            636,
+            530
+        ]
+    },
+    {
+        "image_path": "custom_video_frames/frame_00078.jpg",
+        "instruction": "Move forward safely",
+        "target_pixel": [
+            636,
+            522
+        ]
+    },
+    {
+        "image_path": "custom_video_frames/frame_00079.jpg",
+        "instruction": "Move forward safely",
+        "target_pixel": [
+            635,
+            539
+        ]
+    },
+    {
+        "image_path": "custom_video_frames/frame_00080.jpg",
+        "instruction": "Move forward safely",
+        "target_pixel": [
+            707,
+            576
+        ]
+    },
+    {
+        "image_path": "custom_video_frames/frame_00081.jpg",
+        "instruction": "Move forward safely",
+        "target_pixel": [
+            868,
+            574
+        ]
+    },
+    {
+        "image_path": "custom_video_frames/frame_00082.jpg",
+        "instruction": "Move forward safely",
+        "target_pixel": [
+            404,
+            608
+        ]
+    },
+    {
+        "image_path": "custom_video_frames/frame_00083.jpg",
+        "instruction": "Move forward safely",
+        "target_pixel": [
+            435,
+            595
+        ]
+    },
+    {
+        "image_path": "custom_video_frames/frame_00084.jpg",
+        "instruction": "Move forward safely",
+        "target_pixel": [
+            514,
+            600
+        ]
+    },
+    {
+        "image_path": "custom_video_frames/frame_00085.jpg",
+        "instruction": "Move forward safely",
+        "target_pixel": [
+            548,
+            599
+        ]
+    },
+    {
+        "image_path": "custom_video_frames/frame_00086.jpg",
+        "instruction": "Move forward safely",
+        "target_pixel": [
+            292,
+            443
+        ]
+    },
+    {
+        "image_path": "custom_video_frames/frame_00087.jpg",
+        "instruction": "find the black umbrella",
+        "target_pixel": [
+            215,
+            461
+        ]
+    },
+    {
+        "image_path": "custom_video_frames/frame_00088.jpg",
+        "instruction": "find the black umbrella",
+        "target_pixel": [
+            290,
+            512
+        ]
+    },
+    {
+        "image_path": "custom_video_frames/frame_00089.jpg",
+        "instruction": "find the black umbrella",
+        "target_pixel": [
+            329,
+            480
+        ]
+    },
+    {
+        "image_path": "custom_video_frames/frame_00090.jpg",
+        "instruction": "find the black umbrella",
+        "target_pixel": [
+            402,
+            494
+        ]
+    },
+    {
+        "image_path": "custom_video_frames/frame_00091.jpg",
+        "instruction": "find the black umbrella",
+        "target_pixel": [
+            412,
+            494
+        ]
+    },
+    {
+        "image_path": "custom_video_frames/frame_00092.jpg",
+        "instruction": "find the black umbrella",
+        "target_pixel": [
+            414,
+            493
+        ]
+    },
+    {
+        "image_path": "custom_video_frames/frame_00093.jpg",
+        "instruction": "find the black umbrella",
+        "target_pixel": [
+            414,
+            493
+        ]
+    },
+    {
+        "image_path": "custom_video_frames/frame_00094.jpg",
+        "instruction": "find the black umbrella",
+        "target_pixel": [
+            414,
+            493
+        ]
+    },
+    {
+        "image_path": "custom_video_frames/frame_00095.jpg",
+        "instruction": "find the black umbrella",
+        "target_pixel": [
+            981,
+            482
+        ]
+    },
+    {
+        "image_path": "custom_video_frames/frame_00096.jpg",
+        "instruction": "find the rubbish bin",
+        "target_pixel": [
+            795,
+            452
+        ]
+    },
+    {
+        "image_path": "custom_video_frames/frame_00097.jpg",
+        "instruction": "find the rubbish bin",
+        "target_pixel": [
+            858,
+            476
+        ]
+    },
+    {
+        "image_path": "custom_video_frames/frame_00098.jpg",
+        "instruction": "find the rubbish bin",
+        "target_pixel": [
+            807,
+            468
+        ]
+    },
+    {
+        "image_path": "custom_video_frames/frame_00099.jpg",
+        "instruction": "find the rubbish bin",
+        "target_pixel": [
+            651,
+            464
+        ]
+    },
+    {
+        "image_path": "custom_video_frames/frame_00100.jpg",
+        "instruction": "find the rubbish bin",
+        "target_pixel": [
+            589,
+            481
+        ]
+    },
+    {
+        "image_path": "custom_video_frames/frame_00101.jpg",
+        "instruction": "find the rubbish bin",
+        "target_pixel": [
+            549,
+            463
+        ]
+    },
+    {
+        "image_path": "custom_video_frames/frame_00102.jpg",
+        "instruction": "find the rubbish bin",
+        "target_pixel": [
+            542,
+            462
+        ]
+    },
+    {
+        "image_path": "custom_video_frames/frame_00103.jpg",
+        "instruction": "find the rubbish bin",
+        "target_pixel": [
+            527,
+            459
+        ]
+    },
+    {
+        "image_path": "custom_video_frames/frame_00104.jpg",
+        "instruction": "find the rubbish bin",
+        "target_pixel": [
+            501,
+            454
+        ]
+    },
+    {
+        "image_path": "custom_video_frames/frame_00105.jpg",
+        "instruction": "find the rubbish bin",
+        "target_pixel": [
+            496,
+            454
+        ]
+    },
+    {
+        "image_path": "custom_video_frames/frame_00106.jpg",
+        "instruction": "find the rubbish bin",
+        "target_pixel": [
+            470,
+            462
+        ]
+    },
+    {
+        "image_path": "custom_video_frames/frame_00107.jpg",
+        "instruction": "find the rubbish bin",
+        "target_pixel": [
+            429,
+            458
+        ]
+    },
+    {
+        "image_path": "custom_video_frames/frame_00108.jpg",
+        "instruction": "find the rubbish bin",
+        "target_pixel": [
+            385,
+            467
+        ]
+    },
+    {
+        "image_path": "custom_video_frames/frame_00109.jpg",
+        "instruction": "find the rubbish bin",
+        "target_pixel": [
+            386,
+            466
+        ]
+    },
+    {
+        "image_path": "custom_video_frames/frame_00110.jpg",
+        "instruction": "find the rubbish bin",
+        "target_pixel": [
+            418,
+            465
+        ]
+    },
+    {
+        "image_path": "custom_video_frames/frame_00111.jpg",
+        "instruction": "find the rubbish bin",
+        "target_pixel": [
+            418,
+            470
+        ]
+    },
+    {
+        "image_path": "custom_video_frames/frame_00112.jpg",
+        "instruction": "find the rubbish bin",
+        "target_pixel": [
+            496,
+            475
+        ]
+    },
+    {
+        "image_path": "custom_video_frames/frame_00113.jpg",
+        "instruction": "find the rubbish bin",
+        "target_pixel": [
+            537,
+            479
+        ]
+    },
+    {
+        "image_path": "custom_video_frames/frame_00114.jpg",
+        "instruction": "find the rubbish bin",
+        "target_pixel": [
+            544,
+            465
+        ]
+    },
+    {
+        "image_path": "custom_video_frames/frame_00115.jpg",
+        "instruction": "find the rubbish bin",
+        "target_pixel": [
+            556,
+            455
+        ]
+    },
+    {
+        "image_path": "custom_video_frames/frame_00116.jpg",
+        "instruction": "find the rubbish bin",
+        "target_pixel": [
+            544,
+            458
+        ]
+    },
+    {
+        "image_path": "custom_video_frames/frame_00117.jpg",
+        "instruction": "find the rubbish bin",
+        "target_pixel": [
+            544,
+            457
+        ]
+    },
+    {
+        "image_path": "custom_video_frames/frame_00118.jpg",
+        "instruction": "find the rubbish bin",
+        "target_pixel": [
+            545,
+            457
+        ]
+    },
+    {
+        "image_path": "custom_video_frames/frame_00119.jpg",
+        "instruction": "find the rubbish bin",
+        "target_pixel": [
+            545,
+            457
+        ]
+    },
+    {
+        "image_path": "custom_video_frames/frame_00120.jpg",
+        "instruction": "find the rubbish bin",
+        "target_pixel": [
+            545,
+            457
+        ]
+    },
+    {
+        "image_path": "custom_video_frames/frame_00121.jpg",
+        "instruction": "find the rubbish bin",
+        "target_pixel": [
+            532,
+            455
+        ]
+    },
+    {
+        "image_path": "custom_video_frames/frame_00122.jpg",
+        "instruction": "find the rubbish bin",
+        "target_pixel": [
+            494,
+            460
+        ]
+    },
+    {
+        "image_path": "custom_video_frames/frame_00123.jpg",
+        "instruction": "find the rubbish bin",
+        "target_pixel": [
+            433,
+            462
+        ]
+    },
+    {
+        "image_path": "custom_video_frames/frame_00124.jpg",
+        "instruction": "find the rubbish bin",
+        "target_pixel": [
+            1046,
+            533
+        ]
+    },
+    {
+        "image_path": "custom_video_frames/frame_00125.jpg",
+        "instruction": "find the right person",
+        "target_pixel": [
+            890,
+            507
+        ]
+    },
+    {
+        "image_path": "custom_video_frames/frame_00126.jpg",
+        "instruction": "find the right person",
+        "target_pixel": [
+            315,
+            567
+        ]
+    },
+    {
+        "image_path": "custom_video_frames/frame_00127.jpg",
+        "instruction": "find the right person",
+        "target_pixel": [
+            398,
+            600
+        ]
+    },
+    {
+        "image_path": "custom_video_frames/frame_00128.jpg",
+        "instruction": "find the right person",
+        "target_pixel": [
+            281,
+            409
+        ]
+    },
+    {
+        "image_path": "custom_video_frames/frame_00129.jpg",
+        "instruction": "find the right person",
+        "target_pixel": [
+            360,
+            398
+        ]
+    },
+    {
+        "image_path": "custom_video_frames/frame_00130.jpg",
+        "instruction": "find the right person",
+        "target_pixel": [
+            373,
+            384
+        ]
+    },
+    {
+        "image_path": "custom_video_frames/frame_00131.jpg",
+        "instruction": "find the right person",
+        "target_pixel": [
+            367,
+            381
+        ]
+    },
+    {
+        "image_path": "custom_video_frames/frame_00132.jpg",
+        "instruction": "find the right person",
+        "target_pixel": [
+            246,
+            382
+        ]
+    },
+    {
+        "image_path": "custom_video_frames/frame_00133.jpg",
+        "instruction": "find the right person",
+        "target_pixel": [
+            1156,
+            500
+        ]
+    },
+    {
+        "image_path": "custom_video_frames/frame_00134.jpg",
+        "instruction": "Move forward safely",
+        "target_pixel": [
+            1127,
+            478
+        ]
+    },
+    {
+        "image_path": "custom_video_frames/frame_00135.jpg",
+        "instruction": "Move forward safely",
+        "target_pixel": [
+            565,
+            457
+        ]
+    },
+    {
+        "image_path": "custom_video_frames/frame_00136.jpg",
+        "instruction": "Move forward safely",
+        "target_pixel": [
+            967,
+            595
+        ]
+    },
+    {
+        "image_path": "custom_video_frames/frame_00137.jpg",
+        "instruction": "Move forward safely",
+        "target_pixel": [
+            803,
+            532
+        ]
+    },
+    {
+        "image_path": "custom_video_frames/frame_00138.jpg",
+        "instruction": "Move forward safely",
+        "target_pixel": [
+            754,
+            534
+        ]
+    },
+    {
+        "image_path": "custom_video_frames/frame_00139.jpg",
+        "instruction": "Move forward safely",
+        "target_pixel": [
+            754,
+            534
+        ]
+    },
+    {
+        "image_path": "custom_video_frames/frame_00140.jpg",
+        "instruction": "Move forward safely",
+        "target_pixel": [
+            754,
+            534
+        ]
+    },
+    {
+        "image_path": "custom_video_frames/frame_00141.jpg",
+        "instruction": "Move forward safely",
+        "target_pixel": [
+            754,
+            534
+        ]
+    },
+    {
+        "image_path": "custom_video_frames/frame_00142.jpg",
+        "instruction": "Move forward safely",
+        "target_pixel": [
+            754,
+            535
+        ]
+    },
+    {
+        "image_path": "custom_video_frames/frame_00143.jpg",
+        "instruction": "Move forward safely",
+        "target_pixel": [
+            636,
+            515
+        ]
+    },
+    {
+        "image_path": "custom_video_frames/frame_00144.jpg",
+        "instruction": "Move forward safely",
+        "target_pixel": [
+            638,
+            522
+        ]
+    },
+    {
+        "image_path": "custom_video_frames/frame_00145.jpg",
+        "instruction": "Move forward safely",
+        "target_pixel": [
+            667,
+            539
+        ]
+    },
+    {
+        "image_path": "custom_video_frames/frame_00146.jpg",
+        "instruction": "Move forward safely",
+        "target_pixel": [
+            667,
+            546
+        ]
+    },
+    {
+        "image_path": "custom_video_frames/frame_00147.jpg",
+        "instruction": "Move forward safely",
+        "target_pixel": [
+            856,
+            497
+        ]
+    },
+    {
+        "image_path": "custom_video_frames/frame_00148.jpg",
+        "instruction": "find the trash bin",
+        "target_pixel": [
+            869,
+            493
+        ]
+    },
+    {
+        "image_path": "custom_video_frames/frame_00149.jpg",
+        "instruction": "find the trash bin",
+        "target_pixel": [
+            665,
+            463
+        ]
+    },
+    {
+        "image_path": "custom_video_frames/frame_00150.jpg",
+        "instruction": "find the trash bin",
+        "target_pixel": [
+            677,
+            482
+        ]
+    },
+    {
+        "image_path": "custom_video_frames/frame_00151.jpg",
+        "instruction": "find the trash bin",
+        "target_pixel": [
+            677,
+            483
+        ]
+    },
+    {
+        "image_path": "custom_video_frames/frame_00152.jpg",
+        "instruction": "find the trash bin",
+        "target_pixel": [
+            677,
+            485
+        ]
+    },
+    {
+        "image_path": "custom_video_frames/frame_00153.jpg",
+        "instruction": "find the trash bin",
+        "target_pixel": [
+            720,
+            498
+        ]
+    },
+    {
+        "image_path": "custom_video_frames/frame_00154.jpg",
+        "instruction": "find the trash bin",
+        "target_pixel": [
+            754,
+            503
+        ]
+    },
+    {
+        "image_path": "custom_video_frames/frame_00155.jpg",
+        "instruction": "find the trash bin",
+        "target_pixel": [
+            1144,
+            498
+        ]
+    },
+    {
+        "image_path": "custom_video_frames/frame_00156.jpg",
+        "instruction": "find the trash bin",
+        "target_pixel": [
+            1202,
+            477
+        ]
+    },
+    {
+        "image_path": "custom_video_frames/frame_00157.jpg",
+        "instruction": "find the trash bin",
+        "target_pixel": [
+            830,
+            450
+        ]
+    },
+    {
+        "image_path": "custom_video_frames/frame_00158.jpg",
+        "instruction": "find the trash bin",
+        "target_pixel": [
+            906,
+            451
+        ]
+    },
+    {
+        "image_path": "custom_video_frames/frame_00159.jpg",
+        "instruction": "find the trash bin",
+        "target_pixel": [
+            909,
+            464
+        ]
+    },
+    {
+        "image_path": "custom_video_frames/frame_00160.jpg",
+        "instruction": "find the trash bin",
+        "target_pixel": [
+            731,
+            447
+        ]
+    },
+    {
+        "image_path": "custom_video_frames/frame_00161.jpg",
+        "instruction": "find the trash bin",
+        "target_pixel": [
+            671,
+            490
+        ]
+    },
+    {
+        "image_path": "custom_video_frames/frame_00162.jpg",
+        "instruction": "find the trash bin",
+        "target_pixel": [
+            582,
+            470
+        ]
+    },
+    {
+        "image_path": "custom_video_frames/frame_00163.jpg",
+        "instruction": "find the trash bin",
+        "target_pixel": [
+            258,
+            422
+        ]
+    },
+    {
+        "image_path": "custom_video_frames/frame_00164.jpg",
+        "instruction": "find the trash bin",
+        "target_pixel": [
+            99,
+            432
+        ]
+    },
+    {
+        "image_path": "custom_video_frames/frame_00165.jpg",
+        "instruction": "find the trash bin",
+        "target_pixel": [
+            635,
+            327
+        ]
+    },
+    {
+        "image_path": "custom_video_frames/frame_00166.jpg",
+        "instruction": "find the elevator",
+        "target_pixel": [
+            149,
+            276
+        ]
+    },
+    {
+        "image_path": "custom_video_frames/frame_00167.jpg",
+        "instruction": "find the elevator",
+        "target_pixel": [
+            491,
+            467
+        ]
+    },
+    {
+        "image_path": "custom_video_frames/frame_00168.jpg",
+        "instruction": "Move forward safely",
+        "target_pixel": [
+            484,
+            477
+        ]
+    },
+    {
+        "image_path": "custom_video_frames/frame_00169.jpg",
+        "instruction": "Move forward safely",
+        "target_pixel": [
+            484,
+            477
+        ]
+    },
+    {
+        "image_path": "custom_video_frames/frame_00170.jpg",
+        "instruction": "Move forward safely",
+        "target_pixel": [
+            484,
+            476
+        ]
+    },
+    {
+        "image_path": "custom_video_frames/frame_00171.jpg",
+        "instruction": "Move forward safely",
+        "target_pixel": [
+            484,
+            476
+        ]
+    },
+    {
+        "image_path": "custom_video_frames/frame_00172.jpg",
+        "instruction": "Move forward safely",
+        "target_pixel": [
+            902,
+            461
+        ]
+    }
+]

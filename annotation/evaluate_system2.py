@@ -50,11 +50,13 @@ import re
 import time
 import math
 import traceback
+import io
 from datetime import datetime
 from pathlib import Path
 from typing import Optional, Tuple, Dict, List
 import csv
 
+import requests
 import torch
 import numpy as np
 from PIL import Image, ImageDraw, ImageFont
@@ -79,6 +81,11 @@ INFERENCE_TIMEOUT = 60
 
 # 可视化保存分辨率
 VIZ_DPI = 100
+
+# 云端推理（与 code/v2_FBE/cloud_brain_server_v2.py 完全一致）
+DEFAULT_CLOUD_URL = "http://127.0.0.1:5000"
+CLOUD_PLAN_ENDPOINT = "/plan"
+CLOUD_REQUEST_TIMEOUT = 60
 
 
 # ============================================================
@@ -105,6 +112,14 @@ PROMPT_TEMPLATES = {
         "The waypoint should be the farthest point in the image that aligns with the instruction.\n\n"
         "Output ONLY in this exact format: <point>x,y</point>"
     ),
+    # InternVLA-N1 训练时的官方 prompt，必须一致否则会输出动作符号(←→↑↓)而非坐标
+    "internvla": (
+        "You are an autonomous navigation assistant. Your task is to {instruction}. "
+        "Where should you go next to stay on track? "
+        "Please output the next waypoint's coordinates in the image. "
+        "Please output STOP when you have successfully completed the task. "
+        "you can see "
+    ),
     "llava": (
         "You are a robot. Navigation instruction: {instruction}\n"
         "Where should the robot navigate to? "
@@ -129,7 +144,9 @@ def parse_pixel_prediction(response_text: str, img_w: int, img_h: int) -> Option
         1. <point>x,y</point>  ← 标准格式（我们要求的）
         2. (x, y) 或 [x, y]   ← 备用格式
         3. x=123, y=456        ← 键值格式
-        4. Qwen-VL的<ref>坐标格式
+        4. Qwen-VL/InternVLA 的 0-1000 或括号坐标
+        5. 文中两处 2～4 位整数
+        6. 任意多个数字取前两个（兼容 InternVLA-N1 等）
     
     参数:
         response_text: 模型输出的原始文本
@@ -179,8 +196,15 @@ def parse_pixel_prediction(response_text: str, img_w: int, img_h: int) -> Option
         x, y = float(m.group(1)), float(m.group(2))
         return _clamp_coords(x, y, img_w, img_h)
 
-    # 格式5: 文中出现的两个数字（最后的备用方案）
+    # 格式5: 文中出现的两个数字（2～4位整数）
     numbers = re.findall(r"\b(\d{2,4})\b", response_text)
+    if len(numbers) >= 2:
+        x, y = float(numbers[0]), float(numbers[1])
+        if 0 <= x <= img_w * 1.1 and 0 <= y <= img_h * 1.1:
+            return _clamp_coords(x, y, img_w, img_h)
+
+    # 格式6: InternVLA-N1 等可能只输出数字，用全部数字取前两个（与 InternNav 一致）
+    numbers = re.findall(r"\d+", response_text)
     if len(numbers) >= 2:
         x, y = float(numbers[0]), float(numbers[1])
         if 0 <= x <= img_w * 1.1 and 0 <= y <= img_h * 1.1:
@@ -336,7 +360,80 @@ def compute_all_metrics(results: list) -> dict:
 
 
 # ============================================================
-# VLM模型加载与推理
+# 云端推理（与 cloud_brain_server_v2.py /plan 完全一致）
+# ============================================================
+
+class CloudSystem2Evaluator:
+    """
+    使用云端 /plan 接口进行推理，与 v3 部署的 cloud_brain_server_v2.py 完全一致。
+    云端已做：原图缩放推理、坐标换算回原图 (u,v)、多目标 instruction 解析。
+    本类仅负责：发送 image + instruction，解析返回的 u,v 作为预测像素。
+    """
+
+    def __init__(self, cloud_url: str = DEFAULT_CLOUD_URL, timeout: int = CLOUD_REQUEST_TIMEOUT):
+        self.base_url = cloud_url.rstrip("/")
+        self.plan_url = self.base_url + CLOUD_PLAN_ENDPOINT
+        self.timeout = timeout
+
+    def predict_pixel_goal(
+        self,
+        image: Image.Image,
+        instruction: str,
+        img_w: int,
+        img_h: int,
+        max_new_tokens: int = 64,
+    ) -> dict:
+        """
+        调用云端 /plan，与 cloud_brain_server_v2 一致。返回格式与 System2Evaluator 相同。
+        云端返回的 u,v 已是原图坐标（云端内部 scale_to_original）。
+        """
+        start_time = time.time()
+        try:
+            buf = io.BytesIO()
+            image.save(buf, format="JPEG", quality=95)
+            buf.seek(0)
+            r = requests.post(
+                self.plan_url,
+                files={"image": ("img.jpg", buf.getvalue(), "image/jpeg")},
+                data={"instruction": instruction},
+                timeout=self.timeout,
+            )
+            r.raise_for_status()
+            j = r.json()
+            inference_time = time.time() - start_time
+
+            if "u" in j and "v" in j:
+                u = int(j["u"])
+                v = int(j["v"])
+                u = max(0, min(u, img_w - 1))
+                v = max(0, min(v, img_h - 1))
+                return {
+                    "raw_response": f"status={j.get('status','')} message={j.get('message','')} u={u} v={v}",
+                    "pred_x": u,
+                    "pred_y": v,
+                    "parse_success": True,
+                    "inference_time_s": round(inference_time, 3),
+                }
+            return {
+                "raw_response": json.dumps(j),
+                "pred_x": None,
+                "pred_y": None,
+                "parse_success": False,
+                "inference_time_s": round(inference_time, 3),
+            }
+        except Exception as e:
+            return {
+                "raw_response": f"ERROR: {str(e)}",
+                "pred_x": None,
+                "pred_y": None,
+                "parse_success": False,
+                "inference_time_s": round(time.time() - start_time, 3),
+                "error": traceback.format_exc(),
+            }
+
+
+# ============================================================
+# VLM模型加载与推理（本地模型，可选）
 # ============================================================
 
 class System2Evaluator:
@@ -364,8 +461,11 @@ class System2Evaluator:
         self._load_model()
 
     def _detect_model_type(self, model_name: str) -> str:
-        """根据模型名称判断模型类型"""
+        """根据模型名称判断模型类型（仅用于日志与通用分支选择）"""
         name_lower = model_name.lower()
+        # InternVLA-N1-System2 等为 Qwen2.5-VL 架构，但在日志中仍标记为 internvla，避免误以为是纯 Qwen 模型
+        if "internvla" in name_lower:
+            return "internvla"
         if "qwen" in name_lower and "vl" in name_lower:
             return "qwen_vl"
         elif "llava" in name_lower:
@@ -380,7 +480,8 @@ class System2Evaluator:
         from transformers import AutoProcessor, AutoModelForVision2Seq
 
         try:
-            if self.model_type == "qwen_vl":
+            # InternVLA-N1 与 Qwen2.5-VL 共用同一加载逻辑
+            if self.model_type in ("qwen_vl", "internvla"):
                 self._load_qwen_vl()
             else:
                 # 通用加载方式
@@ -401,17 +502,25 @@ class System2Evaluator:
 
         quantization_config = None
         if self.load_in_4bit:
+            try:
+                import bitsandbytes  # noqa: F401
+            except ImportError:
+                raise ImportError(
+                    "使用 --load_in_4bit 需要安装 bitsandbytes，请运行: pip install bitsandbytes"
+                ) from None
             from transformers import BitsAndBytesConfig
             quantization_config = BitsAndBytesConfig(
                 load_in_4bit=True,
-                bnb_4bit_compute_dtype=torch.float16
+                bnb_4bit_compute_dtype=torch.float16,
+                llm_int8_enable_fp32_cpu_offload=True,  # 显存不足时允许部分层卸载到 CPU
             )
 
         self.model = Qwen2_5_VLForConditionalGeneration.from_pretrained(
             self.model_name,
             torch_dtype=torch.float16,
             device_map="auto",
-            quantization_config=quantization_config
+            quantization_config=quantization_config,
+            max_memory={0: "22GiB", "cpu": "30GiB"} if self.load_in_4bit else None,  # 4bit 时限制 GPU 占用并允许 CPU 卸载
         )
         self.model.eval()
 
@@ -427,15 +536,25 @@ class System2Evaluator:
 
         quantization_config = None
         if self.load_in_4bit:
+            try:
+                import bitsandbytes  # noqa: F401
+            except ImportError:
+                raise ImportError(
+                    "使用 --load_in_4bit 需要安装 bitsandbytes，请运行: pip install bitsandbytes"
+                ) from None
             from transformers import BitsAndBytesConfig
-            quantization_config = BitsAndBytesConfig(load_in_4bit=True)
+            quantization_config = BitsAndBytesConfig(
+                load_in_4bit=True,
+                llm_int8_enable_fp32_cpu_offload=True,
+            )
 
         self.model = AutoModelForVision2Seq.from_pretrained(
             self.model_name,
             torch_dtype=torch.float16,
             device_map="auto",
             quantization_config=quantization_config,
-            trust_remote_code=True
+            trust_remote_code=True,
+            max_memory={0: "22GiB", "cpu": "30GiB"} if self.load_in_4bit else None,
         )
         self.model.eval()
         self.processor = AutoProcessor.from_pretrained(
@@ -471,11 +590,20 @@ class System2Evaluator:
         start_time = time.time()
 
         try:
-            prompt = PROMPT_TEMPLATES.get(self.model_type, PROMPT_TEMPLATES["generic"])
-            prompt = prompt.format(instruction=instruction)
+            # InternVLA 必须用训练时的 prompt，否则会输出动作符号(←→↑↓)而非坐标
+            use_internvla_prompt = "internvla" in self.model_name.lower()
+            if use_internvla_prompt:
+                prompt = PROMPT_TEMPLATES["internvla"].format(instruction=instruction)
+            else:
+                prompt = PROMPT_TEMPLATES.get(self.model_type, PROMPT_TEMPLATES["generic"])
+                prompt = prompt.format(instruction=instruction)
 
-            if self.model_type == "qwen_vl":
-                raw_response = self._infer_qwen_vl(image, prompt, max_new_tokens)
+            # InternVLA-N1 与 Qwen2.5-VL 共用同一推理逻辑
+            if self.model_type in ("qwen_vl", "internvla"):
+                raw_response = self._infer_qwen_vl(
+                    image, prompt, max_new_tokens,
+                    no_system_message=use_internvla_prompt
+                )
             else:
                 raw_response = self._infer_generic(image, prompt, max_new_tokens)
 
@@ -503,23 +631,38 @@ class System2Evaluator:
                 "error": traceback.format_exc()
             }
 
-    def _infer_qwen_vl(self, image: Image.Image, prompt: str, max_new_tokens: int) -> str:
-        """Qwen2.5-VL推理"""
+    def _infer_qwen_vl(
+        self,
+        image: Image.Image,
+        prompt: str,
+        max_new_tokens: int,
+        no_system_message: bool = False
+    ) -> str:
+        """Qwen2.5-VL / InternVLA-N1 推理"""
         from qwen_vl_utils import process_vision_info
 
-        messages = [
-            {
-                "role": "system",
-                "content": SYSTEM_PROMPT
-            },
-            {
-                "role": "user",
-                "content": [
-                    {"type": "image", "image": image},
-                    {"type": "text", "text": prompt}
-                ]
-            }
-        ]
+        if no_system_message:
+            # InternVLA-N1 训练时无 system、仅 user+图，否则易输出动作符(←→↑↓)
+            messages = [
+                {
+                    "role": "user",
+                    "content": [
+                        {"type": "image", "image": image},
+                        {"type": "text", "text": prompt}
+                    ]
+                }
+            ]
+        else:
+            messages = [
+                {"role": "system", "content": SYSTEM_PROMPT},
+                {
+                    "role": "user",
+                    "content": [
+                        {"type": "image", "image": image},
+                        {"type": "text", "text": prompt}
+                    ]
+                }
+            ]
 
         text = self.processor.apply_chat_template(
             messages, tokenize=False, add_generation_prompt=True
@@ -881,12 +1024,17 @@ def run_evaluation(args):
             if args.random_sample else annotations[:args.max_samples]
         print(f"  [子集] 使用 {len(annotations)} 条进行评估")
 
-    # 加载模型
-    print(f"\n[步骤2] 加载模型")
-    evaluator = System2Evaluator(
-        model_name=args.model_name,
-        load_in_4bit=args.load_in_4bit
-    )
+    # 推理器：云端（与 cloud_brain_server_v2.py 一致）或本地模型
+    if getattr(args, "use_cloud", False):
+        print(f"\n[步骤2] 使用云端推理（与 v3 cloud_brain_server_v2 一致）")
+        print(f"  云端地址: {args.cloud_url}{CLOUD_PLAN_ENDPOINT}")
+        evaluator = CloudSystem2Evaluator(cloud_url=args.cloud_url, timeout=CLOUD_REQUEST_TIMEOUT)
+    else:
+        print(f"\n[步骤2] 加载本地模型")
+        evaluator = System2Evaluator(
+            model_name=args.model_name,
+            load_in_4bit=args.load_in_4bit
+        )
 
     # 检查是否存在断点续测结果
     checkpoint_path = os.path.join(output_dir, "checkpoint_results.json")
@@ -993,7 +1141,7 @@ def run_evaluation(args):
     # 计算最终指标
     print("\n[步骤4] 计算汇总指标...")
     metrics = compute_all_metrics(results)
-    metrics["model_name"] = args.model_name
+    metrics["model_name"] = (args.cloud_url + CLOUD_PLAN_ENDPOINT) if getattr(args, "use_cloud", False) else args.model_name
     metrics["eval_timestamp"] = timestamp
     metrics["data_json"] = args.data_json
 
@@ -1054,9 +1202,14 @@ def main():
     )
     parser.add_argument("--data_json", type=str, required=True,
                         help="标注数据JSON文件路径")
+    # 默认使用本地路径，避免无网络时从 HuggingFace 下载失败
+    _default_model = os.environ.get(
+        "S2_EVAL_MODEL_PATH",
+        "/root/autodl-tmp/.autodl/models/Qwen/Qwen2.5-VL-7B-Instruct"
+    )
     parser.add_argument("--model_name", type=str,
-                        default="Qwen/Qwen2.5-VL-7B-Instruct",
-                        help="HuggingFace模型名称或本地路径")
+                        default=_default_model,
+                        help="HuggingFace 模型名(如 Qwen/Qwen2.5-VL-7B-Instruct)或本地路径；无网时请用本地路径")
     parser.add_argument("--output_dir", type=str, default="./eval_results",
                         help="评估结果输出目录")
     parser.add_argument("--max_samples", type=int, default=None,
@@ -1065,6 +1218,10 @@ def main():
                         help="随机采样子集（配合--max_samples使用）")
     parser.add_argument("--load_in_4bit", action="store_true",
                         help="使用4bit量化加载模型（节省显存，适合<24GB）")
+    parser.add_argument("--use_cloud", action="store_true",
+                        help="使用云端 /plan 推理，与 cloud_brain_server_v2.py 完全一致（不加载本地模型）")
+    parser.add_argument("--cloud_url", type=str, default=DEFAULT_CLOUD_URL,
+                        help="云端服务 base URL（默认 http://127.0.0.1:5000），与 v3 部署一致")
     parser.add_argument("--no_viz", action="store_true",
                         help="不生成可视化图片（加快速度）")
     args = parser.parse_args()

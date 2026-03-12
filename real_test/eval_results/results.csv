@@ -1,0 +1,174 @@
+id,scene_id,instruction,gt_x,gt_y,pred_x,pred_y,parse_success,dist_px,dist_norm,same_quadrant,angle_diff_deg,inference_time_s,raw_response
+1,custom,Move forward safely,636,465,622,400,True,66.49060083951716,0.04527467276596576,True,22.05,1.399,status=fail message=Inferred u=622 v=400
+2,custom,Move forward safely,635,463,622,400,True,64.32728814430156,0.04380163337198069,True,21.45,0.841,status=fail message=Inferred u=622 v=400
+3,custom,Move forward safely,630,462,622,342,True,120.26637102698326,0.08189158353583068,False,129.4,0.846,status=fail message=Inferred u=622 v=342
+4,custom,Move forward safely,630,461,600,408,True,60.90155991434045,0.04146899202661265,True,34.15,0.838,status=fail message=Inferred u=600 v=408
+5,custom,Move forward safely,625,446,622,400,True,46.09772228646444,0.031388786767221524,True,14.33,0.852,status=fail message=Inferred u=622 v=400
+6,custom,Move forward safely,621,452,600,348,True,106.09901036296239,0.07224476714490786,False,95.03,0.845,status=fail message=Inferred u=600 v=348
+7,custom,Move forward safely,612,430,600,348,True,82.87339742040264,0.056430020210955986,False,84.9,0.866,status=fail message=Inferred u=600 v=348
+8,custom,Move forward safely,609,453,400,360,True,228.7575135378071,0.15576519744764888,True,71.57,0.852,status=fail message=Inferred u=400 v=360
+9,custom,Move forward safely,590,467,480,360,True,153.45683432157722,0.10449158031192314,True,64.95,0.845,status=success message=Success u=480 v=360
+10,custom,Move forward safely,566,489,592,365,True,126.69648771769484,0.08626996822995604,True,54.21,0.858,status=fail message=Inferred u=592 v=365
+11,custom,Move forward safely,414,518,950,235,True,606.1229248263095,0.41272024513202615,False,167.0,0.866,status=success message=Success u=950 v=235
+12,custom,Move forward safely,710,487,660,348,True,147.7193284577208,0.10058480706579352,False,92.1,0.848,status=fail message=Inferred u=660 v=348
+13,custom,Move forward safely,801,500,660,348,True,207.32824216685964,0.14117361252161664,False,71.97,0.909,status=fail message=Inferred u=660 v=348
+14,custom,Move forward safely,1079,490,760,418,True,327.0244639166923,0.22267697093051472,True,9.3,0.859,status=fail message=Inferred u=760 v=418
+15,custom,Move forward safely,967,475,948,365,True,111.6288493177279,0.07601013617397974,True,18.45,0.863,status=fail message=Inferred u=948 v=365
+16,custom,Move forward safely,830,468,660,368,True,197.2308292331602,0.13429809838000925,True,7.81,0.872,status=fail message=Inferred u=660 v=368
+17,custom,Move forward safely,734,470,660,425,True,86.6083136886985,0.05897319337709285,True,23.41,0.892,status=fail message=Inferred u=660 v=425
+18,custom,Move forward safely,688,453,660,348,True,108.66922287382016,0.07399487210559152,False,93.66,0.85,status=fail message=Inferred u=660 v=348
+19,custom,Move forward safely,688,453,658,368,True,90.13878188659973,0.06137715409262949,True,38.74,0.868,status=fail message=Inferred u=658 v=368
+20,custom,Move forward safely,579,457,600,408,True,53.31041174104736,0.036300039646511115,True,7.64,0.901,status=fail message=Inferred u=600 v=408
+21,custom,Move forward safely,526,472,522,365,True,107.07474025184464,0.07290915956833835,True,42.07,0.863,status=fail message=Inferred u=522 v=365
+22,custom,Move forward safely,509,454,510,408,True,46.010868281309364,0.031329646278007106,True,15.4,0.84,status=fail message=Inferred u=510 v=408
+23,custom,Move forward safely,572,468,575,368,True,100.04498987955368,0.06812247327413445,True,50.79,0.861,status=fail message=Inferred u=575 v=368
+24,custom,Move forward safely,586,477,600,348,True,129.75746606650424,0.08835424467408899,False,81.92,0.854,status=fail message=Inferred u=600 v=348
+25,custom,Move forward safely,622,471,760,365,True,174.01149387324966,0.1184876259675178,False,96.83,0.853,status=fail message=Inferred u=760 v=365
+26,custom,Move forward safely,648,490,622,342,True,150.2664300500947,0.10231917537710922,False,138.52,0.854,status=fail message=Inferred u=622 v=342
+27,custom,Move forward safely,648,490,622,342,True,150.2664300500947,0.10231917537710922,False,138.52,0.861,status=fail message=Inferred u=622 v=342
+28,custom,Move forward safely,648,490,600,348,True,149.89329538041386,0.10206510111918198,False,110.22,0.847,status=fail message=Inferred u=600 v=348
+29,custom,Move forward safely,663,484,760,418,True,117.32433677630571,0.0798882983153048,True,53.7,0.849,status=fail message=Inferred u=760 v=418
+30,custom,Move forward safely,669,501,585,400,True,131.36590120727678,0.08944945773795526,False,65.59,0.871,status=fail message=Inferred u=585 v=400
+31,custom,Move forward safely,902,400,480,360,True,423.8914955504533,0.2886355139975897,False,171.32,0.861,status=fail message=Inferred u=480 v=360
+32,custom,find the white chair,965,398,922,368,True,52.43090691567332,0.03570116863824626,True,5.04,0.846,status=success message=Success u=922 v=368
+33,custom,find the white chair,1075,392,1075,368,True,24.0,0.0163420413210853,True,3.15,0.839,status=success message=Success u=1075 v=368
+34,custom,find the white chair,862,401,772,365,True,96.93296652842108,0.0660034393492848,True,8.29,0.828,status=success message=Success u=772 v=365
+35,custom,find the white chair,768,360,660,325,True,113.52973178863765,0.07730448200256865,False,60.26,0.835,status=success message=Success u=660 v=325
+36,custom,find the white chair,673,283,575,368,True,129.72663566130126,0.08833325168426512,False,120.22,0.831,status=success message=Success u=575 v=368
+37,custom,find the white chair,687,256,510,340,True,195.92090240706835,0.13340614511669296,False,105.57,0.838,status=success message=Success u=510 v=340
+38,custom,find the white chair,620,165,508,368,True,231.8469322635087,0.15786883946738015,False,87.61,0.827,status=success message=Success u=508 v=368
+39,custom,find the white chair,588,236,485,325,True,136.12494260788506,0.09268997653868427,True,54.52,0.826,status=success message=Success u=485 v=325
+40,custom,find the white chair,868,412,510,340,True,365.16845427829605,0.24864991537386508,False,175.9,0.847,status=success message=Success u=510 v=340
+41,custom,find the fire hydrant,871,421,918,435,True,49.040799340956916,0.033392782052040444,True,0.31,0.823,status=fail message=Inferred u=918 v=435
+42,custom,find the fire hydrant,871,421,918,435,True,49.040799340956916,0.033392782052040444,True,0.31,0.827,status=fail message=Inferred u=918 v=435
+43,custom,find the fire hydrant,872,421,918,535,True,122.93087488503447,0.08370589320868334,True,17.46,0.82,status=fail message=Inferred u=918 v=535
+44,custom,find the fire hydrant,872,421,918,435,True,48.08326112068523,0.032740776670282176,True,0.37,0.936,status=fail message=Inferred u=918 v=435
+45,custom,find the fire hydrant,872,421,918,435,True,48.08326112068523,0.032740776670282176,True,0.37,0.863,status=fail message=Inferred u=918 v=435
+46,custom,find the fire hydrant,872,421,918,435,True,48.08326112068523,0.032740776670282176,True,0.37,0.848,status=fail message=Inferred u=918 v=435
+47,custom,find the fire hydrant,872,421,918,435,True,48.08326112068523,0.032740776670282176,True,0.37,0.817,status=fail message=Inferred u=918 v=435
+48,custom,find the fire hydrant,870,420,918,435,True,50.28916384272063,0.03424281639669039,True,0.48,0.905,status=fail message=Inferred u=918 v=435
+49,custom,find the fire hydrant,869,417,918,435,True,52.20153254455275,0.0355449834111275,True,1.12,0.855,status=fail message=Inferred u=918 v=435
+50,custom,find the fire hydrant,854,404,918,435,True,71.11258679024411,0.048421867990643075,True,3.48,0.846,status=fail message=Inferred u=918 v=435
+51,custom,find the fire hydrant,866,412,918,435,True,56.859475903318,0.03871666269613652,True,2.14,0.829,status=fail message=Inferred u=918 v=435
+52,custom,find the fire hydrant,866,412,918,435,True,56.859475903318,0.03871666269613652,True,2.14,0.831,status=fail message=Inferred u=918 v=435
+53,custom,find the fire hydrant,866,412,918,435,True,56.859475903318,0.03871666269613652,True,2.14,0.84,status=fail message=Inferred u=918 v=435
+54,custom,find the fire hydrant,866,412,918,435,True,56.859475903318,0.03871666269613652,True,2.14,0.815,status=fail message=Inferred u=918 v=435
+55,custom,find the fire hydrant,866,412,918,535,True,133.5402561027947,0.09093001596917434,True,19.23,0.832,status=fail message=Inferred u=918 v=535
+56,custom,find the fire hydrant,808,415,865,435,True,60.40695324215582,0.041132205248507414,True,0.31,0.826,status=fail message=Inferred u=865 v=435
+57,custom,find the fire hydrant,479,411,450,410,True,29.017236257093817,0.01975836974738007,True,2.83,0.832,status=fail message=Inferred u=450 v=410
+58,custom,find the fire hydrant,573,551,1008,668,True,450.45976512891804,0.3067263373009649,False,69.4,0.829,status=fail message=Inferred u=1008 v=668
+59,custom,Move forward safely,413,551,760,422,True,370.20264720825537,0.25207778991051966,False,112.6,0.833,status=success message=Success u=760 v=422
+60,custom,Move forward safely,299,563,948,215,True,736.4136066097639,0.5014375661927589,False,174.44,0.803,status=fail message=Inferred u=948 v=215
+61,custom,Move forward safely,205,550,960,418,True,766.4522163840353,0.5218914079493882,False,146.13,0.822,status=fail message=Inferred u=960 v=418
+62,custom,Move forward safely,486,463,600,348,True,161.92899678562824,0.11026043152302605,False,50.48,0.834,status=fail message=Inferred u=600 v=348
+63,custom,Move forward safely,495,463,598,365,True,142.1724305201258,0.09680782226162601,True,28.6,0.822,status=fail message=Inferred u=598 v=365
+64,custom,Move forward safely,411,444,510,408,True,105.34229919647663,0.07172950859695632,True,0.12,0.846,status=fail message=Inferred u=510 v=408
+65,custom,Move forward safely,548,475,575,365,True,113.26517558367179,0.07712434081784775,True,46.94,0.846,status=fail message=Inferred u=575 v=365
+66,custom,Move forward safely,584,455,575,368,True,87.46427842267951,0.059556035504264075,True,52.47,0.835,status=fail message=Inferred u=575 v=368
+67,custom,Move forward safely,561,460,575,365,True,96.0260381354974,0.06538589512960047,True,47.29,0.889,status=fail message=Inferred u=575 v=365
+68,custom,Move forward safely,560,467,522,358,True,115.43396380615195,0.07860110859903333,False,54.19,0.832,status=fail message=Inferred u=522 v=358
+69,custom,Move forward safely,537,476,510,408,True,73.16419889536138,0.04981884839883746,True,28.13,0.84,status=fail message=Inferred u=510 v=408
+70,custom,Move forward safely,585,470,575,368,True,102.48902380255166,0.06978666091412475,True,56.42,0.848,status=fail message=Inferred u=575 v=368
+71,custom,Move forward safely,596,473,575,368,True,107.07940978544848,0.07291233913963435,True,61.71,0.833,status=fail message=Inferred u=575 v=368
+72,custom,Move forward safely,646,471,622,342,True,131.21356637177422,0.08934573014727094,False,138.09,0.85,status=fail message=Inferred u=622 v=342
+73,custom,Move forward safely,654,494,600,348,True,155.66630977832037,0.10599605277909066,False,112.66,0.834,status=fail message=Inferred u=600 v=348
+74,custom,Move forward safely,646,495,600,348,True,154.02921800749363,0.10488132688887153,False,109.24,0.846,status=fail message=Inferred u=600 v=348
+75,custom,Move forward safely,646,495,600,408,True,98.41239759298622,0.06701081116548567,False,42.35,0.862,status=fail message=Inferred u=600 v=408
+76,custom,Move forward safely,639,507,600,348,True,163.71316379570703,0.11147530364812708,False,106.31,0.835,status=fail message=Inferred u=600 v=348
+77,custom,Move forward safely,638,508,622,400,True,109.17875251164945,0.07434182020541336,True,23.45,0.824,status=fail message=Inferred u=622 v=400
+78,custom,Move forward safely,636,530,600,348,True,185.52627846210896,0.12632825453229007,False,105.35,0.853,status=fail message=Inferred u=600 v=348
+79,custom,Move forward safely,636,522,600,348,True,177.68511473953018,0.12098906196729936,False,105.28,0.828,status=fail message=Inferred u=600 v=348
+80,custom,Move forward safely,635,539,592,365,True,179.2344832893492,0.12204405550324655,True,82.45,0.859,status=fail message=Inferred u=592 v=365
+81,custom,Move forward safely,707,576,948,215,True,434.05299215648773,0.29555466389008483,False,97.98,0.893,status=fail message=Inferred u=948 v=215
+82,custom,Move forward safely,868,574,960,240,True,346.4390278245221,0.23589670449770664,False,63.74,0.806,status=fail message=Inferred u=960 v=240
+83,custom,Move forward safely,404,608,960,240,True,666.7533277007323,0.45400460134402054,False,154.14,0.853,status=fail message=Inferred u=960 v=240
+84,custom,Move forward safely,435,595,948,215,True,638.4113094236349,0.4347059999353839,False,156.31,0.798,status=fail message=Inferred u=948 v=215
+85,custom,Move forward safely,514,600,948,215,True,580.1560134998172,0.39503889772042217,False,142.91,0.803,status=fail message=Inferred u=948 v=215
+86,custom,Move forward safely,548,599,948,210,True,557.9614682036745,0.37992622370657786,False,137.02,0.807,status=fail message=Inferred u=948 v=210
+87,custom,Move forward safely,292,443,950,215,True,696.3820790342038,0.47417936295167695,False,168.35,0.802,status=success message=Success u=950 v=215
+88,custom,find the black umbrella,215,461,175,365,True,104.0,0.07081551239136963,True,12.75,0.812,status=success message=Success u=175 v=365
+89,custom,find the black umbrella,290,512,260,348,True,166.7213243709394,0.11352361549899823,False,25.28,0.844,status=success message=Success u=260 v=348
+90,custom,find the black umbrella,329,480,272,368,True,125.67020331009256,0.08557115230511346,True,19.85,0.841,status=success message=Success u=272 v=368
+91,custom,find the black umbrella,402,494,348,400,True,108.40664186294121,0.07381607586684502,True,21.58,0.838,status=success message=Success u=348 v=400
+92,custom,find the black umbrella,412,494,368,348,True,152.48606493709516,0.10383056558715438,False,32.97,0.85,status=success message=Success u=368 v=348
+93,custom,find the black umbrella,414,493,368,400,True,103.75451797391764,0.07064835916579372,True,22.11,0.83,status=success message=Success u=368 v=400
+94,custom,find the black umbrella,414,493,400,368,True,125.78155667664477,0.08564697486000672,True,28.57,0.853,status=success message=Success u=400 v=368
+95,custom,find the black umbrella,414,493,372,400,True,102.04410811016969,0.06948370963790368,True,21.99,0.843,status=success message=Success u=372 v=400
+96,custom,find the black umbrella,981,482,960,440,True,46.95742752749558,0.03197417587442505,True,5.65,0.851,status=fail message=Inferred u=960 v=440
+97,custom,find the rubbish bin,795,452,772,435,True,28.600699292150182,0.019474742068510555,True,1.09,0.924,status=success message=Success u=772 v=435
+98,custom,find the rubbish bin,858,476,822,425,True,62.42595614005443,0.042506981447876166,True,8.36,0.859,status=success message=Success u=822 v=425
+99,custom,find the rubbish bin,807,468,772,435,True,48.104053883222775,0.03275493484463918,True,3.29,0.853,status=success message=Success u=772 v=435
+100,custom,find the rubbish bin,651,464,632,418,True,49.76946855251722,0.033888946317237156,False,13.89,0.899,status=success message=Success u=632 v=418
+101,custom,find the rubbish bin,589,481,575,418,True,64.53681120105021,0.04394430147411013,True,25.4,0.853,status=success message=Success u=575 v=418
+102,custom,find the rubbish bin,549,463,522,418,True,52.478567053607705,0.035733621302558444,True,22.36,0.837,status=success message=Success u=522 v=418
+103,custom,find the rubbish bin,542,462,510,422,True,51.22499389946279,0.03488004029072347,True,20.65,0.822,status=success message=Success u=510 v=422
+104,custom,find the rubbish bin,527,459,485,400,True,72.42237223399962,0.04931372498412677,True,26.75,0.812,status=success message=Success u=485 v=400
+105,custom,find the rubbish bin,501,454,485,400,True,56.32051136131489,0.038349671828802584,True,19.6,0.838,status=success message=Success u=485 v=400
+106,custom,find the rubbish bin,496,454,425,365,True,113.85077953180645,0.07752308931443973,True,31.8,0.821,status=success message=Success u=425 v=365
+107,custom,find the rubbish bin,470,462,400,368,True,117.2006825918689,0.07980409990732183,True,29.05,0.821,status=success message=Success u=400 v=368
+108,custom,find the rubbish bin,429,458,400,368,True,94.5568612000208,0.0643855055384528,True,23.0,0.835,status=success message=Success u=400 v=368
+109,custom,find the rubbish bin,385,467,350,340,True,131.73458164050928,0.08970049902437864,False,26.71,0.877,status=success message=Success u=350 v=340
+110,custom,find the rubbish bin,386,466,325,368,True,115.43396380615195,0.07860110859903333,True,21.2,0.924,status=success message=Success u=325 v=368
+111,custom,find the rubbish bin,418,465,325,365,True,136.56134152826706,0.09298712858824092,True,24.4,0.826,status=success message=Success u=325 v=365
+112,custom,find the rubbish bin,418,470,400,368,True,103.57605900979242,0.07052684317554987,True,24.45,0.829,status=success message=Success u=400 v=368
+113,custom,find the rubbish bin,496,475,475,408,True,70.21395872616783,0.047809975617500514,True,22.39,0.853,status=success message=Success u=475 v=408
+114,custom,find the rubbish bin,537,479,492,408,True,84.05950273467003,0.05723766112999418,True,31.15,0.85,status=success message=Success u=492 v=408
+115,custom,find the rubbish bin,544,465,522,432,True,39.66106403010388,0.027005947800756977,True,16.17,0.842,status=success message=Success u=522 v=432
+116,custom,find the rubbish bin,556,455,522,408,True,58.008620049092706,0.03949913607589209,True,26.38,0.863,status=success message=Success u=522 v=408
+117,custom,find the rubbish bin,544,458,492,410,True,70.76722405181653,0.04818670415138696,True,26.92,0.918,status=success message=Success u=492 v=410
+118,custom,find the rubbish bin,544,457,535,418,True,40.024992192379,0.027253753178498923,True,16.38,0.844,status=success message=Success u=535 v=418
+119,custom,find the rubbish bin,545,457,522,410,True,52.32590180780452,0.035629668729424725,True,22.63,0.895,status=success message=Success u=522 v=410
+120,custom,find the rubbish bin,545,457,492,400,True,77.83315488916018,0.05299802638954533,True,30.47,0.831,status=success message=Success u=492 v=400
+121,custom,find the rubbish bin,545,457,492,400,True,77.83315488916018,0.05299802638954533,True,30.47,0.838,status=success message=Success u=492 v=400
+122,custom,find the rubbish bin,532,455,485,400,True,72.34638899074369,0.049261986596585164,True,26.87,0.831,status=success message=Success u=485 v=400
+123,custom,find the rubbish bin,494,460,410,348,True,140.0,0.09532857437299758,False,37.4,0.852,status=success message=Success u=410 v=348
+124,custom,find the rubbish bin,433,462,350,348,True,141.01418368376991,0.09601915069247001,False,28.6,0.847,status=success message=Success u=350 v=348
+125,custom,find the rubbish bin,1046,533,1015,448,True,90.47651629014017,0.06160712365838824,True,9.87,0.829,status=fail message=Inferred u=1015 v=448
+126,custom,find the right person,890,507,960,240,True,276.0235497199469,0.18794951062983395,False,51.01,0.828,status=fail message=Inferred u=960 v=240
+127,custom,find the right person,315,567,948,210,True,726.7310369043007,0.494844526433552,False,173.47,0.819,status=fail message=Inferred u=948 v=210
+128,custom,find the right person,398,600,115,268,True,436.2487822332574,0.2970498177303764,False,54.7,0.814,status=success message=Success u=115 v=268
+129,custom,find the right person,281,409,242,325,True,92.61209424259879,0.06306127795603314,False,12.8,0.889,status=success message=Success u=242 v=325
+130,custom,find the right person,360,398,340,350,True,52.0,0.035407756195684814,False,9.64,0.854,status=success message=Success u=340 v=350
+131,custom,find the right person,373,384,348,265,True,121.59769734661919,0.08279810810780312,False,23.16,0.835,status=success message=Success u=348 v=265
+132,custom,find the right person,367,381,335,265,True,120.33287165193059,0.08193686503419598,False,21.7,0.858,status=success message=Success u=335 v=265
+133,custom,find the right person,246,382,175,232,True,165.9548131269473,0.11300168389806507,False,18.59,0.792,status=success message=Success u=175 v=232
+134,custom,find the right person,1156,500,1150,432,True,68.26419266350405,0.04648234405239629,True,7.14,0.849,status=fail message=Inferred u=1150 v=432
+135,custom,Move forward safely,1127,478,948,260,True,282.07268566807386,0.19206847853071532,False,31.61,0.85,status=fail message=Inferred u=948 v=260
+136,custom,Move forward safely,565,457,600,348,True,114.48143954370944,0.0779525173133595,False,68.99,0.842,status=fail message=Inferred u=600 v=348
+137,custom,Move forward safely,967,595,950,365,True,230.62740513651016,0.15703844102148037,True,34.78,0.852,status=success message=Success u=950 v=365
+138,custom,Move forward safely,803,532,600,360,True,266.0695397823659,0.18117164222523216,False,133.46,0.828,status=fail message=Inferred u=600 v=360
+139,custom,Move forward safely,754,534,658,368,True,191.7602670002313,0.13057309196083872,True,32.81,0.846,status=fail message=Inferred u=658 v=368
+140,custom,Move forward safely,754,534,650,358,True,204.4309174268902,0.13920077082906734,False,68.08,0.843,status=fail message=Inferred u=650 v=358
+141,custom,Move forward safely,754,534,640,360,True,208.0192298803166,0.14164411876185315,True,56.77,0.845,status=fail message=Inferred u=640 v=360
+142,custom,Move forward safely,754,534,640,360,True,208.0192298803166,0.14164411876185315,True,56.77,0.843,status=fail message=Inferred u=640 v=360
+143,custom,Move forward safely,754,535,640,360,True,208.85641000457707,0.14221417010284715,True,56.92,0.845,status=fail message=Inferred u=640 v=360
+144,custom,Move forward safely,636,515,960,265,True,409.2383168766092,0.27865789519037276,False,108.01,0.845,status=fail message=Inferred u=960 v=265
+145,custom,Move forward safely,638,522,948,215,True,436.2900411423575,0.29707791168026715,False,115.92,0.823,status=success message=Success u=948 v=215
+146,custom,Move forward safely,667,539,640,360,True,181.02486017119307,0.12326315604422189,True,81.42,0.846,status=fail message=Inferred u=640 v=360
+147,custom,Move forward safely,667,546,960,360,True,347.0518693221519,0.23631399954260424,True,81.74,0.835,status=fail message=Inferred u=960 v=360
+148,custom,Move forward safely,856,497,948,210,True,301.38513566531446,0.2052186808584778,False,58.35,0.858,status=fail message=Inferred u=948 v=210
+149,custom,find the trash bin,869,493,850,440,True,56.302753041036986,0.03833757986197864,True,9.29,0.851,status=success message=Success u=850 v=440
+150,custom,find the trash bin,665,463,600,408,True,85.14693182963201,0.05797811159681164,False,53.45,0.84,status=success message=Success u=600 v=408
+151,custom,find the trash bin,677,482,660,425,True,59.481089431852205,0.04050176755493745,True,0.23,0.854,status=success message=Success u=660 v=425
+152,custom,find the trash bin,677,483,660,425,True,60.440052945046304,0.04115474344485541,True,0.36,0.86,status=success message=Success u=660 v=425
+153,custom,find the trash bin,677,485,660,375,True,111.30588483993108,0.07579022372225482,True,36.64,0.844,status=success message=Success u=660 v=375
+154,custom,find the trash bin,720,498,760,418,True,89.44271909999159,0.06090319214176199,True,34.1,0.848,status=success message=Success u=760 v=418
+155,custom,find the trash bin,754,503,765,435,True,68.8839603971781,0.046904355298778656,True,20.47,0.851,status=success message=Success u=765 v=435
+156,custom,find the trash bin,1144,498,975,410,True,190.53870997778904,0.12974131132180483,True,6.82,0.842,status=fail message=Inferred u=975 v=410
+157,custom,find the trash bin,1202,477,975,365,True,253.12645061312736,0.17235845480747436,True,10.91,0.836,status=fail message=Inferred u=975 v=365
+158,custom,find the trash bin,830,450,760,265,True,197.80040444852483,0.13468593261771572,False,63.71,0.88,status=fail message=Inferred u=760 v=265
+159,custom,find the trash bin,906,451,760,440,True,146.4137971640651,0.09969584680133972,True,14.8,0.835,status=success message=Success u=760 v=440
+160,custom,find the trash bin,909,464,660,448,True,249.51352668743232,0.16989834847065577,True,56.06,0.837,status=success message=Success u=660 v=448
+161,custom,find the trash bin,731,447,760,422,True,38.28837943815329,0.02607126162065391,True,16.39,0.837,status=success message=Success u=760 v=422
+162,custom,find the trash bin,671,490,660,342,True,148.4082207965583,0.1010538865269211,False,118.57,0.858,status=success message=Success u=660 v=342
+163,custom,find the trash bin,582,470,510,348,True,141.66156853571826,0.09645996694251936,False,67.47,0.84,status=success message=Success u=510 v=348
+164,custom,find the trash bin,258,422,190,335,True,110.42191811411355,0.07518831452393086,False,12.4,0.824,status=success message=Success u=190 v=335
+165,custom,find the trash bin,99,432,85,400,True,34.92849839314596,0.023783456834343863,True,3.46,0.812,status=fail message=Inferred u=85 v=400
+166,custom,find the trash bin,635,327,1015,342,True,380.2959373961284,0.25895049679868326,False,95.87,0.837,status=fail message=Inferred u=1015 v=342
+167,custom,find the elevator,149,276,260,340,True,128.1288414058287,0.08724528419486823,True,6.7,0.853,status=success message=Success u=260 v=340
+168,custom,find the elevator,491,467,760,440,True,270.3516228913746,0.18408739135472138,False,110.63,0.838,status=fail message=Inferred u=760 v=440
+169,custom,Move forward safely,484,477,600,348,True,173.4848696572701,0.11812903785509188,False,53.57,0.847,status=fail message=Inferred u=600 v=348
+170,custom,Move forward safely,484,477,960,225,True,538.5907537267976,0.3667363480232418,False,166.0,0.834,status=fail message=Inferred u=960 v=225
+171,custom,Move forward safely,484,476,960,422,True,479.0532329501597,0.3261961553279588,False,132.4,0.848,status=fail message=Inferred u=960 v=422
+172,custom,Move forward safely,484,476,965,242,True,534.8990558974656,0.3642226030869124,False,163.32,0.843,status=fail message=Inferred u=965 v=242
+173,custom,Move forward safely,902,461,948,215,True,250.26386075500395,0.17040926473469217,False,46.29,0.819,status=success message=Success u=948 v=215

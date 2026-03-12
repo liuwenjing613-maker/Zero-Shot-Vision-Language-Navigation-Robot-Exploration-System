@@ -1,0 +1,28 @@
+{
+  "total_samples": 78,
+  "valid_predictions": 78,
+  "failed_predictions": 0,
+  "parse_success_rate": 100.0,
+  "mean_pixel_dist": 55.25,
+  "median_pixel_dist": 37.95,
+  "std_pixel_dist": 53.04,
+  "min_pixel_dist": 5.83,
+  "max_pixel_dist": 303.53,
+  "mean_norm_dist": 0.0691,
+  "median_norm_dist": 0.0474,
+  "success_rates_px": {
+    "SR@50px": 64.1,
+    "SR@100px": 89.74,
+    "SR@200px": 97.44
+  },
+  "success_rates_norm": {
+    "NSR@0.05": 51.28,
+    "NSR@0.1": 79.49,
+    "NSR@0.2": 92.31
+  },
+  "directional_accuracy": 62.82,
+  "mean_angle_diff_deg": 43.57,
+  "model_name": "http://127.0.0.1:5000/plan",
+  "eval_timestamp": "20260312_170357",
+  "data_json": "/root/autodl-tmp/.autodl/eval_s2/annotation/data.json"
+}

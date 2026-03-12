@@ -1,0 +1,282 @@
+[
+  {
+    "id": 1,
+    "scene_id": "2azQ1b91cZZ",
+    "image_path": "/home/abc/InternVLA/annotation/frames/frame_0001.jpg",
+    "image_width": 640,
+    "image_height": 480,
+    "instruction": "navigable direction",
+    "pixel_goal": {
+      "x": 190,
+      "y": 332,
+      "x_norm": 0.296875,
+      "y_norm": 0.691667
+    },
+    "agent_state": {
+      "position": [
+        4.364202499389648,
+        0.12710899114608765,
+        4.475686550140381
+      ],
+      "rotation": [
+        0.0,
+        -0.6427876353263855,
+        0.0,
+        0.7660444974899292
+      ]
+    },
+    "timestamp": "2026-03-01T20:12:34.347786"
+  },
+  {
+    "id": 2,
+    "scene_id": "2azQ1b91cZZ",
+    "image_path": "/home/abc/InternVLA/annotation/frames/frame_0002.jpg",
+    "image_width": 640,
+    "image_height": 480,
+    "instruction": "find the hallway",
+    "pixel_goal": {
+      "x": 154,
+      "y": 259,
+      "x_norm": 0.240625,
+      "y_norm": 0.539583
+    },
+    "agent_state": {
+      "position": [
+        5.8632402420043945,
+        0.12710899114608765,
+        2.4892032146453857
+      ],
+      "rotation": [
+        0.0,
+        -4.470348002882929e-08,
+        0.0,
+        1.0
+      ]
+    },
+    "timestamp": "2026-03-01T20:13:18.583810"
+  },
+  {
+    "id": 3,
+    "scene_id": "2azQ1b91cZZ",
+    "image_path": "/home/abc/InternVLA/annotation/frames/frame_0003.jpg",
+    "image_width": 640,
+    "image_height": 480,
+    "instruction": "find the fireplace",
+    "pixel_goal": {
+      "x": 315,
+      "y": 261,
+      "x_norm": 0.492188,
+      "y_norm": 0.54375
+    },
+    "agent_state": {
+      "position": [
+        -0.5256850719451904,
+        0.12710899114608765,
+        1.190943956375122
+      ],
+      "rotation": [
+        0.0,
+        0.8987941741943359,
+        0.0,
+        0.43837103247642517
+      ]
+    },
+    "timestamp": "2026-03-01T20:13:59.823835"
+  },
+  {
+    "id": 4,
+    "scene_id": "2azQ1b91cZZ",
+    "image_path": "/home/abc/InternVLA/annotation/frames/frame_0004.jpg",
+    "image_width": 640,
+    "image_height": 480,
+    "instruction": "explore the other room",
+    "pixel_goal": {
+      "x": 336,
+      "y": 245,
+      "x_norm": 0.525,
+      "y_norm": 0.510417
+    },
+    "agent_state": {
+      "position": [
+        -0.9984914660453796,
+        0.12710899114608765,
+        1.5603410005569458
+      ],
+      "rotation": [
+        0.0,
+        0.6427878737449646,
+        0.0,
+        0.7660443186759949
+      ]
+    },
+    "timestamp": "2026-03-01T20:14:26.702503"
+  },
+  {
+    "id": 5,
+    "scene_id": "2azQ1b91cZZ",
+    "image_path": "/home/abc/InternVLA/annotation/frames/frame_0005.jpg",
+    "image_width": 640,
+    "image_height": 480,
+    "instruction": "find flowers beside the window",
+    "pixel_goal": {
+      "x": 308,
+      "y": 201,
+      "x_norm": 0.48125,
+      "y_norm": 0.41875
+    },
+    "agent_state": {
+      "position": [
+        -3.747480630874634,
+        0.12710899114608765,
+        1.2867662906646729
+      ],
+      "rotation": [
+        0.0,
+        0.8660256266593933,
+        0.0,
+        0.4999997615814209
+      ]
+    },
+    "timestamp": "2026-03-01T20:15:14.631308"
+  },
+  {
+    "id": 6,
+    "scene_id": "2azQ1b91cZZ",
+    "image_path": "/home/abc/InternVLA/annotation/frames/frame_0006.jpg",
+    "image_width": 640,
+    "image_height": 480,
+    "instruction": "find the fireplace",
+    "pixel_goal": {
+      "x": 112,
+      "y": 301,
+      "x_norm": 0.175,
+      "y_norm": 0.627083
+    },
+    "agent_state": {
+      "position": [
+        -4.579232215881348,
+        0.12710899114608765,
+        1.8306348323822021
+      ],
+      "rotation": [
+        0.0,
+        0.9510565996170044,
+        0.0,
+        0.30901673436164856
+      ]
+    },
+    "timestamp": "2026-03-01T20:15:28.818668"
+  },
+  {
+    "id": 7,
+    "scene_id": "2azQ1b91cZZ",
+    "image_path": "/home/abc/InternVLA/annotation/frames/frame_0007.jpg",
+    "image_width": 640,
+    "image_height": 480,
+    "instruction": "explore outside",
+    "pixel_goal": {
+      "x": 478,
+      "y": 262,
+      "x_norm": 0.746875,
+      "y_norm": 0.545833
+    },
+    "agent_state": {
+      "position": [
+        5.009559154510498,
+        0.12710899114608765,
+        6.831760406494141
+      ],
+      "rotation": [
+        0.0,
+        -0.8987936973571777,
+        0.0,
+        0.43837201595306396
+      ]
+    },
+    "timestamp": "2026-03-01T20:16:13.984378"
+  },
+  {
+    "id": 8,
+    "scene_id": "2azQ1b91cZZ",
+    "image_path": "/home/abc/InternVLA/annotation/frames/frame_0008.jpg",
+    "image_width": 640,
+    "image_height": 480,
+    "instruction": "find the oil painting",
+    "pixel_goal": {
+      "x": 303,
+      "y": 121,
+      "x_norm": 0.473438,
+      "y_norm": 0.252083
+    },
+    "agent_state": {
+      "position": [
+        3.2164883613586426,
+        0.12710899114608765,
+        6.713446140289307
+      ],
+      "rotation": [
+        0.0,
+        -0.7431456446647644,
+        0.0,
+        -0.6691297292709351
+      ]
+    },
+    "timestamp": "2026-03-01T20:16:39.286875"
+  },
+  {
+    "id": 9,
+    "scene_id": "2azQ1b91cZZ",
+    "image_path": "/home/abc/InternVLA/annotation/frames/frame_0009.jpg",
+    "image_width": 640,
+    "image_height": 480,
+    "instruction": "find the flowers",
+    "pixel_goal": {
+      "x": 300,
+      "y": 243,
+      "x_norm": 0.46875,
+      "y_norm": 0.50625
+    },
+    "agent_state": {
+      "position": [
+        6.282467365264893,
+        0.12710899114608765,
+        1.473583698272705
+      ],
+      "rotation": [
+        0.0,
+        0.7431440353393555,
+        0.0,
+        -0.6691315770149231
+      ]
+    },
+    "timestamp": "2026-03-01T20:17:18.294342"
+  },
+  {
+    "id": 10,
+    "scene_id": "2azQ1b91cZZ",
+    "image_path": "/home/abc/InternVLA/annotation/frames/frame_0010.jpg",
+    "image_width": 640,
+    "image_height": 480,
+    "instruction": "where should I go",
+    "pixel_goal": {
+      "x": 369,
+      "y": 287,
+      "x_norm": 0.576562,
+      "y_norm": 0.597917
+    },
+    "agent_state": {
+      "position": [
+        14.333342552185059,
+        0.12710899114608765,
+        7.679821968078613
+      ],
+      "rotation": [
+        0.0,
+        0.8290368914604187,
+        0.0,
+        -0.5591939687728882
+      ]
+    },
+    "timestamp": "2026-03-01T20:17:45.765154"
+  }
+]

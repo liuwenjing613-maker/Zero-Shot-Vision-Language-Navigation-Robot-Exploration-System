@@ -1,0 +1,1542 @@
+[
+  {
+    "id": 1,
+    "scene_id": "2azQ1b91cZZ",
+    "image_path": "/home/abc/InternVLA/annotation/frames/frame_0001.jpg",
+    "image_width": 640,
+    "image_height": 480,
+    "instruction": "navigable direction",
+    "pixel_goal": {
+      "x": 190,
+      "y": 332,
+      "x_norm": 0.296875,
+      "y_norm": 0.691667
+    },
+    "agent_state": {
+      "position": [
+        4.364202499389648,
+        0.12710899114608765,
+        4.475686550140381
+      ],
+      "rotation": [
+        0.0,
+        -0.6427876353263855,
+        0.0,
+        0.7660444974899292
+      ]
+    },
+    "timestamp": "2026-03-01T20:12:34.347786"
+  },
+  {
+    "id": 2,
+    "scene_id": "2azQ1b91cZZ",
+    "image_path": "/home/abc/InternVLA/annotation/frames/frame_0002.jpg",
+    "image_width": 640,
+    "image_height": 480,
+    "instruction": "find the hallway",
+    "pixel_goal": {
+      "x": 154,
+      "y": 259,
+      "x_norm": 0.240625,
+      "y_norm": 0.539583
+    },
+    "agent_state": {
+      "position": [
+        5.8632402420043945,
+        0.12710899114608765,
+        2.4892032146453857
+      ],
+      "rotation": [
+        0.0,
+        -4.470348002882929e-08,
+        0.0,
+        1.0
+      ]
+    },
+    "timestamp": "2026-03-01T20:13:18.583810"
+  },
+  {
+    "id": 3,
+    "scene_id": "2azQ1b91cZZ",
+    "image_path": "/home/abc/InternVLA/annotation/frames/frame_0003.jpg",
+    "image_width": 640,
+    "image_height": 480,
+    "instruction": "find the fireplace",
+    "pixel_goal": {
+      "x": 315,
+      "y": 261,
+      "x_norm": 0.492188,
+      "y_norm": 0.54375
+    },
+    "agent_state": {
+      "position": [
+        -0.5256850719451904,
+        0.12710899114608765,
+        1.190943956375122
+      ],
+      "rotation": [
+        0.0,
+        0.8987941741943359,
+        0.0,
+        0.43837103247642517
+      ]
+    },
+    "timestamp": "2026-03-01T20:13:59.823835"
+  },
+  {
+    "id": 4,
+    "scene_id": "2azQ1b91cZZ",
+    "image_path": "/home/abc/InternVLA/annotation/frames/frame_0004.jpg",
+    "image_width": 640,
+    "image_height": 480,
+    "instruction": "explore the other room",
+    "pixel_goal": {
+      "x": 336,
+      "y": 245,
+      "x_norm": 0.525,
+      "y_norm": 0.510417
+    },
+    "agent_state": {
+      "position": [
+        -0.9984914660453796,
+        0.12710899114608765,
+        1.5603410005569458
+      ],
+      "rotation": [
+        0.0,
+        0.6427878737449646,
+        0.0,
+        0.7660443186759949
+      ]
+    },
+    "timestamp": "2026-03-01T20:14:26.702503"
+  },
+  {
+    "id": 5,
+    "scene_id": "2azQ1b91cZZ",
+    "image_path": "/home/abc/InternVLA/annotation/frames/frame_0005.jpg",
+    "image_width": 640,
+    "image_height": 480,
+    "instruction": "find flowers beside the window",
+    "pixel_goal": {
+      "x": 308,
+      "y": 201,
+      "x_norm": 0.48125,
+      "y_norm": 0.41875
+    },
+    "agent_state": {
+      "position": [
+        -3.747480630874634,
+        0.12710899114608765,
+        1.2867662906646729
+      ],
+      "rotation": [
+        0.0,
+        0.8660256266593933,
+        0.0,
+        0.4999997615814209
+      ]
+    },
+    "timestamp": "2026-03-01T20:15:14.631308"
+  },
+  {
+    "id": 6,
+    "scene_id": "2azQ1b91cZZ",
+    "image_path": "/home/abc/InternVLA/annotation/frames/frame_0006.jpg",
+    "image_width": 640,
+    "image_height": 480,
+    "instruction": "find the fireplace",
+    "pixel_goal": {
+      "x": 112,
+      "y": 301,
+      "x_norm": 0.175,
+      "y_norm": 0.627083
+    },
+    "agent_state": {
+      "position": [
+        -4.579232215881348,
+        0.12710899114608765,
+        1.8306348323822021
+      ],
+      "rotation": [
+        0.0,
+        0.9510565996170044,
+        0.0,
+        0.30901673436164856
+      ]
+    },
+    "timestamp": "2026-03-01T20:15:28.818668"
+  },
+  {
+    "id": 7,
+    "scene_id": "2azQ1b91cZZ",
+    "image_path": "/home/abc/InternVLA/annotation/frames/frame_0007.jpg",
+    "image_width": 640,
+    "image_height": 480,
+    "instruction": "explore outside",
+    "pixel_goal": {
+      "x": 478,
+      "y": 262,
+      "x_norm": 0.746875,
+      "y_norm": 0.545833
+    },
+    "agent_state": {
+      "position": [
+        5.009559154510498,
+        0.12710899114608765,
+        6.831760406494141
+      ],
+      "rotation": [
+        0.0,
+        -0.8987936973571777,
+        0.0,
+        0.43837201595306396
+      ]
+    },
+    "timestamp": "2026-03-01T20:16:13.984378"
+  },
+  {
+    "id": 8,
+    "scene_id": "2azQ1b91cZZ",
+    "image_path": "/home/abc/InternVLA/annotation/frames/frame_0008.jpg",
+    "image_width": 640,
+    "image_height": 480,
+    "instruction": "find the oil painting",
+    "pixel_goal": {
+      "x": 303,
+      "y": 121,
+      "x_norm": 0.473438,
+      "y_norm": 0.252083
+    },
+    "agent_state": {
+      "position": [
+        3.2164883613586426,
+        0.12710899114608765,
+        6.713446140289307
+      ],
+      "rotation": [
+        0.0,
+        -0.7431456446647644,
+        0.0,
+        -0.6691297292709351
+      ]
+    },
+    "timestamp": "2026-03-01T20:16:39.286875"
+  },
+  {
+    "id": 9,
+    "scene_id": "2azQ1b91cZZ",
+    "image_path": "/home/abc/InternVLA/annotation/frames/frame_0009.jpg",
+    "image_width": 640,
+    "image_height": 480,
+    "instruction": "find the flowers",
+    "pixel_goal": {
+      "x": 300,
+      "y": 243,
+      "x_norm": 0.46875,
+      "y_norm": 0.50625
+    },
+    "agent_state": {
+      "position": [
+        6.282467365264893,
+        0.12710899114608765,
+        1.473583698272705
+      ],
+      "rotation": [
+        0.0,
+        0.7431440353393555,
+        0.0,
+        -0.6691315770149231
+      ]
+    },
+    "timestamp": "2026-03-01T20:17:18.294342"
+  },
+  {
+    "id": 10,
+    "scene_id": "2azQ1b91cZZ",
+    "image_path": "/home/abc/InternVLA/annotation/frames/frame_0010.jpg",
+    "image_width": 640,
+    "image_height": 480,
+    "instruction": "where should I go",
+    "pixel_goal": {
+      "x": 369,
+      "y": 287,
+      "x_norm": 0.576562,
+      "y_norm": 0.597917
+    },
+    "agent_state": {
+      "position": [
+        14.333342552185059,
+        0.12710899114608765,
+        7.679821968078613
+      ],
+      "rotation": [
+        0.0,
+        0.8290368914604187,
+        0.0,
+        -0.5591939687728882
+      ]
+    },
+    "timestamp": "2026-03-01T20:17:45.765154"
+  },
+  {
+    "id": 11,
+    "scene_id": "2azQ1b91cZZ",
+    "image_path": "/home/abc/InternVLA/annotation/frames/frame_0011.jpg",
+    "image_width": 640,
+    "image_height": 480,
+    "instruction": "find the chair",
+    "pixel_goal": {
+      "x": 266,
+      "y": 256,
+      "x_norm": 0.415625,
+      "y_norm": 0.533333
+    },
+    "agent_state": {
+      "position": [
+        15.120052337646484,
+        0.12710899114608765,
+        10.657133102416992
+      ],
+      "rotation": [
+        0.0,
+        0.6946574449539185,
+        0.0,
+        -0.7193408012390137
+      ]
+    },
+    "timestamp": "2026-03-01T20:18:13.869013"
+  },
+  {
+    "id": 12,
+    "scene_id": "2azQ1b91cZZ",
+    "image_path": "/home/abc/InternVLA/annotation/frames/frame_0012.jpg",
+    "image_width": 640,
+    "image_height": 480,
+    "instruction": "find the fireplace",
+    "pixel_goal": {
+      "x": 335,
+      "y": 240,
+      "x_norm": 0.523438,
+      "y_norm": 0.5
+    },
+    "agent_state": {
+      "position": [
+        15.689477920532227,
+        0.12710899114608765,
+        9.378165245056152
+      ],
+      "rotation": [
+        0.0,
+        0.46947041153907776,
+        0.0,
+        -0.8829482793807983
+      ]
+    },
+    "timestamp": "2026-03-01T20:18:31.778964"
+  },
+  {
+    "id": 13,
+    "scene_id": "2azQ1b91cZZ",
+    "image_path": "/home/abc/InternVLA/annotation/frames/frame_0013.jpg",
+    "image_width": 640,
+    "image_height": 480,
+    "instruction": "explore the next region",
+    "pixel_goal": {
+      "x": 349,
+      "y": 250,
+      "x_norm": 0.545312,
+      "y_norm": 0.520833
+    },
+    "agent_state": {
+      "position": [
+        15.844627380371094,
+        0.12710899114608765,
+        9.019314765930176
+      ],
+      "rotation": [
+        0.0,
+        -1.2814998626708984e-06,
+        0.0,
+        -1.0
+      ]
+    },
+    "timestamp": "2026-03-01T20:18:55.031005"
+  },
+  {
+    "id": 14,
+    "scene_id": "8194nk5LbLH",
+    "image_path": "/home/abc/InternVLA/annotation/frames/frame_0014.jpg",
+    "image_width": 640,
+    "image_height": 480,
+    "instruction": "find the painting",
+    "pixel_goal": {
+      "x": 508,
+      "y": 100,
+      "x_norm": 0.79375,
+      "y_norm": 0.208333
+    },
+    "agent_state": {
+      "position": [
+        2.8625988960266113,
+        0.098595529794693,
+        5.499659538269043
+      ],
+      "rotation": [
+        0.0,
+        -0.06975647062063217,
+        0.0,
+        0.9975640773773193
+      ]
+    },
+    "timestamp": "2026-03-01T20:19:47.272699"
+  },
+  {
+    "id": 15,
+    "scene_id": "8194nk5LbLH",
+    "image_path": "/home/abc/InternVLA/annotation/frames/frame_0015.jpg",
+    "image_width": 640,
+    "image_height": 480,
+    "instruction": "go up the stairs",
+    "pixel_goal": {
+      "x": 415,
+      "y": 251,
+      "x_norm": 0.648438,
+      "y_norm": 0.522917
+    },
+    "agent_state": {
+      "position": [
+        2.8625988960266113,
+        0.098595529794693,
+        5.499659538269043
+      ],
+      "rotation": [
+        0.0,
+        -0.6427875757217407,
+        0.0,
+        0.766044557094574
+      ]
+    },
+    "timestamp": "2026-03-01T20:20:13.603069"
+  },
+  {
+    "id": 16,
+    "scene_id": "8194nk5LbLH",
+    "image_path": "/home/abc/InternVLA/annotation/frames/frame_0016.jpg",
+    "image_width": 640,
+    "image_height": 480,
+    "instruction": "find the p\nlant",
+    "pixel_goal": {
+      "x": 295,
+      "y": 188,
+      "x_norm": 0.460938,
+      "y_norm": 0.391667
+    },
+    "agent_state": {
+      "position": [
+        1.9087432622909546,
+        0.098595529794693,
+        3.9731736183166504
+      ],
+      "rotation": [
+        0.0,
+        0.4067366123199463,
+        0.0,
+        0.9135454297065735
+      ]
+    },
+    "timestamp": "2026-03-01T20:20:33.442966"
+  },
+  {
+    "id": 17,
+    "scene_id": "8194nk5LbLH",
+    "image_path": "/home/abc/InternVLA/annotation/frames/frame_0017.jpg",
+    "image_width": 640,
+    "image_height": 480,
+    "instruction": "find the plant",
+    "pixel_goal": {
+      "x": 350,
+      "y": 170,
+      "x_norm": 0.546875,
+      "y_norm": 0.354167
+    },
+    "agent_state": {
+      "position": [
+        0.7157678604125977,
+        0.098595529794693,
+        4.028416156768799
+      ],
+      "rotation": [
+        0.0,
+        0.970295786857605,
+        0.0,
+        0.24192196130752563
+      ]
+    },
+    "timestamp": "2026-03-01T20:20:46.723115"
+  },
+  {
+    "id": 18,
+    "scene_id": "8194nk5LbLH",
+    "image_path": "/home/abc/InternVLA/annotation/frames/frame_0018.jpg",
+    "image_width": 640,
+    "image_height": 480,
+    "instruction": "where should I go",
+    "pixel_goal": {
+      "x": 335,
+      "y": 285,
+      "x_norm": 0.523438,
+      "y_norm": 0.59375
+    },
+    "agent_state": {
+      "position": [
+        -2.1019768714904785,
+        0.098595529794693,
+        4.232938766479492
+      ],
+      "rotation": [
+        0.0,
+        0.06975651532411575,
+        0.0,
+        0.9975640177726746
+      ]
+    },
+    "timestamp": "2026-03-01T20:21:04.164222"
+  },
+  {
+    "id": 19,
+    "scene_id": "8194nk5LbLH",
+    "image_path": "/home/abc/InternVLA/annotation/frames/frame_0019.jpg",
+    "image_width": 640,
+    "image_height": 480,
+    "instruction": "find the door",
+    "pixel_goal": {
+      "x": 342,
+      "y": 230,
+      "x_norm": 0.534375,
+      "y_norm": 0.479167
+    },
+    "agent_state": {
+      "position": [
+        -4.235699653625488,
+        0.098595529794693,
+        -2.4220871925354004
+      ],
+      "rotation": [
+        0.0,
+        0.6427876353263855,
+        0.0,
+        0.7660444974899292
+      ]
+    },
+    "timestamp": "2026-03-01T20:21:20.264829"
+  },
+  {
+    "id": 20,
+    "scene_id": "8194nk5LbLH",
+    "image_path": "/home/abc/InternVLA/annotation/frames/frame_0020.jpg",
+    "image_width": 640,
+    "image_height": 480,
+    "instruction": "find the green ball",
+    "pixel_goal": {
+      "x": 249,
+      "y": 292,
+      "x_norm": 0.389062,
+      "y_norm": 0.608333
+    },
+    "agent_state": {
+      "position": [
+        7.237286567687988,
+        2.9306640625,
+        0.5045351982116699
+      ],
+      "rotation": [
+        0.0,
+        -0.6427874565124512,
+        0.0,
+        -0.7660446166992188
+      ]
+    },
+    "timestamp": "2026-03-01T20:22:01.456527"
+  },
+  {
+    "id": 21,
+    "scene_id": "8194nk5LbLH",
+    "image_path": "/home/abc/InternVLA/annotation/frames/frame_0021.jpg",
+    "image_width": 640,
+    "image_height": 480,
+    "instruction": "find the blue rubbish bin",
+    "pixel_goal": {
+      "x": 335,
+      "y": 272,
+      "x_norm": 0.523438,
+      "y_norm": 0.566667
+    },
+    "agent_state": {
+      "position": [
+        5.958539009094238,
+        2.8985955715179443,
+        -0.3990793824195862
+      ],
+      "rotation": [
+        0.0,
+        -0.1391730010509491,
+        0.0,
+        -0.9902681708335876
+      ]
+    },
+    "timestamp": "2026-03-01T20:22:23.084119"
+  },
+  {
+    "id": 22,
+    "scene_id": "8194nk5LbLH",
+    "image_path": "/home/abc/InternVLA/annotation/frames/frame_0022.jpg",
+    "image_width": 640,
+    "image_height": 480,
+    "instruction": "find the green ball",
+    "pixel_goal": {
+      "x": 377,
+      "y": 256,
+      "x_norm": 0.589063,
+      "y_norm": 0.533333
+    },
+    "agent_state": {
+      "position": [
+        6.812355041503906,
+        2.8985955715179443,
+        2.2072036266326904
+      ],
+      "rotation": [
+        0.0,
+        -0.9510564804077148,
+        0.0,
+        -0.30901727080345154
+      ]
+    },
+    "timestamp": "2026-03-01T20:22:53.776412"
+  },
+  {
+    "id": 23,
+    "scene_id": "8194nk5LbLH",
+    "image_path": "/home/abc/InternVLA/annotation/frames/frame_0023.jpg",
+    "image_width": 640,
+    "image_height": 480,
+    "instruction": "find the photo on the\n wall",
+    "pixel_goal": {
+      "x": 291,
+      "y": 128,
+      "x_norm": 0.454688,
+      "y_norm": 0.266667
+    },
+    "agent_state": {
+      "position": [
+        7.024322509765625,
+        3.0323662757873535,
+        1.8679845333099365
+      ],
+      "rotation": [
+        0.0,
+        0.13917326927185059,
+        0.0,
+        -0.9902681112289429
+      ]
+    },
+    "timestamp": "2026-03-01T20:23:25.569623"
+  },
+  {
+    "id": 24,
+    "scene_id": "EU6Fwq7SyZv",
+    "image_path": "/home/abc/InternVLA/annotation/frames/frame_0024.jpg",
+    "image_width": 640,
+    "image_height": 480,
+    "instruction": "find the chair closest to you",
+    "pixel_goal": {
+      "x": 350,
+      "y": 250,
+      "x_norm": 0.546875,
+      "y_norm": 0.520833
+    },
+    "agent_state": {
+      "position": [
+        7.54077672958374,
+        0.018062114715576172,
+        0.7311313152313232
+      ],
+      "rotation": [
+        0.0,
+        0.8987940549850464,
+        0.0,
+        -0.4383711516857147
+      ]
+    },
+    "timestamp": "2026-03-01T20:24:56.614355"
+  },
+  {
+    "id": 25,
+    "scene_id": "EU6Fwq7SyZv",
+    "image_path": "/home/abc/InternVLA/annotation/frames/frame_0025.jpg",
+    "image_width": 640,
+    "image_height": 480,
+    "instruction": "where should I go if I want to rest",
+    "pixel_goal": {
+      "x": 200,
+      "y": 325,
+      "x_norm": 0.3125,
+      "y_norm": 0.677083
+    },
+    "agent_state": {
+      "position": [
+        9.266737937927246,
+        0.0628400444984436,
+        1.631844401359558
+      ],
+      "rotation": [
+        0.0,
+        0.9271838665008545,
+        0.0,
+        0.3746066093444824
+      ]
+    },
+    "timestamp": "2026-03-01T20:25:39.608529"
+  },
+  {
+    "id": 26,
+    "scene_id": "EU6Fwq7SyZv",
+    "image_path": "/home/abc/InternVLA/annotation/frames/frame_0026.jpg",
+    "image_width": 640,
+    "image_height": 480,
+    "instruction": "go up the stairs",
+    "pixel_goal": {
+      "x": 332,
+      "y": 272,
+      "x_norm": 0.51875,
+      "y_norm": 0.566667
+    },
+    "agent_state": {
+      "position": [
+        2.0172348022460938,
+        0.018062114715576172,
+        0.836902379989624
+      ],
+      "rotation": [
+        0.0,
+        0.9993908405303955,
+        0.0,
+        0.034899432212114334
+      ]
+    },
+    "timestamp": "2026-03-01T20:26:06.757063"
+  },
+  {
+    "id": 27,
+    "scene_id": "EU6Fwq7SyZv",
+    "image_path": "/home/abc/InternVLA/annotation/frames/frame_0027.jpg",
+    "image_width": 640,
+    "image_height": 480,
+    "instruction": "go into the room",
+    "pixel_goal": {
+      "x": 322,
+      "y": 264,
+      "x_norm": 0.503125,
+      "y_norm": 0.55
+    },
+    "agent_state": {
+      "position": [
+        -1.401626467704773,
+        -2.3819379806518555,
+        7.437840461730957
+      ],
+      "rotation": [
+        0.0,
+        -0.3420201539993286,
+        0.0,
+        0.9396926760673523
+      ]
+    },
+    "timestamp": "2026-03-01T20:26:57.409777"
+  },
+  {
+    "id": 28,
+    "scene_id": "EU6Fwq7SyZv",
+    "image_path": "/home/abc/InternVLA/annotation/frames/frame_0028.jpg",
+    "image_width": 640,
+    "image_height": 480,
+    "instruction": "find the cabinet",
+    "pixel_goal": {
+      "x": 366,
+      "y": 160,
+      "x_norm": 0.571875,
+      "y_norm": 0.333333
+    },
+    "agent_state": {
+      "position": [
+        5.246982574462891,
+        0.018062114715576172,
+        8.20644760131836
+      ],
+      "rotation": [
+        0.0,
+        0.8660256862640381,
+        0.0,
+        -0.49999961256980896
+      ]
+    },
+    "timestamp": "2026-03-01T20:33:16.726202"
+  },
+  {
+    "id": 29,
+    "scene_id": "EU6Fwq7SyZv",
+    "image_path": "/home/abc/InternVLA/annotation/frames/frame_0029.jpg",
+    "image_width": 640,
+    "image_height": 480,
+    "instruction": "find the single sofa",
+    "pixel_goal": {
+      "x": 435,
+      "y": 241,
+      "x_norm": 0.679688,
+      "y_norm": 0.502083
+    },
+    "agent_state": {
+      "position": [
+        7.642755031585693,
+        0.0743427574634552,
+        7.620301246643066
+      ],
+      "rotation": [
+        0.0,
+        0.4694720506668091,
+        0.0,
+        -0.8829473853111267
+      ]
+    },
+    "timestamp": "2026-03-01T20:34:09.053543"
+  },
+  {
+    "id": 30,
+    "scene_id": "EU6Fwq7SyZv",
+    "image_path": "/home/abc/InternVLA/annotation/frames/frame_0030.jpg",
+    "image_width": 640,
+    "image_height": 480,
+    "instruction": "find the white door",
+    "pixel_goal": {
+      "x": 269,
+      "y": 223,
+      "x_norm": 0.420312,
+      "y_norm": 0.464583
+    },
+    "agent_state": {
+      "position": [
+        -1.4435213804244995,
+        -2.3819379806518555,
+        6.278905868530273
+      ],
+      "rotation": [
+        0.0,
+        -0.06975628435611725,
+        0.0,
+        -0.9975641369819641
+      ]
+    },
+    "timestamp": "2026-03-01T20:36:03.858755"
+  },
+  {
+    "id": 31,
+    "scene_id": "EU6Fwq7SyZv",
+    "image_path": "/home/abc/InternVLA/annotation/frames/frame_0031.jpg",
+    "image_width": 640,
+    "image_height": 480,
+    "instruction": "find the table",
+    "pixel_goal": {
+      "x": 268,
+      "y": 235,
+      "x_norm": 0.41875,
+      "y_norm": 0.489583
+    },
+    "agent_state": {
+      "position": [
+        -1.437698245048523,
+        -2.3819379806518555,
+        5.867932319641113
+      ],
+      "rotation": [
+        0.0,
+        0.9848078489303589,
+        0.0,
+        -0.17364811897277832
+      ]
+    },
+    "timestamp": "2026-03-01T20:36:51.679157"
+  },
+  {
+    "id": 32,
+    "scene_id": "EU6Fwq7SyZv",
+    "image_path": "/home/abc/InternVLA/annotation/frames/frame_0032.jpg",
+    "image_width": 640,
+    "image_height": 480,
+    "instruction": "I want to take a break",
+    "pixel_goal": {
+      "x": 335,
+      "y": 242,
+      "x_norm": 0.523438,
+      "y_norm": 0.504167
+    },
+    "agent_state": {
+      "position": [
+        -1.3184794187545776,
+        -2.3819379806518555,
+        6.5934858322143555
+      ],
+      "rotation": [
+        0.0,
+        0.0697566568851471,
+        0.0,
+        -0.9975640773773193
+      ]
+    },
+    "timestamp": "2026-03-01T20:37:31.660306"
+  },
+  {
+    "id": 33,
+    "scene_id": "oLBMNvg9in8",
+    "image_path": "/home/abc/InternVLA/annotation/frames/frame_0033.jpg",
+    "image_width": 640,
+    "image_height": 480,
+    "instruction": "go up the stairs",
+    "pixel_goal": {
+      "x": 258,
+      "y": 279,
+      "x_norm": 0.403125,
+      "y_norm": 0.58125
+    },
+    "agent_state": {
+      "position": [
+        0.06373545527458191,
+        -2.1900033950805664,
+        0.2414742410182953
+      ],
+      "rotation": [
+        0.0,
+        0.4694715142250061,
+        0.0,
+        0.8829476237297058
+      ]
+    },
+    "timestamp": "2026-03-01T20:38:52.194820"
+  },
+  {
+    "id": 34,
+    "scene_id": "oLBMNvg9in8",
+    "image_path": "/home/abc/InternVLA/annotation/frames/frame_0034.jpg",
+    "image_width": 640,
+    "image_height": 480,
+    "instruction": "find the left painting",
+    "pixel_goal": {
+      "x": 303,
+      "y": 114,
+      "x_norm": 0.473438,
+      "y_norm": 0.2375
+    },
+    "agent_state": {
+      "position": [
+        -1.8167706727981567,
+        0.009996652603149414,
+        3.0384771823883057
+      ],
+      "rotation": [
+        0.0,
+        -0.9945219159126282,
+        0.0,
+        0.10452861338853836
+      ]
+    },
+    "timestamp": "2026-03-01T20:39:39.854743"
+  },
+  {
+    "id": 35,
+    "scene_id": "oLBMNvg9in8",
+    "image_path": "/home/abc/InternVLA/annotation/frames/frame_0035.jpg",
+    "image_width": 640,
+    "image_height": 480,
+    "instruction": "I want to take a break",
+    "pixel_goal": {
+      "x": 119,
+      "y": 237,
+      "x_norm": 0.185938,
+      "y_norm": 0.49375
+    },
+    "agent_state": {
+      "position": [
+        -1.8167706727981567,
+        0.009996652603149414,
+        3.0384771823883057
+      ],
+      "rotation": [
+        0.0,
+        -0.8987940549850464,
+        0.0,
+        0.4383712708950043
+      ]
+    },
+    "timestamp": "2026-03-01T20:40:02.186955"
+  },
+  {
+    "id": 36,
+    "scene_id": "oLBMNvg9in8",
+    "image_path": "/home/abc/InternVLA/annotation/frames/frame_0036.jpg",
+    "image_width": 640,
+    "image_height": 480,
+    "instruction": "I want to explore the other region",
+    "pixel_goal": {
+      "x": 475,
+      "y": 250,
+      "x_norm": 0.742188,
+      "y_norm": 0.520833
+    },
+    "agent_state": {
+      "position": [
+        3.694409132003784,
+        0.009996652603149414,
+        3.9535794258117676
+      ],
+      "rotation": [
+        0.0,
+        0.5299192667007446,
+        0.0,
+        0.8480481505393982
+      ]
+    },
+    "timestamp": "2026-03-01T20:40:38.568510"
+  },
+  {
+    "id": 37,
+    "scene_id": "oLBMNvg9in8",
+    "image_path": "/home/abc/InternVLA/annotation/frames/frame_0037.jpg",
+    "image_width": 640,
+    "image_height": 480,
+    "instruction": "find the statue",
+    "pixel_goal": {
+      "x": 350,
+      "y": 202,
+      "x_norm": 0.546875,
+      "y_norm": 0.420833
+    },
+    "agent_state": {
+      "position": [
+        2.9753739833831787,
+        0.009996652603149414,
+        3.6028828620910645
+      ],
+      "rotation": [
+        0.0,
+        0.7431448101997375,
+        0.0,
+        0.6691306829452515
+      ]
+    },
+    "timestamp": "2026-03-01T20:41:27.198447"
+  },
+  {
+    "id": 38,
+    "scene_id": "oLBMNvg9in8",
+    "image_path": "/home/abc/InternVLA/annotation/frames/frame_0038.jpg",
+    "image_width": 640,
+    "image_height": 480,
+    "instruction": "find the table",
+    "pixel_goal": {
+      "x": 322,
+      "y": 242,
+      "x_norm": 0.503125,
+      "y_norm": 0.504167
+    },
+    "agent_state": {
+      "position": [
+        -0.28420424461364746,
+        0.009996652603149414,
+        -2.8840341567993164
+      ],
+      "rotation": [
+        0.0,
+        0.7431448698043823,
+        0.0,
+        -0.6691306233406067
+      ]
+    },
+    "timestamp": "2026-03-01T20:42:11.507461"
+  },
+  {
+    "id": 39,
+    "scene_id": "oLBMNvg9in8",
+    "image_path": "/home/abc/InternVLA/annotation/frames/frame_0039.jpg",
+    "image_width": 640,
+    "image_height": 480,
+    "instruction": "explore the next region",
+    "pixel_goal": {
+      "x": 147,
+      "y": 275,
+      "x_norm": 0.229687,
+      "y_norm": 0.572917
+    },
+    "agent_state": {
+      "position": [
+        0.16234348714351654,
+        3.0099966526031494,
+        -3.1631863117218018
+      ],
+      "rotation": [
+        0.0,
+        -0.9510564208030701,
+        0.0,
+        -0.3090173900127411
+      ]
+    },
+    "timestamp": "2026-03-01T20:43:23.886482"
+  },
+  {
+    "id": 40,
+    "scene_id": "oLBMNvg9in8",
+    "image_path": "/home/abc/InternVLA/annotation/frames/frame_0040.jpg",
+    "image_width": 640,
+    "image_height": 480,
+    "instruction": "move forward to the window",
+    "pixel_goal": {
+      "x": 237,
+      "y": 170,
+      "x_norm": 0.370312,
+      "y_norm": 0.354167
+    },
+    "agent_state": {
+      "position": [
+        0.16234348714351654,
+        3.0099966526031494,
+        -3.1631863117218018
+      ],
+      "rotation": [
+        0.0,
+        -0.6946581602096558,
+        0.0,
+        -0.7193400859832764
+      ]
+    },
+    "timestamp": "2026-03-01T20:43:58.260917"
+  },
+  {
+    "id": 41,
+    "scene_id": "oLBMNvg9in8",
+    "image_path": "/home/abc/InternVLA/annotation/frames/frame_0041.jpg",
+    "image_width": 640,
+    "image_height": 480,
+    "instruction": "find the toilet",
+    "pixel_goal": {
+      "x": 361,
+      "y": 257,
+      "x_norm": 0.564063,
+      "y_norm": 0.535417
+    },
+    "agent_state": {
+      "position": [
+        -0.3373227119445801,
+        3.0099966526031494,
+        2.3083906173706055
+      ],
+      "rotation": [
+        0.0,
+        0.7431443929672241,
+        0.0,
+        0.6691311597824097
+      ]
+    },
+    "timestamp": "2026-03-01T20:45:05.489622"
+  },
+  {
+    "id": 42,
+    "scene_id": "oLBMNvg9in8",
+    "image_path": "/home/abc/InternVLA/annotation/frames/frame_0042.jpg",
+    "image_width": 640,
+    "image_height": 480,
+    "instruction": "go outside the room",
+    "pixel_goal": {
+      "x": 269,
+      "y": 210,
+      "x_norm": 0.420312,
+      "y_norm": 0.4375
+    },
+    "agent_state": {
+      "position": [
+        3.9785847663879395,
+        3.0099966526031494,
+        4.080000877380371
+      ],
+      "rotation": [
+        0.0,
+        0.27563658356666565,
+        0.0,
+        0.9612619876861572
+      ]
+    },
+    "timestamp": "2026-03-01T20:45:52.258843"
+  },
+  {
+    "id": 43,
+    "scene_id": "oLBMNvg9in8",
+    "image_path": "/home/abc/InternVLA/annotation/frames/frame_0043.jpg",
+    "image_width": 640,
+    "image_height": 480,
+    "instruction": "find the door",
+    "pixel_goal": {
+      "x": 328,
+      "y": 190,
+      "x_norm": 0.5125,
+      "y_norm": 0.395833
+    },
+    "agent_state": {
+      "position": [
+        2.3484151363372803,
+        0.009996652603149414,
+        0.676343560218811
+      ],
+      "rotation": [
+        0.0,
+        0.6946585774421692,
+        0.0,
+        -0.7193396687507629
+      ]
+    },
+    "timestamp": "2026-03-01T20:46:40.788572"
+  },
+  {
+    "id": 44,
+    "scene_id": "pLe4wQe7qrG",
+    "image_path": "/home/abc/InternVLA/annotation/frames/frame_0044.jpg",
+    "image_width": 640,
+    "image_height": 480,
+    "instruction": "whe\nre to go",
+    "pixel_goal": {
+      "x": 187,
+      "y": 273,
+      "x_norm": 0.292187,
+      "y_norm": 0.56875
+    },
+    "agent_state": {
+      "position": [
+        0.09364667534828186,
+        0.07521793246269226,
+        -0.6547070741653442
+      ],
+      "rotation": [
+        0.0,
+        0.8987939357757568,
+        0.0,
+        -0.4383715093135834
+      ]
+    },
+    "timestamp": "2026-03-01T20:47:29.847835"
+  },
+  {
+    "id": 45,
+    "scene_id": "pLe4wQe7qrG",
+    "image_path": "/home/abc/InternVLA/annotation/frames/frame_0045.jpg",
+    "image_width": 640,
+    "image_height": 480,
+    "instruction": "find the midlle pillar",
+    "pixel_goal": {
+      "x": 355,
+      "y": 256,
+      "x_norm": 0.554688,
+      "y_norm": 0.533333
+    },
+    "agent_state": {
+      "position": [
+        7.23997688293457,
+        0.07521793246269226,
+        -0.4760458469390869
+      ],
+      "rotation": [
+        0.0,
+        -0.7880107164382935,
+        0.0,
+        -0.6156615018844604
+      ]
+    },
+    "timestamp": "2026-03-01T20:49:07.284769"
+  },
+  {
+    "id": 46,
+    "scene_id": "pLe4wQe7qrG",
+    "image_path": "/home/abc/InternVLA/annotation/frames/frame_0046.jpg",
+    "image_width": 640,
+    "image_height": 480,
+    "instruction": "where to go",
+    "pixel_goal": {
+      "x": 365,
+      "y": 300,
+      "x_norm": 0.570312,
+      "y_norm": 0.625
+    },
+    "agent_state": {
+      "position": [
+        6.559994697570801,
+        0.07521793246269226,
+        1.7674671411514282
+      ],
+      "rotation": [
+        0.0,
+        -0.7880107164382935,
+        0.0,
+        -0.6156615018844604
+      ]
+    },
+    "timestamp": "2026-03-01T20:49:18.607710"
+  },
+  {
+    "id": 47,
+    "scene_id": "pLe4wQe7qrG",
+    "image_path": "/home/abc/InternVLA/annotation/frames/frame_0047.jpg",
+    "image_width": 640,
+    "image_height": 480,
+    "instruction": "find the door",
+    "pixel_goal": {
+      "x": 312,
+      "y": 212,
+      "x_norm": 0.4875,
+      "y_norm": 0.441667
+    },
+    "agent_state": {
+      "position": [
+        4.663422584533691,
+        0.07521793246269226,
+        -0.510260820388794
+      ],
+      "rotation": [
+        0.0,
+        -0.7431448101997375,
+        0.0,
+        0.6691306829452515
+      ]
+    },
+    "timestamp": "2026-03-01T20:49:44.175821"
+  },
+  {
+    "id": 48,
+    "scene_id": "TbHJrupSAjP",
+    "image_path": "/home/abc/InternVLA/annotation/frames/frame_0048.jpg",
+    "image_width": 640,
+    "image_height": 480,
+    "instruction": "find the plant in the corner",
+    "pixel_goal": {
+      "x": 352,
+      "y": 183,
+      "x_norm": 0.55,
+      "y_norm": 0.38125
+    },
+    "agent_state": {
+      "position": [
+        1.1319060325622559,
+        -2.5756006240844727,
+        -9.622580528259277
+      ],
+      "rotation": [
+        0.0,
+        -0.13917340338230133,
+        0.0,
+        -0.9902680516242981
+      ]
+    },
+    "timestamp": "2026-03-01T20:56:37.385608"
+  },
+  {
+    "id": 49,
+    "scene_id": "TbHJrupSAjP",
+    "image_path": "/home/abc/InternVLA/annotation/frames/frame_0049.jpg",
+    "image_width": 640,
+    "image_height": 480,
+    "instruction": "find the painting on the wall",
+    "pixel_goal": {
+      "x": 284,
+      "y": 172,
+      "x_norm": 0.44375,
+      "y_norm": 0.358333
+    },
+    "agent_state": {
+      "position": [
+        1.1319060325622559,
+        -2.5756006240844727,
+        -9.622580528259277
+      ],
+      "rotation": [
+        0.0,
+        0.9271836876869202,
+        0.0,
+        -0.3746069669723511
+      ]
+    },
+    "timestamp": "2026-03-01T20:57:05.066441"
+  },
+  {
+    "id": 50,
+    "scene_id": "TbHJrupSAjP",
+    "image_path": "/home/abc/InternVLA/annotation/frames/frame_0050.jpg",
+    "image_width": 640,
+    "image_height": 480,
+    "instruction": "explore the other region",
+    "pixel_goal": {
+      "x": 312,
+      "y": 257,
+      "x_norm": 0.4875,
+      "y_norm": 0.535417
+    },
+    "agent_state": {
+      "position": [
+        1.1319060325622559,
+        -2.5756006240844727,
+        -9.622580528259277
+      ],
+      "rotation": [
+        0.0,
+        0.9848076701164246,
+        0.0,
+        -0.17364855110645294
+      ]
+    },
+    "timestamp": "2026-03-01T20:59:07.914415"
+  },
+  {
+    "id": 51,
+    "scene_id": "TbHJrupSAjP",
+    "image_path": "/home/abc/InternVLA/annotation/frames/frame_0051.jpg",
+    "image_width": 640,
+    "image_height": 480,
+    "instruction": "find \nthe potted plant on the window ledge",
+    "pixel_goal": {
+      "x": 265,
+      "y": 171,
+      "x_norm": 0.414062,
+      "y_norm": 0.35625
+    },
+    "agent_state": {
+      "position": [
+        5.020716190338135,
+        -2.5756006240844727,
+        -9.482681274414062
+      ],
+      "rotation": [
+        0.0,
+        0.7880104780197144,
+        0.0,
+        -0.6156617999076843
+      ]
+    },
+    "timestamp": "2026-03-01T21:00:29.241741"
+  },
+  {
+    "id": 52,
+    "scene_id": "TbHJrupSAjP",
+    "image_path": "/home/abc/InternVLA/annotation/frames/frame_0052.jpg",
+    "image_width": 640,
+    "image_height": 480,
+    "instruction": "find the TV on the wall",
+    "pixel_goal": {
+      "x": 507,
+      "y": 132,
+      "x_norm": 0.792188,
+      "y_norm": 0.275
+    },
+    "agent_state": {
+      "position": [
+        2.684770107269287,
+        -2.5756006240844727,
+        -11.72951889038086
+      ],
+      "rotation": [
+        0.0,
+        0.9848078489303589,
+        0.0,
+        0.17364773154258728
+      ]
+    },
+    "timestamp": "2026-03-01T21:01:51.559034"
+  },
+  {
+    "id": 53,
+    "scene_id": "TbHJrupSAjP",
+    "image_path": "/home/abc/InternVLA/annotation/frames/frame_0053.jpg",
+    "image_width": 640,
+    "image_height": 480,
+    "instruction": "find the \ntreadmill",
+    "pixel_goal": {
+      "x": 304,
+      "y": 261,
+      "x_norm": 0.475,
+      "y_norm": 0.54375
+    },
+    "agent_state": {
+      "position": [
+        -2.2290821075439453,
+        -2.5756006240844727,
+        -3.089067220687866
+      ],
+      "rotation": [
+        0.0,
+        -0.927183985710144,
+        0.0,
+        -0.3746064305305481
+      ]
+    },
+    "timestamp": "2026-03-01T21:03:33.153505"
+  },
+  {
+    "id": 54,
+    "scene_id": "TbHJrupSAjP",
+    "image_path": "/home/abc/InternVLA/annotation/frames/frame_0054.jpg",
+    "image_width": 640,
+    "image_height": 480,
+    "instruction": "find the toilet",
+    "pixel_goal": {
+      "x": 286,
+      "y": 272,
+      "x_norm": 0.446875,
+      "y_norm": 0.566667
+    },
+    "agent_state": {
+      "position": [
+        -1.9785239696502686,
+        -2.5756006240844727,
+        -5.291077136993408
+      ],
+      "rotation": [
+        0.0,
+        -0.7431451082229614,
+        0.0,
+        -0.6691303849220276
+      ]
+    },
+    "timestamp": "2026-03-01T21:04:00.849789"
+  },
+  {
+    "id": 55,
+    "scene_id": "TbHJrupSAjP",
+    "image_path": "/home/abc/InternVLA/annotation/frames/frame_0055.jpg",
+    "image_width": 640,
+    "image_height": 480,
+    "instruction": "I want to sleep",
+    "pixel_goal": {
+      "x": 230,
+      "y": 250,
+      "x_norm": 0.359375,
+      "y_norm": 0.520833
+    },
+    "agent_state": {
+      "position": [
+        -0.3348091244697571,
+        -2.5756006240844727,
+        -6.829315662384033
+      ],
+      "rotation": [
+        0.0,
+        -0.20791208744049072,
+        0.0,
+        -0.9781475067138672
+      ]
+    },
+    "timestamp": "2026-03-01T21:04:18.459663"
+  }
+]

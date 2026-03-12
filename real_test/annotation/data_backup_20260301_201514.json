@@ -1,0 +1,142 @@
+[
+  {
+    "id": 1,
+    "scene_id": "2azQ1b91cZZ",
+    "image_path": "/home/abc/InternVLA/annotation/frames/frame_0001.jpg",
+    "image_width": 640,
+    "image_height": 480,
+    "instruction": "navigable direction",
+    "pixel_goal": {
+      "x": 190,
+      "y": 332,
+      "x_norm": 0.296875,
+      "y_norm": 0.691667
+    },
+    "agent_state": {
+      "position": [
+        4.364202499389648,
+        0.12710899114608765,
+        4.475686550140381
+      ],
+      "rotation": [
+        0.0,
+        -0.6427876353263855,
+        0.0,
+        0.7660444974899292
+      ]
+    },
+    "timestamp": "2026-03-01T20:12:34.347786"
+  },
+  {
+    "id": 2,
+    "scene_id": "2azQ1b91cZZ",
+    "image_path": "/home/abc/InternVLA/annotation/frames/frame_0002.jpg",
+    "image_width": 640,
+    "image_height": 480,
+    "instruction": "find the hallway",
+    "pixel_goal": {
+      "x": 154,
+      "y": 259,
+      "x_norm": 0.240625,
+      "y_norm": 0.539583
+    },
+    "agent_state": {
+      "position": [
+        5.8632402420043945,
+        0.12710899114608765,
+        2.4892032146453857
+      ],
+      "rotation": [
+        0.0,
+        -4.470348002882929e-08,
+        0.0,
+        1.0
+      ]
+    },
+    "timestamp": "2026-03-01T20:13:18.583810"
+  },
+  {
+    "id": 3,
+    "scene_id": "2azQ1b91cZZ",
+    "image_path": "/home/abc/InternVLA/annotation/frames/frame_0003.jpg",
+    "image_width": 640,
+    "image_height": 480,
+    "instruction": "find the fireplace",
+    "pixel_goal": {
+      "x": 315,
+      "y": 261,
+      "x_norm": 0.492188,
+      "y_norm": 0.54375
+    },
+    "agent_state": {
+      "position": [
+        -0.5256850719451904,
+        0.12710899114608765,
+        1.190943956375122
+      ],
+      "rotation": [
+        0.0,
+        0.8987941741943359,
+        0.0,
+        0.43837103247642517
+      ]
+    },
+    "timestamp": "2026-03-01T20:13:59.823835"
+  },
+  {
+    "id": 4,
+    "scene_id": "2azQ1b91cZZ",
+    "image_path": "/home/abc/InternVLA/annotation/frames/frame_0004.jpg",
+    "image_width": 640,
+    "image_height": 480,
+    "instruction": "explore the other room",
+    "pixel_goal": {
+      "x": 336,
+      "y": 245,
+      "x_norm": 0.525,
+      "y_norm": 0.510417
+    },
+    "agent_state": {
+      "position": [
+        -0.9984914660453796,
+        0.12710899114608765,
+        1.5603410005569458
+      ],
+      "rotation": [
+        0.0,
+        0.6427878737449646,
+        0.0,
+        0.7660443186759949
+      ]
+    },
+    "timestamp": "2026-03-01T20:14:26.702503"
+  },
+  {
+    "id": 5,
+    "scene_id": "2azQ1b91cZZ",
+    "image_path": "/home/abc/InternVLA/annotation/frames/frame_0005.jpg",
+    "image_width": 640,
+    "image_height": 480,
+    "instruction": "find flowers beside the window",
+    "pixel_goal": {
+      "x": 308,
+      "y": 201,
+      "x_norm": 0.48125,
+      "y_norm": 0.41875
+    },
+    "agent_state": {
+      "position": [
+        -3.747480630874634,
+        0.12710899114608765,
+        1.2867662906646729
+      ],
+      "rotation": [
+        0.0,
+        0.8660256266593933,
+        0.0,
+        0.4999997615814209
+      ]
+    },
+    "timestamp": "2026-03-01T20:15:14.631308"
+  }
+]

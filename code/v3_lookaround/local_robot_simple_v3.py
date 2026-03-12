@@ -2,7 +2,7 @@
 # 文件名: local_robot_simple_v3.py
 # 运行位置: 本地 Ubuntu 机器 (已安装 habitat-sim)
 # 路径: code/v3_lookaround（与 v2 区分，v3 = 出生地环视版）
-# 功能: VLN 导航 v3 - 在 v2 基础上增加出生地 4×90° 环视，再决定出发方向
+# 功能: VLN 导航 v3 - 在 v2 基础上增加出生地 6×60° 环视，再决定出发方向
 # 改进: 1.出生地 Robot Eye 内逐帧环视 2.FBE 3.短期记忆 4.多目标序列
 # ==============================================================================
 
@@ -53,23 +53,25 @@ INSTRUCTION = "find the bed in the bedroom"
 
 # 核心参数
 CLOUD_SEND_INTERVAL = 0.6  # 推理间隔（秒），越小越实时但云端负载越高
-MOVE_STEP_SIZE = 0.06
+MOVE_STEP_SIZE = 0.028    # 每步位移（米）；路径跟踪与直行均用此步长，避免 Habitat move_forward(≈0.25m) 导致突然加速
 REPLAN_DISTANCE_THRESHOLD = 1.5
 STUCK_DEPTH_THRESHOLD = 0.6
 STUCK_FRAMES = 4
 DEPTH_MIN, DEPTH_MAX = 0.3, 5.0
-TURN_INTERVAL = 1          # 每帧根据推理结果决策，与模型输出一致，无延迟
+TURN_INTERVAL = 1          # 每帧根据推理结果决策
 INFER_SMOOTH_ALPHA = 1.0   # 不平滑，直接使用当前帧 (u,v) 偏移
-INFER_TURN_COMMIT_FRAMES = 0  # 不锁定转向，每帧按最新推理结果转向
-INFER_DEAD_ZONE = 80       # 死区略缩小，更快响应
+INFER_TURN_COMMIT_FRAMES = 2   # 锁定转向 2 帧，避免推理抖动导致左右来回转
+INFER_DEAD_ZONE = 100      # 死区：|offset|>此值才转向，增大可减少“一直旋转”
+# Searching 且无 uv 时不要每帧都转，否则会一直转；每 SEARCHING_TURN_EVERY_N 帧才转一次
+SEARCHING_TURN_EVERY_N = 4
 SUCCESS_DEPTH_THRESHOLD = 0.5   # 判定成功的深度阈值（米），越小要求越近
 TURN_ANGLE_THRESHOLD = 0.15
 
 # v2 新增：FBE 前沿探索（提高触发门槛，避免过于频繁）
 FBE_EXPLORE_RADIUS = 2.5       # 探索点距离当前位置 2-3 米
 FBE_MIN_DISTANCE = 1.2         # 探索点至少距当前位置 1.2m
-FBE_SEARCHING_FRAMES = 350     # Searching 连续 N 帧后触发 FBE（约 5s，原 80 约 1.6s 太易触发）
-FBE_BLIND_TURN_FRAMES = 60     # 撞墙后盲目转向 N 帧后触发 FBE
+FBE_SEARCHING_FRAMES = 400     # Searching 连续 N 帧后触发 FBE（约 5s，原 80 约 1.6s 太易触发）
+FBE_BLIND_TURN_FRAMES = 100     # 撞墙后盲目转向 N 帧后触发 FBE
 # v3：FBE 同层约束，避免跨楼层探索导致路径过远（Matterport 层高约 2.5~3m，同层 Y 差约 <0.5m）
 FBE_SAME_FLOOR_MAX_DY = 0.5    # 探索点与当前位置的 Y 轴（高度）差不超过此值视为同层
 FBE_SAME_FLOOR_TRIES = 25      # 同层约束下多试几次以找到有效探索点
@@ -79,7 +81,7 @@ MEMORY_DISTANCE_CHECK_INTERVAL = 10.0   # 5 秒内检查距离是否缩短
 MEMORY_DISTANCE_IMPROVE_THRESHOLD = 0.15  # 至少缩短 0.15m 才算有进展
 MEMORY_BLACKLIST_TOLERANCE = 0.5      # 黑名单内距离此范围内的目标视为已黑名单
 # v3：推理短期记忆 - 目标锁定后一段时间内若新推理为反方向则忽略，避免因推理抖动突然反向
-LOCKED_MEMORY_DURATION = 6.0          # 目标锁定后 6 秒内信任原方向
+LOCKED_MEMORY_DURATION = .0          # 目标锁定后 6 秒内信任原方向
 LOCKED_OPPOSITE_CX_MARGIN = 80        # 新 (u,v) 与上次锁定在图像中心两侧且超过此像素差视为“反方向”
 
 # 出生地：为 True 时使用下方坐标作为起点（会 snap 到 navmesh），否则随机
@@ -117,11 +119,11 @@ STUCK_SMOOTH_TURN_FRAMES = 4  # 撞墙无探索点时分多少帧转完
 # 目标锁定后不随便变换视角，否则容易看不到目标：撞墙时仅原地微调或不动
 STUCK_TURN_WHEN_TARGET_LOCKED = 0  # 目标已锁定时撞墙不转向（0）；若需脱困可改为 1
 
-# v3：出生地 4 个视野各让模型给出目标可能性，选最高方向出发（Robot Eye 中可视化）
-SPAWN_SCAN_VIEWS = 4       # 4 个视野 (0°, 90°, 180°, 270°)，转满一周 360°
-# 本环境中单次 turn_right 的实际转角（度）。若环视一段只转了约 40° 可改为 8~10，使每 90° 步数增多
-DEGREES_PER_TURN = 7.5       # 实测约 8° 时 TURNS_PER_90=12，每段约 96°≈90°
-TURNS_PER_90 = max(1, int(math.ceil(90.0 / DEGREES_PER_TURN)))  # 每 90° 的旋转步数，保证每段接近 90°
+# v3：出生地 6 个视野各 60°，让模型给出目标可能性，选最高方向出发（Robot Eye 中可视化）
+SPAWN_SCAN_VIEWS = 6       # 6 个视野，每 60° 一档 (0°, 60°, 120°, 180°, 240°, 300°)，转满 360°
+DEGREES_PER_VIEW = 60      # 每档视野间隔角度（度）
+DEGREES_PER_TURN = 10.5       # 本环境中单次 turn_right 的实际转角（度）
+TURNS_PER_VIEW = max(1, int(math.ceil(DEGREES_PER_VIEW / DEGREES_PER_TURN)))  # 每 60° 的旋转步数（12 步）
 
 # ============== 2. 共享状态 ==============
 class SharedState:
@@ -212,6 +214,16 @@ def get_agent_forward_yaw(agent_state):
     fwd_x, fwd_z = -col2[0], -col2[2]
     return math.atan2(fwd_x, fwd_z)
 
+def forward_step_position(agent_state, sim, step_size: float):
+    """沿当前朝向前进 step_size（米），返回 snap 到 navmesh 后的位置。与 path 跟踪同尺度，避免 move_forward 默认 0.25m 导致突然加速。"""
+    yaw = get_agent_forward_yaw(agent_state)
+    pos = np.array(agent_state.position)
+    fwd = np.array([math.sin(yaw), 0.0, math.cos(yaw)], dtype=np.float32)
+    next_pos = pos + fwd * step_size
+    if sim.pathfinder.is_loaded:
+        next_pos = sim.pathfinder.snap_point(next_pos)
+    return next_pos
+
 def get_3d_point(u, v, depth_img, agent_state, sim, camera_snapshot=None):
     """将图像 (u,v) + 深度 转为世界 3D。返回 (用于路径的 snap 点, 深度, 用于显示的原始点)。
     原始点即模型所指位置；snap 点会贴到 navmesh，可能被拉到地面导致与真实目标偏差，故俯视图用原始点绘制。"""
@@ -279,7 +291,7 @@ def get_explore_waypoint(sim, curr_pos):
         print(f"⚠️ FBE 探索点获取失败: {e}")
     return None
 
-# ============== 6b. 出生地环视：单次视野的目标可能性请求（同步） ==============
+# ============== 6b. 出生地环视：单次视野的目标可能性请求 ==============
 def request_scan_confidence(rgb_bgr, instruction, timeout=15):
     """对当前视野请求云端 scan 模式，返回目标可能性 0.0~1.0。rgb 为 BGR (OpenCV)。"""
     try:
@@ -295,6 +307,12 @@ def request_scan_confidence(rgb_bgr, instruction, timeout=15):
     except Exception as e:
         print(f"⚠️ 出生地 scan 请求失败: {e}")
         return 0.0
+
+def _spawn_scan_worker(view_index, rgb_bgr, instruction, result_queue, pending_flag):
+    """后台线程：请求 scan 置信度，结果放入 result_queue，完成后置 pending_flag[0]=False。"""
+    conf = request_scan_confidence(rgb_bgr, instruction)
+    result_queue.append((view_index, conf))
+    pending_flag[0] = False
 
 # ============== 7. 目标黑名单检查 ==============
 def is_goal_in_blacklist(goal_3d, blacklist):
@@ -402,6 +420,7 @@ def main():
     if scene_path is None:
         print(f"❌ 无可用场景，请检查 {SCENES_BASE}")
         return
+    print("Instruction:",INSTRUCTION)
     print(f"📍 场景: {scene_path}")
     print(f"🎯 目标序列: {target_list}")
 
@@ -469,7 +488,7 @@ def main():
     stuck_position_last_pos = None       # 上次检查的位置
     STUCK_FBE_TRIGGER_FRAMES = 300       # 连续卡住 300 帧触发 FBE（约 6 秒）
 
-    # v3: 出生地 4 视野各请求模型目标可能性，选最高方向出发
+    # v3: 出生地 6×60° 各视野请求模型目标可能性（异步，不阻塞主循环）
     spawn_scan_done = False
     spawn_scan_view_index = 0
     spawn_scan_confidences = []
@@ -477,13 +496,15 @@ def main():
     spawn_scan_turn_remaining = 0
     spawn_turn_to_best_remaining = 0
     spawn_scan_best_direction = 0
+    spawn_scan_result_queue = []   # 后台线程放入 (view_index, confidence)
+    spawn_scan_pending_ref = [False]  # [True] 表示已发起请求未返回，线程结束后置 False
 
     current_target_idx = 0
     # 仅当云端 verify 通过才视为「完全确定为目标」，此时才不触发 FBE、不随便转向
     target_fully_verified = False
 
     print(f"🚀 开始导航 v3 (出生地 4 视野选最高可能性方向 + FBE + 多目标, 按 q 退出)")
-    print(f"   出生地环视: 每 90° = {TURNS_PER_90} 步 (若未转满一周请调小配置 DEGREES_PER_TURN，当前 {DEGREES_PER_TURN}°)")
+    print(f"   出生地环视: 6×60° 共 {SPAWN_SCAN_VIEWS} 档，每档 {TURNS_PER_VIEW} 步 (DEGREES_PER_TURN={DEGREES_PER_TURN}°)")
     
     # 先显示初始画面，等待 6 秒后开始导航
     print("⏳ 窗口已就绪，导航将在 6 秒后开始...")
@@ -532,21 +553,40 @@ def main():
 
             trajectory.append([curr_pos[0], curr_pos[2]])
 
-            # ---------- v3: 出生地 4 视野各请求目标可能性，选最高方向 ----------
+            # ---------- v3: 出生地 6×60° 请求目标可能性（异步，不阻塞主循环，避免“发现目标就卡住”）----------
             if not spawn_scan_done and spawn_scan_phase == "capture" and len(spawn_scan_confidences) == spawn_scan_view_index:
-                conf = request_scan_confidence(rgb[..., ::-1], target_list[0])
-                spawn_scan_confidences.append(conf)
-                print(f"  视野 {spawn_scan_view_index+1}/4 目标可能性: {conf:.2f}")
-                if spawn_scan_view_index < SPAWN_SCAN_VIEWS - 1:
-                    spawn_scan_turn_remaining = TURNS_PER_90
-                    spawn_scan_phase = "turning"
-                else:
-                    best = int(np.argmax(spawn_scan_confidences))
-                    spawn_scan_best_direction = best
-                    turn_90_right = (best - (SPAWN_SCAN_VIEWS - 1)) % SPAWN_SCAN_VIEWS
-                    spawn_turn_to_best_remaining = turn_90_right * TURNS_PER_90
-                    spawn_scan_phase = "turning_to_best"
-                    print(f"  选择方向 {best} (可能性 {spawn_scan_confidences[best]:.2f})，转向中...")
+                # 先看是否有本视野的异步结果
+                consumed = False
+                for i, (v, c) in enumerate(spawn_scan_result_queue):
+                    if v == spawn_scan_view_index:
+                        spawn_scan_confidences.append(c)
+                        spawn_scan_result_queue.pop(i)
+                        print(f"  视野 {spawn_scan_view_index+1}/{SPAWN_SCAN_VIEWS} (60°) 目标可能性: {c:.2f}")
+                        if spawn_scan_view_index < SPAWN_SCAN_VIEWS - 1:
+                            spawn_scan_turn_remaining = TURNS_PER_VIEW
+                            spawn_scan_phase = "turning"
+                        else:
+                            best = int(np.argmax(spawn_scan_confidences))
+                            spawn_scan_best_direction = best
+                            turn_steps_to_best = (best - (SPAWN_SCAN_VIEWS - 1)) % SPAWN_SCAN_VIEWS
+                            spawn_turn_to_best_remaining = turn_steps_to_best * TURNS_PER_VIEW
+                            spawn_scan_phase = "turning_to_best"
+                            if spawn_turn_to_best_remaining == 0:
+                                # 当前已是最高可能性方向，无需转，直接进入导航
+                                spawn_scan_done = True
+                                print(f"  出生地环视完成，当前已是最佳方向 (dir {best})，直接出发")
+                            else:
+                                print(f"  选择方向 {best} (可能性 {spawn_scan_confidences[best]:.2f})，转向中...")
+                        consumed = True
+                        break
+                if not consumed and not spawn_scan_pending_ref[0]:
+                    # 发起异步请求，主循环不阻塞，继续执行控制
+                    spawn_scan_pending_ref[0] = True
+                    threading.Thread(
+                        target=_spawn_scan_worker,
+                        args=(spawn_scan_view_index, rgb[..., ::-1].copy(), target_list[0], spawn_scan_result_queue, spawn_scan_pending_ref),
+                        daemon=True,
+                    ).start()
 
             # 以下逻辑仅在出生地环视完成后执行（先完成 4 视野置信度并转到最高置信度方向再进入导航）
             front_d = 2.0
@@ -781,7 +821,7 @@ def main():
                                 stuck_position_frames = 0
                                 searching_frames = 0
 
-            # 执行控制：出生地环视（4 视野选最高可能性）→ FBE 平滑转向 → 路径 → Inferred/Searching
+            # 执行控制：出生地环视（6×60° 选最高可能性）→ FBE 平滑转向 → 路径 → Inferred/Searching
             front_clear = front_d >= 0.85
             if not spawn_scan_done:
                 if spawn_turn_to_best_remaining > 0:
@@ -834,22 +874,31 @@ def main():
                         turn_commit_remaining = INFER_TURN_COMMIT_FRAMES
                         last_turn_direction = "left"
                     elif front_clear:
-                        agent.act("move_forward")
+                        # 与 path 同尺度：用 MOVE_STEP_SIZE 前进一步，避免 Habitat 默认 move_forward(0.25m) 导致突然加速
+                        step_pos = forward_step_position(curr_state, sim, MOVE_STEP_SIZE)
+                        s = agent.get_state()
+                        s.position = step_pos
+                        agent.set_state(s)
                         turn_commit_remaining = 0
                     else:
                         agent.act("turn_right")
                         turn_commit_remaining = INFER_TURN_COMMIT_FRAMES // 2
                         last_turn_direction = "right"
                 else:
-                    agent.act("turn_right")
+                    # Searching 或无 uv 时：无 uv 每 2 帧转（出生转完后等云端首帧不会卡住）；有 uv 但 status 非 Inferred 时每 N 帧转
+                    if uv is None:
+                        if step_count % 2 == 0:
+                            agent.act("turn_right")
+                    elif step_count % SEARCHING_TURN_EVERY_N == 0:
+                        agent.act("turn_right")
 
             # 可视化（出生地环视时在 Robot Eye 中显示进度与各视野可能性）
             if not spawn_scan_done:
                 if spawn_scan_phase == "capture":
                     c = spawn_scan_confidences[-1] if spawn_scan_confidences else 0.0
-                    status_display = f"Spawn view {len(spawn_scan_confidences)}/4 conf={c:.2f}"
+                    status_display = f"Spawn view {len(spawn_scan_confidences)}/{SPAWN_SCAN_VIEWS} conf={c:.2f}"
                 elif spawn_scan_phase == "turning":
-                    status_display = f"Spawn turning to view {spawn_scan_view_index+2}/4..."
+                    status_display = f"Spawn turning to view {spawn_scan_view_index+2}/{SPAWN_SCAN_VIEWS}..."
                 else:
                     status_display = f"Spawn turn to best (dir {spawn_scan_best_direction})..."
             else:
@@ -903,7 +952,7 @@ def main():
             if cv2.waitKey(20) == ord('q'):
                 break
             step_count += 1
-            time.sleep(0.02)
+            time.sleep(0.05)   # 主循环节奏，加大可进一步降低前进/转向速度（0.05≈20 FPS）
     finally:
         sim.close()
         cv2.destroyAllWindows()
