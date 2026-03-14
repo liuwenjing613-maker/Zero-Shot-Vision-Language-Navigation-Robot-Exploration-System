@@ -1,0 +1,42 @@
+scene_id,instruction,v1_success,v1_steps,v1_min_dist,v1_NE,v2_success,v2_steps,v2_min_dist,v2_NE,v3_success,v3_steps,v3_min_dist,v3_NE
+2azQ1b91cZZ,bed in the bedroom,False,152,4.89,4.89,False,403,4.89,15.34,False,456,3.87,14.03
+2azQ1b91cZZ,fireplace,False,585,3.16,5.04,False,666,2.7,16.59,True,516,0.88,1.23
+2azQ1b91cZZ,mirror,True,352,0.25,0.25,True,674,0.09,2.11,False,494,0.27,3.68
+2azQ1b91cZZ,plant,False,608,3.34,3.92,False,668,1.11,4.08,False,527,1.73,3.32
+2azQ1b91cZZ,stairs,True,402,0.66,0.66,True,1111,0.04,2.19,True,1007,0.34,2.46
+2azQ1b91cZZ,the first flowers you see,False,152,6.29,6.29,False,1026,0.89,3.31,False,656,5.79,6.82
+2azQ1b91cZZ,toilet,False,352,4.33,5.62,False,403,4.33,6.56,False,403,4.33,5.06
+8194nk5LbLH,TV in the living room,False,252,4.58,4.58,False,632,0.86,6.56,False,685,0.86,5.53
+8194nk5LbLH,blue rubbish bin,True,152,2.45,2.45,True,461,0.28,2.51,True,497,0.28,3.0
+8194nk5LbLH,green ball,False,152,4.78,4.78,False,723,0.78,7.99,False,488,4.49,6.87
+8194nk5LbLH,plant between two sofas,False,152,3.82,3.82,False,403,3.82,4.33,False,536,3.22,4.72
+8194nk5LbLH,stairs between floors,False,152,4.21,4.26,True,1201,0.21,1.41,True,1201,0.16,0.92
+EU6Fwq7SyZv,animal,True,302,2.47,2.47,True,885,0.15,1.47,True,874,0.12,2.39
+EU6Fwq7SyZv,purple cushion,True,352,2.16,2.27,False,410,4.12,9.53,False,628,0.09,3.12
+QUCTc6BB5sX,car,False,252,14.14,14.14,False,926,10.98,11.62,False,545,13.46,13.6
+QUCTc6BB5sX,wall-themed wall art,True,152,1.45,1.45,True,1160,0.65,1.97,True,543,1.43,2.93
+TbHJrupSAjP,black single sofa,False,403,3.45,4.43,False,590,2.14,7.23,False,472,2.12,4.59
+TbHJrupSAjP,first white door you see,True,352,1.19,2.04,False,598,0.04,8.55,False,623,0.03,6.5
+TbHJrupSAjP,gym,False,152,5.39,5.54,False,403,5.39,7.68,False,403,5.39,8.44
+TbHJrupSAjP,potted plant beside the door,True,152,2.9,2.9,False,604,2.88,5.93,False,667,0.32,3.81
+TbHJrupSAjP,stairs between floors,False,152,5.88,5.88,False,542,0.09,3.03,False,578,0.09,3.9
+TbHJrupSAjP,the potted plant between the two sofas,False,152,4.09,4.09,False,560,0.59,8.41,False,403,4.09,8.39
+X7HyMhZNoso,bathtub,True,302,1.52,2.9,True,403,1.52,2.1,True,403,1.52,2.19
+X7HyMhZNoso,blue cushion,False,302,2.96,3.03,True,737,0.85,2.34,False,450,3.12,5.75
+X7HyMhZNoso,blue table in the living room,False,403,3.81,6.0,False,413,3.56,7.75,False,451,3.55,7.32
+X7HyMhZNoso,clock on the wall,False,152,4.39,4.39,False,403,4.39,6.49,True,1005,0.06,0.51
+X7HyMhZNoso,closed door,False,152,3.56,3.56,False,901,0.92,3.24,True,789,0.42,0.43
+X7HyMhZNoso,red book on the table,False,488,2.4,3.78,False,716,0.2,3.11,True,701,0.89,2.29
+X7HyMhZNoso,toilet,False,680,0.19,3.25,False,531,1.79,4.23,False,618,0.06,4.43
+X7HyMhZNoso,washing machine,False,608,2.15,6.31,False,585,1.1,4.37,False,804,0.31,4.57
+X7HyMhZNoso,white bouquet on the bedside table,True,652,0.09,1.51,True,886,0.07,1.36,True,1160,0.0,1.14
+X7HyMhZNoso,yellow blanket on the sofa,False,302,3.35,4.18,False,403,3.35,5.24,True,888,0.02,2.36
+Z6MFQCViBuw,chair under the painting,True,202,1.92,2.45,True,524,0.96,2.01,True,701,0.09,0.93
+Z6MFQCViBuw,oil painting of the man in the red coat,False,152,7.44,7.44,False,403,7.44,11.44,False,403,7.44,11.32
+Z6MFQCViBuw,red bed,False,252,3.47,3.69,False,771,3.34,4.43,False,733,0.85,3.44
+Z6MFQCViBuw,red stool in front of the red curtain,False,402,2.79,4.63,False,1201,0.04,3.27,False,403,3.11,3.11
+pLe4wQe7qrG,the central pillar,False,352,0.09,4.49,False,1070,1.47,4.04,False,529,1.67,3.25
+x8F5xyUWy9e,plant beside the fire extinguisher,False,695,0.17,3.81,False,605,1.39,5.08,False,403,3.37,3.37
+x8F5xyUWy9e,sink,False,684,2.14,4.62,False,582,2.53,5.68,True,800,1.61,2.9
+x8F5xyUWy9e,stairs,False,403,3.77,7.19,False,403,3.77,3.99,True,693,0.3,1.12
+x8F5xyUWy9e,three lounge chairs,False,403,5.99,6.71,True,989,0.48,1.73,True,1201,0.22,1.63

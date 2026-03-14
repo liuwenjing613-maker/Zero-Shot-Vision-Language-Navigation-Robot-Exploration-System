@@ -1,0 +1,4 @@
+version,total_episodes,success_count,fail_count,SR,OSR,SPL,NE,avg_steps_success,avg_steps_failed,max_steps_success,min_steps_success,max_steps_failed,min_steps_failed
+v1,48,12,36,25.0,41.67,0.2013,4.221,326.7,323.9,652,152,695,152
+v2,51,13,38,25.49,74.51,0.0617,5.1799,770.2,645.1,1201,403,1201,403
+v3,45,19,26,42.22,71.11,0.156,4.2175,792.7,543.5,1201,403,804,403
