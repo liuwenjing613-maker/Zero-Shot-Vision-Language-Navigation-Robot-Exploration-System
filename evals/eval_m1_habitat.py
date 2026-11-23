@@ -1,9 +1,10 @@
 """Replay a deterministic Habitat walk, compare depth with independent scene collision hits."""
 import argparse
+import hashlib
 import json
 import math
 from pathlib import Path
-from tempfile import TemporaryDirectory
+import struct
 
 import habitat_sim as hs
 import magnum as mn
@@ -39,52 +40,42 @@ def write_map(path, grid, topology):
     panel.save(path)
 
 
-def prepare_replica_fixture(scene_dir, temporary_dir):
-    """Align a temporary render mesh and build an independent front-face ray oracle."""
-    mesh_path = scene_dir / "mesh.ply"
-    with mesh_path.open("rb") as stream:
-        header = []
-        for raw in stream:
-            line = raw.decode("ascii").strip()
-            header.append(line)
-            if line == "end_header":
-                break
-        vertices, faces = [int(next(s.split()[-1] for s in header if s.startswith("element " + kind + " ")))
-                           for kind in ("vertex", "face")]
-        props = [s for s in header if s.startswith("property ")]
-        expected = ["property float " + key for key in ("x", "y", "z", "nx", "ny", "nz")]
-        expected += ["property uchar " + key for key in ("red", "green", "blue")]
-        expected.append("property list uint8 int vertex_indices")
-        require("format binary_little_endian 1.0" in header and props == expected, "Unexpected Replica PLY layout")
-        v = np.fromfile(stream, dtype=[("xyz", "<f4", 3), ("normal", "<f4", 3), ("rgb", "u1", 3)], count=vertices)
-        # Replica contains polygon faces. Triangulate their ordered vertex lists.
-        import struct
-        data = stream.read()
-        offset, indices = 0, []
-        for _ in range(faces):
-            size = data[offset]
-            require(size >= 3, "Degenerate Replica polygon")
-            face = struct.unpack_from("<" + "i" * size, data, offset+1)
-            indices.extend((face[0], face[j], face[j+1]) for j in range(1, size-1))
-            offset += 1 + 4*size
-        require(offset == len(data), "Unexpected trailing PLY data")
-    # office_1 dataset stage has up=(0,0,1), front=(0,1,0).
-    for field in ("xyz", "normal"):
-        original = v[field].copy()
-        v[field][:, 1] = original[:, 2]
-        v[field][:, 2] = -original[:, 1]
-    triangles = v["xyz"][np.asarray(indices)]
-    # This Habitat 0.3.3 general PLY loader renders the file in native axes.
-    # Express the scene in navigation/world coordinates before loading it.
-    aligned = temporary_dir / "office_1.ply"
-    with aligned.open("wb") as stream:
-        stream.write(("\n".join(header) + "\n").encode("ascii"))
-        v.tofile(stream)
-        stream.write(data)
-    stage = temporary_dir / "office_1.stage_config.json"
-    stage.write_text(json.dumps(dict(render_asset=str(aligned), up=[0, 1, 0], front=[0, 0, -1],
-                                    nav_asset=str((scene_dir / "habitat/mesh_semantic.navmesh").resolve()))))
+def mp3d_reference_mesh(glb):
+    """Read triangle geometry from this MP3D obj2gltf export for independent ray tests."""
+    with glb.open("rb") as stream:
+        magic, version, total = struct.unpack("<4sII", stream.read(12))
+        require((magic, version, total) == (b"glTF", 2, glb.stat().st_size), "Invalid MP3D GLB")
+        size, kind = struct.unpack("<I4s", stream.read(8))
+        require(kind == b"JSON", "Missing glTF JSON chunk")
+        model = json.loads(stream.read(size))
+        size, kind = struct.unpack("<I4s", stream.read(8))
+        require(kind == b"BIN\x00", "Missing glTF binary chunk")
+        data = stream.read(size)
 
+    def accessor(index, kind):
+        acc = model["accessors"][index]
+        require(acc["type"] == kind and "sparse" not in acc, "Unsupported glTF accessor")
+        view = model["bufferViews"][acc["bufferView"]]
+        dtype = np.dtype({5126: "<f4", 5125: "<u4", 5123: "<u2", 5121: "u1"}[acc["componentType"]])
+        width = 3 if kind == "VEC3" else 1
+        offset = view.get("byteOffset", 0) + acc.get("byteOffset", 0)
+        stride = view.get("byteStride", width * dtype.itemsize)
+        return np.ndarray((acc["count"], width), dtype, data, offset, (stride, dtype.itemsize))
+
+    chunks = []
+    for node_id in model["scenes"][model.get("scene", 0)]["nodes"]:
+        node = model["nodes"][node_id]
+        require(not {"matrix", "translation", "rotation", "scale", "children"}.intersection(node),
+                "This MP3D fixture expects flat mesh nodes with identity transforms")
+        for primitive in model["meshes"][node["mesh"]]["primitives"]:
+            require(primitive.get("mode", 4) == 4, "Expected triangle primitives")
+            vertices = accessor(primitive["attributes"]["POSITION"], "VEC3")
+            indices = accessor(primitive["indices"], "SCALAR").reshape(-1, 3)
+            chunks.append(vertices[indices])
+    triangles = np.concatenate(chunks)
+    # MP3D stage metadata specifies source +Z up, +Y front. Habitat world is +Y up, -Z front.
+    triangles = triangles[:, :, [0, 2, 1]].copy()
+    triangles[:, :, 2] *= -1
     def nearest(origin, direction):
         # All fixture rays are horizontal. Cull by height before ray/triangle intersection.
         y = triangles[:, :, 1]
@@ -102,19 +93,29 @@ def prepare_replica_fixture(scene_dir, temporary_dir):
         dist = np.einsum("ij,ij->i", e2, q) * inv
         hits = dist[live & (u >= 0) & (v >= 0) & (u+v <= 1) & (dist > 0.05)]
         return float(hits.min()) if hits.size else math.inf
-    return stage, nearest
+    return nearest
 
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument("dataset", type=Path, help="Replica root containing replica.scene_dataset_config.json")
+    parser.add_argument("dataset", type=Path, help="MP3D scenes root containing mp3d.scene_dataset_config.json")
     parser.add_argument("output", type=Path)
     parser.add_argument("--gpu", type=int, default=0)
     args = parser.parse_args()
     cfg = hs.SimulatorConfiguration()
-    temporary = TemporaryDirectory(prefix="vln-m1-replica-")
-    stage, nearest_mesh_hit = prepare_replica_fixture(args.dataset / "office_1", Path(temporary.name))
-    cfg.scene_id = str(stage)
+    scene_id = "2azQ1b91cZZ"
+    scene_dir = args.dataset.resolve() / scene_id
+    glb = scene_dir / (scene_id + ".glb")
+    navmesh = scene_dir / (scene_id + ".navmesh")
+    config = scene_dir.parent / "mp3d.scene_dataset_config.json"
+    for asset in (glb, navmesh, config):
+        require(asset.is_file(), "Missing MP3D asset: {}".format(asset))
+    ref = Path(__file__).resolve().parents[1] / "results/verify-e02-new-view/e02-view-comparison.json"
+    fixture = json.loads(ref.read_text())
+    require(fixture["scene"] == scene_id, "Perception reference belongs to another scan")
+    nearest_mesh_hit = mp3d_reference_mesh(glb)
+    cfg.scene_dataset_config_file = str(config)
+    cfg.scene_id = str(glb)
     cfg.gpu_device_id = args.gpu
     cfg.enable_physics = False
 
@@ -127,21 +128,23 @@ def main():
     graph = TopologyMemory()
     with hs.Simulator(hs.Configuration(cfg, [agent_cfg])) as sim:
         pf = sim.pathfinder
-        require(pf.is_loaded, "Replica navmesh missing")
+        require(pf.load_nav_mesh(str(navmesh)) and pf.is_loaded, "MP3D navmesh could not be loaded")
         agent = sim.initialize_agent(0)
         state = hs.AgentState()
-        # Fixed start from the project's previously rendered office_1 view A.
-        state.position = np.array([-0.2110783, -0.8312321, -0.6458088])
+        state.position = np.array(fixture["old_view"]["position_m"])
         start = np.array(state.position)
         require(pf.is_navigable(start), "Fixture start is not navigable")
-        for yaw in range(0, 360, 15):
+        for offset in range(0, 360, 15):
+            yaw = (fixture["old_view"]["yaw_deg"] + offset) % 360
             state.rotation = quat_from_angle_axis(math.radians(yaw), np.array([0, 1, 0]))
             facing = quaternion.rotate_vectors(state.rotation, [0, 0, -1])
-            goal = start + facing
-            goal = np.asarray(pf.snap_point(goal))
-            if np.linalg.norm(np.asarray(pf.try_step(start, goal)) - goal) > 0.02:
-                continue
-            if np.linalg.norm(goal[[0, 2]] - (start+facing)[[0, 2]]) > 0.02:
+            goal = start
+            for step in range(1, 5):
+                desired = start + step * 0.25 * facing
+                goal = np.asarray(pf.try_step(goal, desired))
+                if np.linalg.norm(goal - desired) > 0.02:
+                    break
+            if np.linalg.norm(goal - (start + facing)) > 0.02:
                 continue
             agent.set_state(state)
             center = float(sim.get_sensor_observations()[sp.uuid][60, 80])
@@ -185,7 +188,6 @@ def main():
         for tick in range(5, 9):
             integrate(sim.step("turn_left"), tick)
 
-    temporary.cleanup()
     counts = {name: int(np.sum(grid.grid() == val)) for name, val in
               [("unknown", -1), ("free", 0), ("occupied", 100)]}
     require(all(counts.values()) and grid.map_version == 9, "Missing geometry evidence")
@@ -198,7 +200,9 @@ def main():
             "Center depth disagrees with collision oracle: {}".format(reference_errors))
     require(len(endpoint_errors) == len(path) and max(endpoint_errors) < 0.16,
             "Mapped endpoints disagree with collision oracle: {}".format(endpoint_errors))
-    report = dict(scene="office_1", yaw_degrees=yaw, resolution_m=grid.resolution,
+    report = dict(dataset="MP3D", scene=scene_id, start_world_xyz=start.tolist(), yaw_degrees=yaw,
+                  glb_sha256=hashlib.sha256(glb.read_bytes()).hexdigest(),
+                  navmesh_sha256=hashlib.sha256(navmesh.read_bytes()).hexdigest(), resolution_m=grid.resolution,
                   frames=grid.map_version, grid_counts=counts, visit_entries=int(grid.visit_count.sum()),
                   places=list(graph.places), edge=vars(graph.edges[p1, p2]), path_length_m=length,
                   mesh_ray_checks=len(reference_errors), max_depth_error_m=max(reference_errors),

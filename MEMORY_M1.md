@@ -44,9 +44,11 @@ if place != arrival:
 V=/data/chenkejun/vln/envs/vln-sim/bin/python
 export PYTHONPATH="$PWD/src"
 "$V" -m unittest discover -s tests -p 'test_m1_*.py' -v
-"$V" evals/eval_m1_habitat.py /data/chenkejun/ReplicaSSG/Replica/data /tmp/m1-office1-new --gpu 5
+"$V" evals/eval_m1_habitat.py /data/chenkejun/datasets/mp3d_habitat/scenes /tmp/m1-mp3d-new --gpu 7
 ```
 
-验收使用 Habitat-Sim 0.3.3 与 Replica office_1。当前环境中直接加载原始 stage 时，渲染 PLY 的包围盒仍为原始轴向。验收脚本在临时目录将渲染顶点和法向转为 Y-up，与现有 navmesh 对齐，保留源场景文件。机器人执行 4 次前进和 4 次左转，M1 只读取深度、标定与位姿。验收器单独用原网格面求交核对 9 帧中心深度和地图障碍位置，并以密采样运动轨迹复核访问格。通过后写出 report.json 和 occupancy.png。
+验收使用 Habitat-Sim 0.3.3 和项目感知实验的 MP3D 扫描 `2azQ1b91cZZ`。脚本直接加载 `mp3d.scene_dataset_config.json`、该扫描的原始 GLB 和同名 navmesh。起点沿用餐厅候选验证记录 `results/verify-e02-new-view/e02-view-comparison.json` 中的 old_view.position_m。脚本从记录的朝向开始，每隔 15° 检查四段 0.25 米直行路径，选出能走通、具有有效中心深度的朝向。朝向和实际行驶距离均写入报告。
+
+机器人执行 4 次前进和 4 次左转。M1 接收深度、内参、位姿和已执行的底盘轨迹。验收器单独从原始 GLB 读取三角面，在 MP3D 配置规定的坐标系下求交，逐帧核对中心深度与命中点附近的占用栅格，并用密采样轨迹核对访问次数。此轨迹的实测结果位于 `results/m1-mp3d-2azQ1b91cZZ/`，其中 report.json 记录输入资产的 SHA-256，occupancy.png 展示地图与轨迹。
 
 当前结果覆盖此固定场景轨迹、合成几何和拓扑事件。接入其他场景时，需要使用对应传感器的深度约定、标定、地面高度和地图范围。完整导航任务成功率与真实机器人效果需要单独评测。
