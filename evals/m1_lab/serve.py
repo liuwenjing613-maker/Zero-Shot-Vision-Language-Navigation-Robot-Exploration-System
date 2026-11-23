@@ -47,6 +47,8 @@ class Handler(BaseHTTPRequestHandler):
                 / "web"
                 / ({"/": "laser.html", "/depth": "index.html"}.get(path, path[1:]))
             )
+        elif path in ("/mp3d/topdown.jpg", "/mp3d/topdown.json"):
+            file = APP.parents[1] / "results/m1-mp3d-2azQ1b91cZZ" / path.rsplit("/", 1)[1]
         else:
             match = re.fullmatch(
                 r"/runs/(verified|[0-9a-f]{12})/(controlled|mp3d|room360|laser360)/(steps\.json|[0-9]+\.json|rgb-[0-9]+\.jpg|depth-[0-9]+\.png|archive\.jpg)",
