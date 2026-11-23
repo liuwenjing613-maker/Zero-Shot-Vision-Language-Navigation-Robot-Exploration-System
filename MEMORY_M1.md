@@ -52,3 +52,25 @@ export PYTHONPATH="$PWD/src"
 机器人执行 4 次前进和 4 次左转。M1 接收深度、内参、位姿和已执行的底盘轨迹。验收器单独从原始 GLB 读取三角面，在 MP3D 配置规定的坐标系下求交，逐帧核对中心深度与命中点附近的占用栅格，并用密采样轨迹核对访问次数。此轨迹的实测结果位于 `results/m1-mp3d-2azQ1b91cZZ/`，其中 report.json 记录输入资产的 SHA-256，occupancy.png 展示地图与轨迹。
 
 当前结果覆盖此固定场景轨迹、合成几何和拓扑事件。接入其他场景时，需要使用对应传感器的深度约定、标定、地面高度和地图范围。完整导航任务成功率与真实机器人效果需要单独评测。
+
+## 逐步查看占据网格与拓扑图
+
+通过本机浏览器打开 `http://127.0.0.1:18764/`。选择「可控输入实验」检查墙前、墙面、墙后和导航边的状态转换。选择「MP3D 餐厅实测」检查 Habitat 的每帧 RGB、深度、实走轨迹与 Place。点击栅格可检查 log-odds 和进入次数。首帧的「候选框与输入核对」展示历史感知输入的哈希、目标框和观测 ID。历史结果只挂接在对应帧的 Place；其余帧没有执行视觉模型推理。
+
+「服务器重新运行」先执行可控输入，验证通过后再启动 Habitat。服务逐步写出原始状态与验证结果，浏览器跟随最新步骤。也可以暂停播放、拖动进度条或跳到任一步复查。报告中的已知连续轨迹来自实际执行位姿；受控实验中的失败和重试事件来自模拟执行器。
+
+重启服务时，在服务器项目根目录执行下列命令。首行选择本项目的 Habitat Python。首次部署需生成通过验证的默认回放。
+
+```bash
+V=/data/chenkejun/vln/envs/vln-sim/bin/python
+export PYTHONPATH="$PWD/src" HABITAT_SIM_LOG=quiet MAGNUM_LOG=quiet
+R=/data/chenkejun/vln/m1-web-runs
+"$V" evals/m1_lab/run.py "$R/verified" --gpu 7
+"$V" evals/m1_lab/serve.py "$R" --port 18764 --gpu 7
+```
+
+若 Windows 的 SSH 会话断开，使用下面的命令恢复本地通道并保持会话运行。网页服务仅监听服务器回环地址。
+
+```powershell
+ssh -NT -o ExitOnForwardFailure=yes -o ServerAliveInterval=30 -L 127.0.0.1:18764:127.0.0.1:18764 -p 64906 chenkejun@frp-van.com
+```
