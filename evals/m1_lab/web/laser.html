@@ -2,7 +2,7 @@
 <html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>M1 · 360° 扫描建图</title><link rel="stylesheet" href="/style.css"><link rel="stylesheet" href="/laser.css"><script defer src="/laser.js"></script></head>
 <body><header><div class="head"><strong>VLN 研究工作台 / M1</strong><span id="state" role="status">读取服务器数据…</span></div></header>
-<main><div class="intro"><div><h1>360° 扫描建图</h1><p>每圈 720 个方向 · 0.5° 角分辨率 · 6 m 量程 · 0.10 m 栅格</p></div><button id="run">服务器重跑两组扫描</button></div>
+<main><a href="/region-entry">查看新区域进入检测逐帧实测</a><div class="intro"><div><h1>360° 扫描建图</h1><p>每圈 720 个方向 · 0.5° 角分辨率 · 6 m 量程 · 0.10 m 栅格</p></div><button id="run">服务器重跑两组扫描</button></div>
 <nav><button class="tab active" id="mp">MP3D 餐厅</button><button class="tab" id="room">已知尺寸房间</button><a href="/depth">深度与拓扑实验</a></nav>
 <section class="timeline"><div class="bar"><strong id="title">正在读取首圈…</strong><span id="num"></span></div><p id="detail"></p>
 <div class="controls"><button id="prev">上一圈</button><button id="play">播放</button><button id="next">下一圈</button><input aria-label="扫描圈数" id="seek" type="range" min="0" max="0" value="0"></div></section>

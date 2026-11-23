@@ -47,6 +47,8 @@ class Handler(BaseHTTPRequestHandler):
                 / "web"
                 / ({"/": "laser.html", "/depth": "index.html"}.get(path, path[1:]))
             )
+        elif path in ("/region-entry", "/region-entry/"):
+            file = APP.parents[1] / "results/region-entry/index.html"
         elif path in ("/mp3d/topdown.jpg", "/mp3d/topdown.json"):
             file = APP.parents[1] / "results/m1-mp3d-2azQ1b91cZZ" / path.rsplit("/", 1)[1]
         else:

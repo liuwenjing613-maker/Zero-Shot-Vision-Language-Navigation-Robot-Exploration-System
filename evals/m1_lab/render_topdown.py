@@ -26,17 +26,20 @@ def camera(name, rows, cols, kind):
     return spec
 
 
-def render(dataset, snapshot, output, gpu):
+def render(dataset, snapshot, output, gpu, *, floor_y=None):
     frame = json.loads(snapshot.read_text())
     rows, cols = frame["shape"]
     origin = np.array(frame["origin"])
     resolution = frame["resolution"]
     height, width = rows * PIXELS_PER_CELL, cols * PIXELS_PER_CELL
     root = Path(__file__).resolve().parents[2]
-    recorded = json.loads((root / "results/verify-e02-new-view/e02-view-comparison.json").read_text())
-    if recorded["scene"] != SCENE or not np.allclose(recorded["old_view"]["position_m"][::2], frame["scan"]["trajectory"][0]):
-        raise ValueError("Unexpected scene or route")
-    floor = recorded["old_view"]["position_m"][1]
+    if floor_y is None:
+        recorded = json.loads((root / "results/verify-e02-new-view/e02-view-comparison.json").read_text())
+        if recorded["scene"] != SCENE or not np.allclose(recorded["old_view"]["position_m"][::2], frame["scan"]["trajectory"][0]):
+            raise ValueError("Unexpected scene or route")
+        floor = recorded["old_view"]["position_m"][1]
+    else:
+        floor = floor_y
     eye_height = floor + 2.05
     cfg = hs.SimulatorConfiguration()
     cfg.scene_dataset_config_file = str(dataset / "mp3d.scene_dataset_config.json")

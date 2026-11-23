@@ -2,7 +2,7 @@
 from dataclasses import dataclass, field
 import math
 import operator
-from typing import List
+from typing import List, Optional
 
 
 @dataclass
@@ -15,6 +15,9 @@ class PlaceRecord:
     last_visit_time: float
     observation_ids: List[str] = field(default_factory=list)
     nearby_object_ids: List[str] = field(default_factory=list)
+    area_id: Optional[str] = None
+    node_types: List[str] = field(default_factory=list)
+    entry_portal_ids: List[str] = field(default_factory=list)
 
 
 @dataclass
@@ -26,6 +29,7 @@ class NavigationEdge:
     traversal_count: int = 0
     failure_count: int = 0
     consecutive_failures: int = 0
+    portal_ids: List[str] = field(default_factory=list)
 
 
 class TopologyMemory:
@@ -49,7 +53,8 @@ class TopologyMemory:
             return result
         return None
 
-    def visit(self, event_id, xy, timestamp, reason, observation_ids=(), nearby_object_ids=()):
+    def visit(self, event_id, xy, timestamp, reason, observation_ids=(), nearby_object_ids=(),
+              *, area_id=None, portal_id=None, reuse_place=None):
         """Call once on start, observed arrival, or another meaningful place event."""
         x, y = map(float, xy)
         if reason not in {"start", "frontier_observed", "new_region", "observation_place"}:
@@ -57,17 +62,28 @@ class TopologyMemory:
         if not all(map(math.isfinite, (x, y, timestamp))):
             raise ValueError("Invalid place pose/time")
         obs, objects = tuple(observation_ids), tuple(nearby_object_ids)
-        payload = ("visit", x, y, timestamp, reason, obs, objects)
+        payload = ("visit", x, y, timestamp, reason, obs, objects, area_id, portal_id, reuse_place)
         previous = self._replay(event_id, payload)
         if previous is not None:
             return previous
-        nearest = min(self.places.values(), key=lambda p: math.hypot(x-p.x, y-p.y), default=None)
-        if nearest is None or math.hypot(x-nearest.x, y-nearest.y) > self.merge_radius:
+        eligible = [p for p in self.places.values() if area_id is None or p.area_id == area_id]
+        nearest = min(eligible, key=lambda p: math.hypot(x-p.x, y-p.y), default=None)
+        if reuse_place is not None:
+            nearest = self.places[reuse_place]
+            if nearest.area_id != area_id:
+                raise ValueError("Cannot reuse a place across area IDs")
+        if nearest is None or (reuse_place is None and math.hypot(x-nearest.x, y-nearest.y) > self.merge_radius):
             place_id = "P{:02d}".format(len(self.places) + 1)
             nearest = PlaceRecord(place_id, x, y, 0, timestamp, timestamp)
+            nearest.area_id = area_id
             self.places[place_id] = nearest
         elif timestamp < nearest.last_visit_time:
             raise ValueError("Out-of-order place visit")
+        kind = {"new_region": "REGION_ENTRY", "start": "START"}.get(reason, reason.upper())
+        if kind not in nearest.node_types:
+            nearest.node_types.append(kind)
+        if portal_id and portal_id not in nearest.entry_portal_ids:
+            nearest.entry_portal_ids.append(portal_id)
         nearest.visit_count += 1
         nearest.last_visit_time = timestamp
         for ids, new in ((nearest.observation_ids, obs), (nearest.nearby_object_ids, objects)):
