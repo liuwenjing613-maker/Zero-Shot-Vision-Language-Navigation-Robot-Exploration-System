@@ -2,4 +2,6 @@
 
 from .portal_memory import RegionEntryDetector
 
-__all__ = ["RegionEntryDetector"]
+from .junction_memory import JunctionDetector
+
+__all__ = ["RegionEntryDetector","JunctionDetector"]

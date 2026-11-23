@@ -1,0 +1,247 @@
+{
+  "T": {
+    "reference": {
+      "center": [
+        16.52,
+        10.0
+      ],
+      "headings": [
+        0.0,
+        177.5,
+        270.0
+      ],
+      "sector_widths": [
+        55,
+        60,
+        65
+      ],
+      "arrival_axis": [
+        -1.8369701987210297e-16,
+        -1.0
+      ],
+      "score": -0.07864148356449341,
+      "floor": 0.12711
+    },
+    "checks": {
+      "approach": true,
+      "event_count": true,
+      "position": true,
+      "directions": true,
+      "revisit": true
+    },
+    "event_frames": [
+      7,
+      21
+    ],
+    "angle_errors_deg": [
+      7.125016348901795,
+      7.125016348901795
+    ],
+    "edges": [
+      {
+        "source_id": "P01",
+        "target_id": "P02",
+        "path_cost": 1.5,
+        "status": "TRAVERSED",
+        "traversal_count": 1,
+        "failure_count": 0,
+        "consecutive_failures": 0,
+        "portal_ids": []
+      }
+    ]
+  },
+  "Y": {
+    "reference": {
+      "center": [
+        -4.359999999999999,
+        0.8800000000000008
+      ],
+      "headings": [
+        12.5,
+        130.0,
+        245.0
+      ],
+      "sector_widths": [
+        30,
+        45,
+        45
+      ],
+      "arrival_axis": [
+        -0.42261826174069916,
+        -0.90630778703665
+      ],
+      "score": 0.5777284997429448,
+      "floor": 0.12711
+    },
+    "checks": {
+      "approach": true,
+      "event_count": true,
+      "position": true,
+      "directions": true,
+      "revisit": true
+    },
+    "event_frames": [
+      7,
+      21
+    ],
+    "angle_errors_deg": [
+      19.625016348901795,
+      19.625016348901795
+    ],
+    "edges": [
+      {
+        "source_id": "P01",
+        "target_id": "P02",
+        "path_cost": 1.50000036907723,
+        "status": "TRAVERSED",
+        "traversal_count": 1,
+        "failure_count": 0,
+        "consecutive_failures": 0,
+        "portal_ids": []
+      }
+    ]
+  },
+  "cross": {
+    "reference": {
+      "center": [
+        16.76,
+        3.280000000000001
+      ],
+      "headings": [
+        0.0,
+        92.5,
+        180.0,
+        265.0
+      ],
+      "sector_widths": [
+        25,
+        80,
+        25,
+        35
+      ],
+      "arrival_axis": [
+        -0.04361938736533589,
+        0.9990482215818578
+      ],
+      "score": 1.1841331964368513,
+      "floor": 0.12711
+    },
+    "checks": {
+      "approach": true,
+      "event_count": true,
+      "position": true,
+      "directions": true,
+      "revisit": true
+    },
+    "event_frames": [
+      7,
+      21
+    ],
+    "angle_errors_deg": [
+      21.80140948635176,
+      21.80140948635176
+    ],
+    "edges": [
+      {
+        "source_id": "P01",
+        "target_id": "P02",
+        "path_cost": 1.4999998772209386,
+        "status": "TRAVERSED",
+        "traversal_count": 1,
+        "failure_count": 0,
+        "consecutive_failures": 0,
+        "portal_ids": []
+      }
+    ]
+  },
+  "straight": {
+    "reference": {
+      "center": [
+        19.400000000000002,
+        -1.0399999999999991
+      ],
+      "headings": [
+        2.5,
+        177.5
+      ],
+      "sector_widths": [
+        70,
+        70
+      ],
+      "arrival_axis": [
+        -0.9990482215818578,
+        0.04361938736533607
+      ],
+      "score": -0.39637329569832597,
+      "floor": 0.12711
+    },
+    "checks": {
+      "approach": true,
+      "event_count": true
+    },
+    "event_frames": [],
+    "angle_errors_deg": [],
+    "edges": []
+  },
+  "bend": {
+    "reference": {
+      "center": [
+        5.960000000000001,
+        4.240000000000002
+      ],
+      "headings": [
+        180.0,
+        270.0
+      ],
+      "sector_widths": [
+        25,
+        25
+      ],
+      "arrival_axis": [
+        -1.8369701987210297e-16,
+        -1.0
+      ],
+      "score": -0.01777777777777778,
+      "floor": 0.12711
+    },
+    "checks": {
+      "approach": true,
+      "event_count": true
+    },
+    "event_frames": [],
+    "angle_errors_deg": [],
+    "edges": []
+  },
+  "door": {
+    "reference": {
+      "center": [
+        23.106800000000003,
+        -1.0111994117647058
+      ],
+      "headings": [
+        10.0,
+        177.5
+      ],
+      "sector_widths": [
+        35,
+        60
+      ],
+      "arrival_axis": [
+        -0.999998850074195,
+        -0.0015165257293388496
+      ],
+      "floor": 0.12711,
+      "regions": [
+        16,
+        13
+      ]
+    },
+    "checks": {
+      "approach": true,
+      "event_count": true
+    },
+    "event_frames": [],
+    "angle_errors_deg": [],
+    "edges": []
+  }
+}
