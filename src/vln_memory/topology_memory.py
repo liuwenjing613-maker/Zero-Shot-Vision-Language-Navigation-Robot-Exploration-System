@@ -110,7 +110,9 @@ class TopologyMemory:
             nearest.branch_directions = directions
             nearest.branch_lengths = lengths
             nearest.branch_min_widths = widths
-        nearest.visit_count += 1
+        same_observation = timestamp == nearest.last_visit_time and bool(set(obs).intersection(nearest.observation_ids))
+        if not same_observation:
+            nearest.visit_count += 1
         nearest.last_visit_time = timestamp
         for ids, new in ((nearest.observation_ids, obs), (nearest.nearby_object_ids, objects)):
             ids.extend(item for item in new if item not in ids)

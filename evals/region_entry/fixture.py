@@ -42,13 +42,17 @@ def inside(p, poly):
     return bool(cross.sum() % 2)
 
 
-def simulator(gpu):
+def simulator(gpu, *, manual_actions=False):
     cfg = hs.SimulatorConfiguration()
     cfg.scene_dataset_config_file = str(ROOT / "mp3d.scene_dataset_config.json")
     cfg.scene_id = str(ROOT / SCENE / (SCENE + ".glb"))
     cfg.gpu_device_id = gpu
     cfg.enable_physics = False
     ac = hs.agent.AgentConfiguration()
+    if manual_actions:
+        ac.action_space["move_backward"] = hs.agent.ActionSpec("move_backward", hs.agent.ActuationSpec(amount=.25))
+        for name in ("turn_left", "turn_right"):
+            ac.action_space[name].actuation.amount = 15.0
     specs = []
     for name, kind in [("rgb", hs.SensorType.COLOR), ("depth", hs.SensorType.DEPTH)]:
         sp = hs.CameraSensorSpec()

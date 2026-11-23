@@ -1,6 +1,6 @@
 # M1 几何与拓扑记忆
 
-一个场景、一个楼层使用一组 `OccupancyMemory` 和 `TopologyMemory`。同一场景切换任务时可以保留这两个实例。核心包只依赖 NumPy，可用 `python -m pip install -e '.[memory]'` 安装。Habitat 适配器在调用时使用仿真环境自带的 quaternion。
+一个场景、一个楼层使用一组 `OccupancyMemory` 和 `TopologyMemory`。同一场景切换任务时可以保留这两个实例。几何和拓扑记忆使用 NumPy 与 SciPy，可用 `python -m pip install -e '.[memory]'` 安装。Habitat 适配器在调用时使用仿真环境自带的 quaternion。
 
 ## 帧输入
 
@@ -89,3 +89,7 @@ R=/data/chenkejun/vln/m1-web-runs
 ```powershell
 ssh -NT -o ExitOnForwardFailure=yes -o ServerAliveInterval=30 -L 127.0.0.1:18764:127.0.0.1:18764 -p 64906 chenkejun@frp-van.com
 ```
+
+## 在线整体测试
+
+手动驾驶入口为 `/live`，可同时查看实时扫描与按帧提交的视觉语义、门口、岔路和拓扑事件。部署、预热和实验导出见[驾驶台说明](evals/live/README.md)。

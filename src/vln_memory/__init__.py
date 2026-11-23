@@ -4,4 +4,6 @@ from .portal_memory import RegionEntryDetector
 
 from .junction_memory import JunctionDetector
 
-__all__ = ["RegionEntryDetector","JunctionDetector"]
+from .online_memory import OnlineMemory
+
+__all__ = ["RegionEntryDetector", "JunctionDetector", "OnlineMemory"]
