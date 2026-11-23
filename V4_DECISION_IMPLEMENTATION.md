@@ -132,6 +132,20 @@ Execution 再通过 pose resolver 查到世界坐标。因此 `execution_bridge.
 所以未运行 `lwj` 依赖图像标注的 Target Verification；该依赖已在 `lwj` 的
 `pyproject.toml` 中声明，并非本模块错误。
 
-当前未推送的原因：本地工作区没有 GitHub remote，且公开上游仓库只存在 `main`、`lwj`、
-`env` 分支，未发现你的 fork 或 `hyf` 分支。需要提供你的 GitHub fork/repository URL，
-才能将本次提交准确推到你指定的 `hyf` 分支，而不误写上游或他人分支。
+实现已推送到原协作仓库的 `hyf` 分支。提交作者使用已关联 `yf-eve` 的 GitHub noreply
+地址；本模块没有直接推送或修改 `main`、`lwj`、`tls`。
+
+## 三分支模拟闭环（2026-11-23）
+
+`mock_closed_loop.py` 使用 lwj 格式的确定性感知 JSON、hyf 的实际 Planner 和 TLS 的
+`MockBackend + TaskExecutor` 跑通以下事件序列：
+
+```text
+未定位红椅候选 → SCAN（TLS 返回 4 帧）
+无可靠目标 → EXPLORE_FRONTIER（TLS 导航成功）
+几何/记忆确认红椅 → APPROACH_TARGET（TLS 导航成功）
+模拟 NO_PATH → RECOVER（TLS 取消导航，Frontier 指令为 BLOCKED）
+```
+
+该测试不调用真实 Qwen 或 Habitat，不把模拟结果误当作真实导航评测；它验证的是三分支的
+数据契约、动作分发与失败恢复是否能闭环。运行方式见 `code/v4/decision/README.md`。

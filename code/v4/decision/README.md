@@ -61,3 +61,11 @@ belong to `lwj` verification and a future localization module, respectively.
 PYTHONPATH=code python -m unittest discover -s code/v4/decision/tests -t code -v
 PYTHONPATH=code python -m v4.decision.demo_decision_loop
 ```
+
+To run the three-branch deterministic mock loop after integrating `lwj` and
+`tls`, use `PYTHONPATH=code;src` on Windows (or `code:src` on Linux):
+
+```bash
+V4_TLS_INTEGRATION=1 PYTHONPATH=code:src python -m unittest v4.decision.tests.test_mock_closed_loop -v
+PYTHONPATH=code:src python -m v4.decision.mock_closed_loop
+```
