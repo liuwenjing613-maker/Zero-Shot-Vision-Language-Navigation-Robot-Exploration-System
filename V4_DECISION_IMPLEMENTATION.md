@@ -110,6 +110,28 @@ PYTHONPATH=code python -m unittest discover -s code/v4/decision/tests -t code -v
 - Execution：根据 `ActionDecision` 的对象/前沿 ID 从 World State 解析目标位置，
   反馈 `ExecutionResult`。
 
+## 与 tls Execution 分支的适配（2026-11-23 复核）
+
+`tls` 的 `TaskExecutor` 已实现并测试通过的动作是 `APPROACH_TARGET`、
+`EXPLORE_FRONTIER`、`STOP`，与本模块的同名动作语义一致：决策只给全局 ID，
+Execution 再通过 pose resolver 查到世界坐标。因此 `execution_bridge.py` 会将 V4
+的枚举动作规范化为 TLS 的字符串 payload，并将 TLS 的字符串状态转换回 V4
+`ExecutionResult`。
+
+不是 TLS 的缺陷、也不应由本模块伪造的能力包括：
+
+- `SCAN` / `OBSERVE_TARGET` / `REVISIT_TARGET`：总控调用 TLS `RobotBackend.scan()`，
+  再回到 Perception 和 Memory。
+- `RECOVER`：总控先调用 TLS `cancel_navigation()`，随后将本模块给出的恢复指令交给
+  Memory。
+- `VERIFY`：交给 `lwj` 的 `verify_target()`。
+- `RELOCALIZE`：需要未来定位模块；TLS 第一版尚未声明该能力。
+
+本次仅修改 `hyf`，没有触碰 `tls`。TLS 的 27 项单元测试在独立快照中全部通过；
+`lwj` 的 Goal / Scene schema 校验通过。当前 Windows 审计 Python 缺少 `Pillow`，
+所以未运行 `lwj` 依赖图像标注的 Target Verification；该依赖已在 `lwj` 的
+`pyproject.toml` 中声明，并非本模块错误。
+
 当前未推送的原因：本地工作区没有 GitHub remote，且公开上游仓库只存在 `main`、`lwj`、
 `env` 分支，未发现你的 fork 或 `hyf` 分支。需要提供你的 GitHub fork/repository URL，
 才能将本次提交准确推到你指定的 `hyf` 分支，而不误写上游或他人分支。

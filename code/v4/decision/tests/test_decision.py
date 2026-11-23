@@ -1,12 +1,14 @@
 import unittest
+from types import SimpleNamespace
 
 from v4.common.schemas import (
     ActionType, ExecutionResult, ExecutionStatus, FrontierCandidate, GoalSpec,
     PerceptionResult, WorldObject, WorldState,
 )
 from v4.decision import (
-    HighLevelPlanner, TaskState, TaskStateMachine, build_planner_context,
-    goal_spec_from_lwj, perception_result_from_lwj,
+    HighLevelPlanner, TLSDispatchOperation, TaskState, TaskStateMachine,
+    build_planner_context, execution_result_from_tls, goal_spec_from_lwj,
+    perception_result_from_lwj, plan_tls_dispatch, to_tls_action_decision,
 )
 
 
@@ -103,6 +105,29 @@ class DecisionTests(unittest.TestCase):
         machine.start_task(); machine.task_parsed(); machine.initialized(); machine.observed(); machine.memory_updated()
         machine.apply_decision(ActionType.VERIFY)
         self.assertEqual(machine.verified(False), TaskState.REPLAN)
+
+    def test_tls_bridge_converts_supported_navigation_payload(self):
+        decision = self.planner.step(build_planner_context(goal(), state(frontiers=(frontier(),)), (frontier(),)))
+        dispatch = plan_tls_dispatch(decision)
+        self.assertEqual(dispatch.operation, TLSDispatchOperation.TASK_EXECUTOR)
+        self.assertEqual(dispatch.executor_payload.action_type, "EXPLORE_FRONTIER")
+        self.assertEqual(to_tls_action_decision(decision).frontier_id, "frontier-1")
+
+    def test_tls_bridge_routes_scan_and_recovery_without_faking_navigation(self):
+        candidate = WorldObject("obj-1", "chair", {"color": "red"}, None, 0.6, "CANDIDATE")
+        scan = self.planner.step(build_planner_context(goal(), state(objects=(candidate,))))
+        self.assertEqual(plan_tls_dispatch(scan).operation, TLSDispatchOperation.BACKEND_SCAN)
+        failed = ExecutionResult("task-1", "a-1", "FAILED", error_code="STUCK")
+        recover = self.planner.step(build_planner_context(goal(), state(), last_execution_result=failed))
+        self.assertEqual(plan_tls_dispatch(recover).operation, TLSDispatchOperation.BACKEND_CANCEL)
+
+    def test_tls_result_is_normalized_before_recovery(self):
+        tls_result = SimpleNamespace(task_id="task-1", action_id="a-1", status="FAILED",
+                                     final_pose=[1, 0, 2], path_length=1.2, execution_time=0.3,
+                                     error_code="NO_PATH", error_message="blocked")
+        result = execution_result_from_tls(tls_result)
+        self.assertEqual(result.status, ExecutionStatus.FAILED)
+        self.assertEqual(result.final_pose, (1.0, 0.0, 2.0))
 
 
 if __name__ == "__main__":

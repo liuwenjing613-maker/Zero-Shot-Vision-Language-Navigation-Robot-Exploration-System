@@ -43,6 +43,18 @@ bbox's central region into a robust depth estimate, then project it to world
 coordinates. Invalid depth stays an unlocalized candidate, which Decision only
 asks to observe again; it never approaches it.
 
+## tls Execution integration
+
+The independently developed `tls` branch exposes `TaskExecutor` and an
+ID-to-pose resolver. `execution_bridge.py` converts APPROACH_TARGET,
+EXPLORE_FRONTIER, and STOP to its ID-only `ActionDecision` payload, and converts
+TLS string statuses back to the V4 `ExecutionResult` contract.
+
+SCAN / OBSERVE_TARGET / REVISIT_TARGET call `RobotBackend.scan()` through the
+orchestrator. RECOVER calls `cancel_navigation()` before Memory applies its
+recovery directives. VERIFY and RELOCALIZE deliberately remain external: they
+belong to `lwj` verification and a future localization module, respectively.
+
 ## Run
 
 ```bash
