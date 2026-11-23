@@ -8,7 +8,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("folder", type=Path)
     parser.add_argument(
-        "--mode", choices=("controlled", "mp3d", "both"), default="both"
+        "--mode", choices=("controlled", "mp3d", "both", "scans"), default="both"
     )
     parser.add_argument(
         "--dataset",
@@ -30,3 +30,10 @@ if __name__ == "__main__":
         import mp3d
 
         mp3d.run(args.folder / "mp3d", args.dataset, args.archive, args.gpu)
+    if args.mode == "scans":
+        import scan_lab
+
+        scan_lab.room(args.folder / "room360")
+        import scan_mp3d
+
+        scan_mp3d.run(args.folder / "laser360", args.dataset, args.gpu)

@@ -1,0 +1,76 @@
+{
+  "scene": "2azQ1b91cZZ",
+  "source": "simulated planar scans, known poses",
+  "beams_per_scan": 720,
+  "resolution_m": 0.1,
+  "summary": {
+    "room360": {
+      "scans": 5,
+      "checks": 44,
+      "passed": true,
+      "first": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "iou": 0.9276595744680851,
+        "free_iou": 0.988820771727371,
+        "ideal_free_iou": 0.988820771727371,
+        "unsupported_free": 0.0,
+        "range_p95": 4.440892098500626e-16,
+        "paired": 720,
+        "agreement": 1.0
+      },
+      "final": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "iou": 0.9025069637883009,
+        "free_iou": 0.9961451247165533,
+        "ideal_free_iou": 0.9961451247165533,
+        "unsupported_free": 0.0,
+        "range_p95": 4.440892098500626e-16,
+        "paired": 720,
+        "agreement": 1.0
+      },
+      "worst_per_scan_range_p95_m": 4.440892098500626e-16,
+      "final_counts": {
+        "free": 4408,
+        "occupied": 324,
+        "unknown": 3449,
+        "visits": 77
+      }
+    },
+    "laser360": {
+      "scans": 28,
+      "checks": 170,
+      "passed": true,
+      "first": {
+        "precision": 1.0,
+        "recall": 0.9891891891891892,
+        "iou": 0.8829787234042553,
+        "free_iou": 0.9683377308707124,
+        "ideal_free_iou": 0.870138654041258,
+        "unsupported_free": 0.0,
+        "range_p95": 0.002621751583983654,
+        "paired": 638,
+        "agreement": 1.0
+      },
+      "final": {
+        "precision": 1.0,
+        "recall": 0.9768683274021353,
+        "iou": 0.8495575221238938,
+        "free_iou": 0.9806430446194225,
+        "ideal_free_iou": 0.9070084951456311,
+        "unsupported_free": 0.0,
+        "range_p95": 0.002664075935930298,
+        "paired": 637,
+        "agreement": 1.0
+      },
+      "worst_per_scan_range_p95_m": 0.004728836562376215,
+      "final_counts": {
+        "free": 6082,
+        "occupied": 483,
+        "unknown": 16073,
+        "visits": 135
+      }
+    }
+  }
+}

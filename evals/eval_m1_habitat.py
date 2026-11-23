@@ -40,7 +40,7 @@ def write_map(path, grid, topology):
     panel.save(path)
 
 
-def mp3d_reference_mesh(glb):
+def mp3d_triangles(glb):
     """Read triangle geometry from this MP3D obj2gltf export for independent ray tests."""
     with glb.open("rb") as stream:
         magic, version, total = struct.unpack("<4sII", stream.read(12))
@@ -76,6 +76,12 @@ def mp3d_reference_mesh(glb):
     # MP3D stage metadata specifies source +Z up, +Y front. Habitat world is +Y up, -Z front.
     triangles = triangles[:, :, [0, 2, 1]].copy()
     triangles[:, :, 2] *= -1
+    return triangles
+
+
+def mp3d_reference_mesh(glb):
+    triangles = mp3d_triangles(glb)
+
     def nearest(origin, direction):
         # All fixture rays are horizontal. Cull by height before ray/triangle intersection.
         y = triangles[:, :, 1]

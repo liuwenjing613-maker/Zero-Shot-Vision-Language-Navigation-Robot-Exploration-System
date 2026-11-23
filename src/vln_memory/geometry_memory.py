@@ -133,17 +133,7 @@ class OccupancyMemory:
             raise ValueError("Invalid height band, depth range, or stride")
 
         xy = base[[0, 2]]
-        visits = [cell]
-        if base_path is not None:
-            path = np.asarray(base_path, dtype=float)
-            if path.ndim != 2 or path.shape[1] != 2 or len(path) < 2 or not np.isfinite(path).all():
-                raise ValueError("Expected at least two finite map-XY polyline vertices")
-            if self._last_xy is None or not np.array_equal(path[0], self._last_xy) or not np.array_equal(path[-1], xy):
-                raise ValueError("Path must connect previous and current sampled base positions")
-            if not all(self.contains(self.cell(p)) for p in path):
-                raise ValueError("Base path leaves the scene grid")
-            grid_path = (path - [self.origin_x, self.origin_y]) / self.resolution
-            visits = [c for a, b in zip(grid_path, grid_path[1:]) for c in _ray_cells(a, b)]
+        visits = self._base_visits(xy, cell, base_path)
 
         v, u = np.mgrid[0:image.shape[0]:stride, 0:image.shape[1]:stride]
         z = image[::stride, ::stride]
@@ -178,6 +168,23 @@ class OccupancyMemory:
                 if self.contains(hit):
                     hits.add(hit)
 
+        self._commit_frame(frees, hits, visits, xy, timestamp)
+
+    def _base_visits(self, xy, cell, base_path):
+        visits = [cell]
+        if base_path is not None:
+            path = np.asarray(base_path, dtype=float)
+            if path.ndim != 2 or path.shape[1] != 2 or len(path) < 2 or not np.isfinite(path).all():
+                raise ValueError("Expected at least two finite map-XY polyline vertices")
+            if self._last_xy is None or not np.array_equal(path[0], self._last_xy) or not np.array_equal(path[-1], xy):
+                raise ValueError("Path must connect previous and current sampled base positions")
+            if not all(self.contains(self.cell(p)) for p in path):
+                raise ValueError("Base path leaves the scene grid")
+            grid_path = (path - [self.origin_x, self.origin_y]) / self.resolution
+            visits = [c for a, b in zip(grid_path, grid_path[1:]) for c in _ray_cells(a, b)]
+        return visits
+
+    def _commit_frame(self, frees, hits, visits, xy, timestamp):
         # One vote per cell and frame. Hit wins if another ray crosses it.
         for cells, change in ((frees - hits, -0.45), (hits, 0.9)):
             if cells:
@@ -188,3 +195,45 @@ class OccupancyMemory:
         self._last_xy = xy.copy()
         self.timestamp = float(timestamp)
         self.map_version += 1
+
+    def update_scan(self, ranges, angle_min, angle_increment, sensor_xy, sensor_heading,
+                    base_xy, timestamp, *, range_min, range_max, base_path=None):
+        """Fuse one synchronized planar scan, using radians and meters in map X/Z.
+
+        Heading zero points along +X, positive angles turn toward +Z. Finite
+        values in [range_min, range_max) are hits. +inf is a confirmed clear
+        beam to range_max. NaN, -inf and out-of-range finite readings are
+        discarded. The driver must translate its own no-return convention.
+        """
+        distances = np.asarray(ranges, dtype=float)
+        eye, base = np.asarray(sensor_xy, dtype=float), np.asarray(base_xy, dtype=float)
+        if distances.ndim != 1 or not distances.size:
+            raise ValueError("Expected a nonempty vector of planar ranges")
+        if eye.shape != (2,) or base.shape != (2,) or not np.isfinite([eye, base]).all():
+            raise ValueError("Invalid sensor or robot map position")
+        if not np.isfinite([angle_min, angle_increment, sensor_heading, range_min, range_max, timestamp]).all():
+            raise ValueError("Invalid scan metadata")
+        if angle_increment == 0 or not 0 <= range_min < range_max:
+            raise ValueError("Invalid angular increment or range limits")
+        if self.timestamp is not None and timestamp <= self.timestamp:
+            raise ValueError("Expected a fresh sensor timestamp")
+        cell = self.cell(base)
+        if not self.contains(cell) or not self.contains(self.cell(eye)):
+            raise ValueError("Robot or sensor outside scene grid")
+        visits = self._base_visits(base, cell, base_path)
+        origin = np.array([self.origin_x, self.origin_y])
+        start = (eye-origin) / self.resolution
+        frees, hits = set(), set()
+        for i, distance in enumerate(distances):
+            hit = range_min <= distance < range_max and distance > 0
+            if not hit and not np.isposinf(distance):
+                continue
+            theta = sensor_heading + angle_min + i * angle_increment
+            length = distance if hit else range_max
+            end = eye + length * np.array([math.cos(theta), math.sin(theta)])
+            for crossed in _ray_cells(start, (end-origin) / self.resolution):
+                if self.contains(crossed):
+                    frees.add(crossed)
+            if hit and self.contains(self.cell(end)):
+                hits.add(self.cell(end))
+        self._commit_frame(frees, hits, visits, base, timestamp)

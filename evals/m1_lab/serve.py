@@ -13,8 +13,10 @@ from urllib.parse import urlsplit
 
 APP = Path(__file__).resolve().parent
 lock = threading.Lock()
-state = dict(id="verified", status="ready", error=None)
-modes = {"controlled", "mp3d"}
+states = {
+    key: dict(id="verified", status="ready", error=None) for key in ("depth", "scan")
+}
+modes = {"controlled", "mp3d", "room360", "laser360"}
 
 
 class Handler(BaseHTTPRequestHandler):
@@ -35,14 +37,19 @@ class Handler(BaseHTTPRequestHandler):
 
     def do_GET(self):
         path = urlsplit(self.path).path
-        if path == "/api/status":
+        if path in ("/api/status", "/api/scan-status"):
+            state = states["scan" if path == "/api/scan-status" else "depth"]
             with lock:
                 return self.reply(200, dict(state))
-        if path in ("/", "/app.js", "/style.css"):
-            file = APP / "web" / ("index.html" if path == "/" else path[1:])
+        if path in ("/", "/depth", "/laser.js", "/laser.css", "/app.js", "/style.css"):
+            file = (
+                APP
+                / "web"
+                / ({"/": "laser.html", "/depth": "index.html"}.get(path, path[1:]))
+            )
         else:
             match = re.fullmatch(
-                r"/runs/(verified|[0-9a-f]{12})/(controlled|mp3d)/(steps\.json|[0-9]+\.json|rgb-[0-9]+\.jpg|depth-[0-9]+\.png|archive\.jpg)",
+                r"/runs/(verified|[0-9a-f]{12})/(controlled|mp3d|room360|laser360)/(steps\.json|[0-9]+\.json|rgb-[0-9]+\.jpg|depth-[0-9]+\.png|archive\.jpg)",
                 path,
             )
             if not match:
@@ -57,7 +64,7 @@ class Handler(BaseHTTPRequestHandler):
         )
 
     def do_POST(self):
-        if self.path != "/api/run":
+        if self.path not in ("/api/run", "/api/scan"):
             return self.reply(404, {})
         if (
             self.headers.get("Origin") != "http://" + self.headers.get("Host", "")
@@ -65,7 +72,9 @@ class Handler(BaseHTTPRequestHandler):
         ):
             return self.reply(403, {})
         with lock:
-            if state["status"] == "running":
+            group = "scan" if self.path == "/api/scan" else "depth"
+            state = states[group]
+            if any(job["status"] == "running" for job in states.values()):
                 return self.reply(409, dict(state))
             run_id = uuid.uuid4().hex[:12]
             folder = self.server.runs / run_id
@@ -80,6 +89,8 @@ class Handler(BaseHTTPRequestHandler):
                                 sys.executable,
                                 str(APP / "run.py"),
                                 str(folder),
+                                "--mode",
+                                "scans" if group == "scan" else "both",
                                 "--gpu",
                                 str(self.server.gpu),
                             ],
