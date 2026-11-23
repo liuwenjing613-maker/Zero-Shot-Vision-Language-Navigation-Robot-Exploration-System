@@ -1,0 +1,580 @@
+[
+  {
+    "rgb_sha256": "28399650ea700e640e620c59fb1bbe4c0a7d6dabfa0e91dd8fa8541de2e3f451",
+    "goal": {
+      "instruction": "Find a chair.",
+      "target_category": "chair",
+      "target_attributes": {},
+      "spatial_relations": [],
+      "completion_conditions": {
+        "target_confirmed": true,
+        "approach_required": true
+      }
+    },
+    "result": {
+      "schema_version": "perception_three_groups_v1",
+      "task_id": "find_chair",
+      "observation_id": "mp3d_dining",
+      "view_id": "multiple",
+      "model_id": "qwen3.8:27b",
+      "latency_ms": 12886,
+      "target_status": "VISIBLE",
+      "target_entities": [
+        {
+          "local_id": "E01",
+          "category": "chair",
+          "attributes": {
+            "upholstery": "patterned fabric",
+            "back": "high"
+          },
+          "bbox": [
+            0,
+            760,
+            130,
+            1000
+          ],
+          "confidence": 0.8,
+          "evidence": "Partially visible patterned chair back at bottom-left foreground."
+        },
+        {
+          "local_id": "E02",
+          "category": "chair",
+          "attributes": {
+            "upholstery": "patterned fabric",
+            "back": "high"
+          },
+          "bbox": [
+            200,
+            680,
+            400,
+            960
+          ],
+          "confidence": 0.85,
+          "evidence": "Upholstered dining chair back left of center."
+        },
+        {
+          "local_id": "E03",
+          "category": "chair",
+          "attributes": {
+            "upholstery": "patterned fabric"
+          },
+          "bbox": [
+            390,
+            650,
+            530,
+            850
+          ],
+          "confidence": 0.85,
+          "evidence": "Upholstered chair back in the center of the table."
+        },
+        {
+          "local_id": "E04",
+          "category": "chair",
+          "attributes": {
+            "upholstery": "patterned fabric"
+          },
+          "bbox": [
+            510,
+            610,
+            620,
+            760
+          ],
+          "confidence": 0.8,
+          "evidence": "Upholstered chair back center-right near the table end."
+        },
+        {
+          "local_id": "E05",
+          "category": "chair",
+          "attributes": {
+            "upholstery": "patterned fabric"
+          },
+          "bbox": [
+            800,
+            620,
+            950,
+            760
+          ],
+          "confidence": 0.8,
+          "evidence": "Upholstered chair back on the right side near the archway."
+        }
+      ],
+      "context_entities": [
+        {
+          "local_id": "E06",
+          "category": "table",
+          "attributes": {
+            "material": "wood",
+            "color": "brown"
+          },
+          "bbox": [
+            130,
+            740,
+            1000,
+            1000
+          ],
+          "confidence": 0.85,
+          "evidence": "Large wooden dining table in the foreground with a runner and bowl."
+        },
+        {
+          "local_id": "E07",
+          "category": "mirror",
+          "attributes": {
+            "frame": "ornate",
+            "color": "gold"
+          },
+          "bbox": [
+            250,
+            180,
+            500,
+            540
+          ],
+          "confidence": 0.8,
+          "evidence": "Large framed mirror on the wall above the sideboard."
+        },
+        {
+          "local_id": "E08",
+          "category": "cabinet",
+          "attributes": {
+            "material": "wood",
+            "color": "brown"
+          },
+          "bbox": [
+            220,
+            520,
+            520,
+            680
+          ],
+          "confidence": 0.7,
+          "evidence": "Wooden sideboard/cabinet beneath the mirror."
+        },
+        {
+          "local_id": "E09",
+          "category": "picture",
+          "attributes": {
+            "frame": "dark"
+          },
+          "bbox": [
+            860,
+            390,
+            1000,
+            540
+          ],
+          "confidence": 0.7,
+          "evidence": "Framed picture on the right wall."
+        }
+      ],
+      "visual_cues": [
+        {
+          "local_id": "V01",
+          "cue_type": "doorway",
+          "bbox": [
+            660,
+            240,
+            850,
+            720
+          ],
+          "relative_direction": "right",
+          "visibility": "clear",
+          "evidence": "Arched opening/doorway on the right leading to another room."
+        }
+      ]
+    }
+  },
+  {
+    "rgb_sha256": "28399650ea700e640e620c59fb1bbe4c0a7d6dabfa0e91dd8fa8541de2e3f451",
+    "goal": {
+      "instruction": "Find a table.",
+      "target_category": "table",
+      "target_attributes": {},
+      "spatial_relations": [],
+      "completion_conditions": {
+        "target_confirmed": true,
+        "approach_required": true
+      }
+    },
+    "result": {
+      "schema_version": "perception_three_groups_v1",
+      "task_id": "find_table",
+      "observation_id": "mp3d_dining",
+      "view_id": "multiple",
+      "model_id": "qwen3.8:27b",
+      "latency_ms": 14579,
+      "target_status": "VISIBLE",
+      "target_entities": [
+        {
+          "local_id": "E01",
+          "category": "table",
+          "attributes": {
+            "color": "brown",
+            "type": "dining_table"
+          },
+          "bbox": [
+            180,
+            700,
+            1000,
+            1000
+          ],
+          "confidence": 0.9,
+          "evidence": "Foreground wooden table surface with placemats and a decorative bowl."
+        },
+        {
+          "local_id": "E02",
+          "category": "table",
+          "attributes": {
+            "color": "brown",
+            "type": "console_table"
+          },
+          "bbox": [
+            230,
+            600,
+            540,
+            720
+          ],
+          "confidence": 0.7,
+          "evidence": "Low table against the wall beneath the framed mirror holding a lamp."
+        }
+      ],
+      "context_entities": [
+        {
+          "local_id": "E03",
+          "category": "chair",
+          "attributes": {
+            "color": "brown",
+            "type": "upholstered"
+          },
+          "bbox": [
+            0,
+            760,
+            130,
+            1000
+          ],
+          "confidence": 0.8,
+          "evidence": "Upholstered chair back at lower left foreground."
+        },
+        {
+          "local_id": "E04",
+          "category": "chair",
+          "attributes": {
+            "color": "brown",
+            "type": "upholstered"
+          },
+          "bbox": [
+            200,
+            680,
+            390,
+            920
+          ],
+          "confidence": 0.8,
+          "evidence": "Upholstered chair back left of center."
+        },
+        {
+          "local_id": "E05",
+          "category": "chair",
+          "attributes": {
+            "color": "brown",
+            "type": "upholstered"
+          },
+          "bbox": [
+            380,
+            650,
+            530,
+            850
+          ],
+          "confidence": 0.8,
+          "evidence": "Upholstered chair back center."
+        },
+        {
+          "local_id": "E06",
+          "category": "chair",
+          "attributes": {
+            "color": "brown",
+            "type": "upholstered"
+          },
+          "bbox": [
+            510,
+            620,
+            610,
+            760
+          ],
+          "confidence": 0.7,
+          "evidence": "Upholstered chair back right of center."
+        },
+        {
+          "local_id": "E07",
+          "category": "chair",
+          "attributes": {
+            "color": "brown",
+            "type": "upholstered"
+          },
+          "bbox": [
+            790,
+            620,
+            950,
+            760
+          ],
+          "confidence": 0.7,
+          "evidence": "Upholstered chair back on the right."
+        },
+        {
+          "local_id": "E08",
+          "category": "mirror",
+          "attributes": {
+            "color": "gold",
+            "type": "framed_wall_mirror"
+          },
+          "bbox": [
+            250,
+            180,
+            500,
+            540
+          ],
+          "confidence": 0.8,
+          "evidence": "Large ornate framed mirror on the back wall."
+        },
+        {
+          "local_id": "E09",
+          "category": "mirror",
+          "attributes": {
+            "color": "brown",
+            "type": "tall_floor_mirror"
+          },
+          "bbox": [
+            30,
+            130,
+            200,
+            850
+          ],
+          "confidence": 0.7,
+          "evidence": "Tall framed mirror panel on the left."
+        },
+        {
+          "local_id": "E10",
+          "category": "picture",
+          "attributes": {
+            "color": "white",
+            "type": "framed_art"
+          },
+          "bbox": [
+            850,
+            390,
+            1000,
+            540
+          ],
+          "confidence": 0.7,
+          "evidence": "Framed picture on the right wall."
+        }
+      ],
+      "visual_cues": [
+        {
+          "local_id": "V01",
+          "cue_type": "doorway",
+          "bbox": [
+            660,
+            250,
+            840,
+            720
+          ],
+          "relative_direction": "right",
+          "visibility": "clear",
+          "evidence": "Arched opening on the right leading to an adjacent room with a door."
+        }
+      ]
+    }
+  },
+  {
+    "rgb_sha256": "28399650ea700e640e620c59fb1bbe4c0a7d6dabfa0e91dd8fa8541de2e3f451",
+    "goal": {
+      "instruction": "找冰箱",
+      "target_category": "refrigerator",
+      "target_attributes": {},
+      "spatial_relations": [],
+      "completion_conditions": {
+        "target_confirmed": true,
+        "approach_required": true
+      }
+    },
+    "result": {
+      "schema_version": "perception_three_groups_v1",
+      "task_id": "find_refrigerator",
+      "observation_id": "mp3d_dining",
+      "view_id": "multiple",
+      "model_id": "qwen3.8:27b",
+      "latency_ms": 12974,
+      "target_status": "NOT_VISIBLE",
+      "target_entities": [],
+      "context_entities": [
+        {
+          "local_id": "E01",
+          "category": "chair",
+          "attributes": {
+            "color": "brown",
+            "style": "upholstered"
+          },
+          "bbox": [
+            0,
+            790,
+            180,
+            1000
+          ],
+          "confidence": 0.8,
+          "evidence": "upholstered chair back at left foreground"
+        },
+        {
+          "local_id": "E02",
+          "category": "chair",
+          "attributes": {
+            "color": "brown",
+            "style": "upholstered"
+          },
+          "bbox": [
+            200,
+            680,
+            390,
+            950
+          ],
+          "confidence": 0.8,
+          "evidence": "upholstered chair at left of table"
+        },
+        {
+          "local_id": "E03",
+          "category": "chair",
+          "attributes": {
+            "color": "brown",
+            "style": "upholstered"
+          },
+          "bbox": [
+            380,
+            640,
+            520,
+            850
+          ],
+          "confidence": 0.8,
+          "evidence": "upholstered chair at center of table"
+        },
+        {
+          "local_id": "E04",
+          "category": "chair",
+          "attributes": {
+            "color": "brown",
+            "style": "upholstered"
+          },
+          "bbox": [
+            510,
+            610,
+            620,
+            780
+          ],
+          "confidence": 0.8,
+          "evidence": "upholstered chair at center-right of table"
+        },
+        {
+          "local_id": "E05",
+          "category": "chair",
+          "attributes": {
+            "color": "brown",
+            "style": "upholstered"
+          },
+          "bbox": [
+            800,
+            620,
+            950,
+            760
+          ],
+          "confidence": 0.8,
+          "evidence": "upholstered chair at right of table"
+        },
+        {
+          "local_id": "E06",
+          "category": "table",
+          "attributes": {
+            "color": "brown",
+            "material": "wood"
+          },
+          "bbox": [
+            180,
+            720,
+            1000,
+            1000
+          ],
+          "confidence": 0.85,
+          "evidence": "large wooden dining table in foreground"
+        },
+        {
+          "local_id": "E07",
+          "category": "table",
+          "attributes": {
+            "color": "brown",
+            "material": "wood"
+          },
+          "bbox": [
+            230,
+            620,
+            560,
+            720
+          ],
+          "confidence": 0.7,
+          "evidence": "wooden table behind chairs against wall"
+        },
+        {
+          "local_id": "E08",
+          "category": "mirror",
+          "attributes": {
+            "color": "gold",
+            "frame": "ornate"
+          },
+          "bbox": [
+            250,
+            180,
+            510,
+            540
+          ],
+          "confidence": 0.8,
+          "evidence": "large framed mirror on wall reflecting room"
+        },
+        {
+          "local_id": "E09",
+          "category": "picture",
+          "attributes": {
+            "frame": "dark"
+          },
+          "bbox": [
+            850,
+            370,
+            1000,
+            540
+          ],
+          "confidence": 0.7,
+          "evidence": "framed picture on right wall"
+        }
+      ],
+      "visual_cues": [
+        {
+          "local_id": "V01",
+          "cue_type": "doorway",
+          "bbox": [
+            650,
+            240,
+            830,
+            720
+          ],
+          "relative_direction": "right",
+          "visibility": "clear",
+          "evidence": "arched opening leading to adjacent room"
+        },
+        {
+          "local_id": "V02",
+          "cue_type": "doorway",
+          "bbox": [
+            770,
+            380,
+            830,
+            680
+          ],
+          "relative_direction": "right",
+          "visibility": "partial",
+          "evidence": "door panel with window panes visible through arch"
+        }
+      ]
+    }
+  }
+]

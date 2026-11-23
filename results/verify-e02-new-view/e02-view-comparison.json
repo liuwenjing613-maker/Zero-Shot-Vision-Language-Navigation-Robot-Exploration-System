@@ -1,0 +1,114 @@
+{
+  "scene": "2azQ1b91cZZ",
+  "mp3d_instance_id": 90,
+  "reference_category": "cabinet",
+  "goal": {
+    "instruction": "Find a table.",
+    "target_category": "table",
+    "target_attributes": {},
+    "spatial_relations": [],
+    "completion_conditions": {
+      "target_confirmed": true,
+      "approach_required": true
+    }
+  },
+  "same_model_and_prior": true,
+  "old_view": {
+    "rgb_sha256": "28399650ea700e640e620c59fb1bbe4c0a7d6dabfa0e91dd8fa8541de2e3f451",
+    "position_m": [
+      9.946739196777344,
+      0.12711000442504883,
+      6.490621566772461
+    ],
+    "yaw_deg": 45.720958655982564,
+    "candidate": {
+      "local_id": "E02",
+      "category": "table",
+      "attributes": {
+        "color": "brown",
+        "type": "console_table"
+      },
+      "bbox": [
+        230,
+        600,
+        540,
+        720
+      ],
+      "confidence": 0.7,
+      "evidence": "Low table against the wall beneath the framed mirror holding a lamp."
+    },
+    "verification": {
+      "schema_version": "target_verification_v1",
+      "task_id": "find_table",
+      "observation_id": "mp3d_dining",
+      "view_id": "multiple",
+      "candidate_id": "E02",
+      "model_id": "qwen3.8:27b",
+      "latency_ms": 7521,
+      "status": "VERIFIED",
+      "supporting_evidence": [
+        "Flat horizontal surface at table height within the cyan box",
+        "A lamp with a white shade rests on top of the surface",
+        "Positioned against the wall beneath the framed mirror, consistent with a console/side table"
+      ],
+      "opposing_evidence": [],
+      "uncertainty_reason": ""
+    },
+    "box_source": "perceive_scene"
+  },
+  "new_view": {
+    "rgb_sha256": "0d1ea5f7634874e97ba800f70810ca0da018f8c97781363237b0e08b45ec36f2",
+    "camera": {
+      "position_m": [
+        9.126084327697754,
+        0.12711000442504883,
+        2.8181025981903076
+      ],
+      "sensor_yaw_deg": 139.99999583455866,
+      "sensor_pitch_deg": -12.730867415533202,
+      "bbox_px": [
+        225,
+        158,
+        483,
+        463
+      ],
+      "pixels": 50308,
+      "lower_box_mask_fraction": 0.578
+    },
+    "candidate": {
+      "local_id": "E02",
+      "category": "table",
+      "attributes": {
+        "color": "brown",
+        "type": "console_table"
+      },
+      "bbox": [
+        351,
+        329,
+        755,
+        965
+      ],
+      "confidence": 0.7,
+      "evidence": "Low table against the wall beneath the framed mirror holding a lamp."
+    },
+    "verification": {
+      "schema_version": "target_verification_v1",
+      "task_id": "find_table",
+      "observation_id": "mp3d_dining_revisit_E02",
+      "view_id": "angle4",
+      "candidate_id": "E02",
+      "model_id": "qwen3.8:27b",
+      "latency_ms": 11947,
+      "status": "VERIFIED",
+      "supporting_evidence": [
+        "Flat horizontal top surface suitable for placing objects",
+        "Lamp resting on the top surface",
+        "Low wooden cabinet-style furniture with drawers and a door against the wall",
+        "Positioned beneath the framed mirror as described"
+      ],
+      "opposing_evidence": [],
+      "uncertainty_reason": ""
+    },
+    "box_source": "enclosing visible MP3D instance mask projected in new view"
+  }
+}
