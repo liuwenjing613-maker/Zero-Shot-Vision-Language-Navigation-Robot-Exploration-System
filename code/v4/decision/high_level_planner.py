@@ -129,8 +129,25 @@ class HighLevelPlanner:
         return max(items, key=lambda obj: obj.confidence, default=None)
 
     def _best_uncertain(self, objects: Iterable[WorldObject]) -> WorldObject | None:
-        items = [obj for obj in objects if obj.status in {"CANDIDATE", "UNCERTAIN", "CONFIRMATION"}
-                 and obj.confidence >= self.candidate_confidence]
+        items = [
+            obj for obj in objects
+            if (
+                obj.status in {"CANDIDATE", "UNCERTAIN", "CONFIRMATION"}
+                # A semantically confirmed object can still be unsafe to
+                # approach if its position, confidence, or path evidence no
+                # longer meets the stricter approach threshold.  Keep it in
+                # the observation loop rather than silently abandoning it.
+                or (
+                    obj.status == "CONFIRMED"
+                    and (
+                        obj.map_position is None
+                        or not obj.reachable
+                        or obj.confidence < self.confirmed_confidence
+                        or not self._position_is_precise(obj)
+                    )
+                )
+            ) and obj.confidence >= self.candidate_confidence
+        ]
         return max(items, key=lambda obj: obj.confidence, default=None)
 
     def _best_historical(self, objects: Iterable[WorldObject]) -> WorldObject | None:

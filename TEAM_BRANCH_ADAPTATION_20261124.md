@@ -32,8 +32,9 @@ planner_context_from_team_outputs(goal, online_update, tls_frontiers, robot_pose
 
 临时虚拟环境（未修改系统 Python）中安装了项目声明的 `Pillow`、`numpy`、`scipy`：
 
-- `code/v4/decision/tests`: 28 项通过（含 3 项跨分支适配测试和 9 项模拟决策矩阵）；
-  另启用的三模块 Mock 闭环 1 项通过。
+- `code/v4/decision/tests`: 33 项通过（含 3 项跨分支适配测试、13 项模拟决策矩阵，
+  以及 1 项 TLS 实际前沿生成 → hyf 决策 → TLS MockBackend 执行测试）；另启用的
+  三模块 Mock 闭环 1 项通过。
 - `code/tests`: 63 项通过（TLS Execution、Frontier 检测/聚类/Viewpoint/评分，以及
   FrontierMemory 集成）。
 - `tests`: 44 项通过（lwj M1 栅格/拓扑、M2 对象记忆、M3/M4 探索记忆、门户/区域）。
@@ -45,6 +46,11 @@ Mock 闭环覆盖：未定位候选 `SCAN`、无目标时 `EXPLORE_FRONTIER`、�
 模拟矩阵额外发现并修正了一条 Decision 规则：多属性目标中，观测缺少某个属性
 （例如颜色被遮挡的椅子）是未知证据，必须作为候选 `OBSERVE_TARGET`，而不能直接
 丢弃后去探索；只有已观测到相冲突的属性（例如蓝色而目标要求红色）才排除候选。
+
+后续扩展场景还修正了两条安全边界：已验证但位置方差过大、路径不再可达或置信度
+降到接近阈值的目标，会回到 `OBSERVE_TARGET` 而非被静默遗忘；携带
+`VLM_TIMEOUT` 的结果即使状态为 `TIMEOUT`，也优先遵循一次受限视觉重试规则，
+不会被通用导航超时恢复逻辑误截获。
 
 ## 仍由总控/后续模块负责的接口
 

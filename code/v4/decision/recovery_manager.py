@@ -32,6 +32,14 @@ class RecoveryManager:
                 "record_event": "NAVIGATION_FAILED", "mark_frontier": "BLOCKED",
                 "exclude_last_frontier": True, "cancel_navigation": True,
             })
+        # A VLM timeout is not a navigation timeout even though both may use
+        # the TIMEOUT execution status. Handle the owner-specific recovery
+        # first so the bounded visual retry contract cannot be bypassed.
+        if code in {"VLM_TIMEOUT", "PERCEPTION_TIMEOUT"}:
+            retry = not any(event.get("event_type") == "VLM_RETRY" for event in context.world_state.recent_events)
+            return RecoveryPlan(ActionType.SCAN, "视觉服务超时，执行一次受限重试" if retry else "视觉服务再次超时，使用本地规则继续", {
+                "record_event": "VLM_RETRY" if retry else "VLM_TIMEOUT", "retry_vlm": retry,
+            })
         if result.status is ExecutionStatus.TIMEOUT or code in {"NAVIGATION_TIMEOUT", "TIMEOUT"}:
             return RecoveryPlan(ActionType.RECOVER, "导航超时，取消当前导航并检查位姿", {
                 "record_event": "NAVIGATION_FAILED", "cancel_navigation": True,
@@ -45,11 +53,6 @@ class RecoveryManager:
         if code in {"TARGET_REJECTED", "VERIFICATION_REJECTED"}:
             return RecoveryPlan(ActionType.SCAN, "候选目标被否定，降级证据并重新观察", {
                 "record_event": "TARGET_REJECTED", "downgrade_target": True,
-            })
-        if code in {"VLM_TIMEOUT", "PERCEPTION_TIMEOUT"}:
-            retry = not any(event.get("event_type") == "VLM_RETRY" for event in context.world_state.recent_events)
-            return RecoveryPlan(ActionType.SCAN, "视觉服务超时，执行一次受限重试" if retry else "视觉服务再次超时，使用本地规则继续", {
-                "record_event": "VLM_RETRY" if retry else "VLM_TIMEOUT", "retry_vlm": retry,
             })
         return RecoveryPlan(ActionType.RECOVER, "执行失败，停止当前动作并重新规划", {
             "record_event": "RECOVERY_TRIGGERED", "cancel_navigation": True,

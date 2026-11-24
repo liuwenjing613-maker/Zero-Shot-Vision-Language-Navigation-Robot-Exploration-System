@@ -94,6 +94,22 @@ class SimulatedDecisionScenarios(unittest.TestCase):
             frontiers=(frontier(),),
         )
 
+    def test_imprecisely_localized_confirmed_target_is_observed_again(self):
+        # Semantics may be verified while geometry remains too uncertain for a
+        # safe approach. Refining the observation is safer than abandoning the
+        # candidate for an unrelated frontier.
+        self.assert_action(
+            ActionType.OBSERVE_TARGET,
+            objects=(obj(attributes={"color": "red"}, status="CONFIRMED", sigma=2.0),),
+            frontiers=(frontier(),),
+        )
+
+    def test_rejected_target_is_not_reintroduced_by_category_match(self):
+        self.assert_action(
+            ActionType.EXPLORE_FRONTIER,
+            objects=(obj(attributes={"color": "red"}, status="REJECTED"),), frontiers=(frontier(),),
+        )
+
     def test_stale_reachable_match_is_revisited(self):
         self.assert_action(
             ActionType.REVISIT_TARGET,
@@ -118,6 +134,25 @@ class SimulatedDecisionScenarios(unittest.TestCase):
             task_id=GOAL.task_id, action_id="a1", status="FAILED", error_code="NO_PATH",
         )
         self.assert_action(ActionType.RECOVER, frontiers=(frontier(),), last_execution_result=failure)
+
+    def test_verification_rejection_requests_scan(self):
+        failure = ExecutionResult(
+            task_id=GOAL.task_id, action_id="a1", status="FAILED", error_code="TARGET_REJECTED",
+        )
+        self.assert_action(ActionType.SCAN, frontiers=(frontier(),), last_execution_result=failure)
+
+    def test_second_vlm_timeout_uses_local_fallback_without_retry(self):
+        failure = ExecutionResult(
+            task_id=GOAL.task_id, action_id="a1", status="TIMEOUT", error_code="VLM_TIMEOUT",
+        )
+        state = context(frontiers=(frontier(),), last_execution_result=failure).world_state
+        state = WorldState(
+            task_id=state.task_id, map_version=state.map_version, robot_pose=state.robot_pose,
+            frontiers=state.frontiers, recent_events=({"event_type": "VLM_RETRY"},),
+        )
+        decision = self.planner.step(build_planner_context(GOAL, state, state.frontiers, last_execution_result=failure))
+        self.assertEqual(ActionType.SCAN, decision.action_type)
+        self.assertFalse(decision.recovery_directives["retry_vlm"])
 
     def test_budget_exhaustion_stops(self):
         self.assert_action(ActionType.STOP, frontiers=(frontier(),), exploration_steps=3)
