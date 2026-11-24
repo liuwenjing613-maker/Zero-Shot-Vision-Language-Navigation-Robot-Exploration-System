@@ -106,10 +106,19 @@ class HighLevelPlanner:
         )
 
     def _matches_goal(self, obj: WorldObject, context: PlannerContext) -> bool:
+        # A missing attribute is unknown evidence, not negative evidence.  For
+        # example, a detected chair whose color was occluded can still be a
+        # requested red chair and should be observed before we spend the search
+        # budget exploring elsewhere.  Only an explicit conflicting attribute
+        # rules it out.  ``CONFIRMED`` remains protected by _best_confirmed's
+        # status/reachability/geometry checks.
+        if obj.status == "REJECTED":
+            return False
         if obj.category.strip().casefold() != context.goal_spec.target_category.strip().casefold():
             return False
         return all(
-            obj.attributes.get(key, "").strip().casefold() == value.strip().casefold()
+            key not in obj.attributes
+            or obj.attributes[key].strip().casefold() == value.strip().casefold()
             for key, value in context.goal_spec.target_attributes.items()
         )
 

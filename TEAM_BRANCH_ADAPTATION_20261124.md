@@ -32,8 +32,8 @@ planner_context_from_team_outputs(goal, online_update, tls_frontiers, robot_pose
 
 临时虚拟环境（未修改系统 Python）中安装了项目声明的 `Pillow`、`numpy`、`scipy`：
 
-- `code/v4/decision/tests`: 19 项通过（含新增的 3 项适配测试）；另启用的三模块
-  Mock 闭环 1 项通过。
+- `code/v4/decision/tests`: 28 项通过（含 3 项跨分支适配测试和 9 项模拟决策矩阵）；
+  另启用的三模块 Mock 闭环 1 项通过。
 - `code/tests`: 63 项通过（TLS Execution、Frontier 检测/聚类/Viewpoint/评分，以及
   FrontierMemory 集成）。
 - `tests`: 44 项通过（lwj M1 栅格/拓扑、M2 对象记忆、M3/M4 探索记忆、门户/区域）。
@@ -41,6 +41,10 @@ planner_context_from_team_outputs(goal, online_update, tls_frontiers, robot_pose
 Mock 闭环覆盖：未定位候选 `SCAN`、无目标时 `EXPLORE_FRONTIER`、已确认且可达目标
 `APPROACH_TARGET`、`NO_PATH` 后 `RECOVER` 并取消导航。它不调用 Qwen、Habitat 或
 真实 MP3D；因此证明的是跨模块数据契约和安全分发，而不是仿真导航指标。
+
+模拟矩阵额外发现并修正了一条 Decision 规则：多属性目标中，观测缺少某个属性
+（例如颜色被遮挡的椅子）是未知证据，必须作为候选 `OBSERVE_TARGET`，而不能直接
+丢弃后去探索；只有已观测到相冲突的属性（例如蓝色而目标要求红色）才排除候选。
 
 ## 仍由总控/后续模块负责的接口
 

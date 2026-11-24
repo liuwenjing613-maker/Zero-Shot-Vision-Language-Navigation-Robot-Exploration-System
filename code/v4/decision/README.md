@@ -82,6 +82,11 @@ reachable after a backend/path check. A verified-but-unchecked object is only
 `CONFIRMATION` and gets `OBSERVE_TARGET`; this prevents semantics from
 authorising unsafe navigation.
 
+For multi-attribute goals, an attribute absent from an observation is unknown
+rather than a mismatch: a candidate such as an occluded-color chair is first
+observed. An explicitly contradictory attribute (for example, `blue` for a
+requested `red` chair) is excluded from target selection.
+
 ## Run
 
 ```bash
