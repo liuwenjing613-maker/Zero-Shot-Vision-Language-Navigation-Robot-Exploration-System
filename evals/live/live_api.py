@@ -172,7 +172,7 @@ class LiveHub:
         vlm = read(f / "vlm.json")
         if self.loaded != folder or self.reducer.last != frame["step"] - 1:
             self.loaded = None
-            self.reducer = OnlineMemory(cfg)
+            self.reducer = OnlineMemory(dict(cfg,episode_path=folder / "episodic.jsonl"))
             for old in frames(folder)[: frame["step"]]:
                 with np.load(old / "sensors.npz") as data:
                     self.reducer.apply(

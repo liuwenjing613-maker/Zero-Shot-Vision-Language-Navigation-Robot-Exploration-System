@@ -76,6 +76,8 @@ class OccupancyMemory:
         self.visit_count = np.zeros((rows, cols), dtype=np.uint64)
         self._last_cell = None
         self._last_xy = None
+        self.observed_count = np.zeros_like(self.visit_count)
+        self.last_observed_version = np.zeros_like(self.visit_count)
         self.map_version = 0
         self.timestamp = None
 
@@ -194,6 +196,8 @@ class OccupancyMemory:
         for cells, change in ((frees - hits, -0.45), (hits, 0.9)):
             if cells:
                 indices = tuple(zip(*cells))
+                self.observed_count[indices] += 1
+                self.last_observed_version[indices] = self.map_version + 1
                 self.log_odds[indices] = np.clip(self.log_odds[indices] + change, -4, 4)
         for visited in visits:
             self._visit(visited)

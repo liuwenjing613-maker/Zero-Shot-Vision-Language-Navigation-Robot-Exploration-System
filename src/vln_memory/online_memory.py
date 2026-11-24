@@ -3,6 +3,7 @@ from dataclasses import asdict
 import math
 import numpy as np
 from .geometry_memory import OccupancyMemory, Intrinsics
+from .exploration_memory import ExplorationMemory
 from .object_memory import ObjectMemory
 from .junction_memory import JunctionDetector
 from .portal_memory import RegionEntryDetector, free_footprint
@@ -39,6 +40,7 @@ class OnlineMemory:
         self.junction = JunctionDetector(self.graph, config["radius"])
         self.camera = Intrinsics.from_hfov(*config["camera"])
         self.objects = ObjectMemory()
+        self.exploration = ExplorationMemory(config["session"], config.get("episode_path")) if config.get("session") else None
         self.last = -1
         self.pending_views = []
 
@@ -51,6 +53,16 @@ class OnlineMemory:
         r.place = place
         r.path_length = 0.0
         r.continuous = True
+
+    def apply_verification(self, verdict, timestamp):
+        evidence = self.objects.apply_verification(verdict, timestamp)
+        if self.exploration:
+            self.exploration.m4.record(
+                f"{evidence.observation_id}:{evidence.status}:{timestamp}",
+                "TARGET_" + evidence.status, "verifier", timestamp,
+                task_id=evidence.task_id, observation_id=evidence.observation_id,
+                object_id=evidence.object_id, map_version=self.grid.map_version)
+        return evidence
 
     def apply(self, frame, data, perception):
         n, obs, xy = frame["step"], frame["observation_id"], frame["xy"]
@@ -103,6 +115,9 @@ class OnlineMemory:
             self._arrive(point, obs)
             events.append(dict(reason="JUNCTION", place=point))
         target = frame.get("frontier")
+        if target and self.exploration and frame["action"] == "observe":
+            active = self.exploration.active
+            target = dict(target, id=active[0]) if active else None
         if (
             target
             and frame["action"] == "observe"
@@ -148,8 +163,11 @@ class OnlineMemory:
             p.nearby_object_ids.extend(
                 ref for ref in refs if ref not in p.nearby_object_ids
             )
+        objects = self.objects.snapshot(mapped)
+        exploration = self.exploration.update(frame,self.grid,events,objects) if self.exploration else None
         self.last = n
         return dict(
+            exploration=exploration,
             step=n,
             observation_id=obs,
             events=events,
@@ -174,6 +192,6 @@ class OnlineMemory:
             places=[asdict(p) for p in self.graph.places.values()],
             edges=[asdict(e) for e in self.graph.edges.values()],
             frontier_places=self.graph.frontier_places.copy(),
-            object_memory=self.objects.snapshot(mapped),
+            object_memory=objects,
             map_version=self.grid.map_version,
         )
