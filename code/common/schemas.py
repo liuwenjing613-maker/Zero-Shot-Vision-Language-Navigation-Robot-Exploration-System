@@ -12,6 +12,8 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from typing import Any, Dict, List, Optional, Sequence, Tuple
 
+Position3D = Tuple[float, float, float]
+
 
 @dataclass
 class ObservationPacket:
@@ -96,3 +98,63 @@ class ExecutionResult:
                error_message: str = "", **kw: Any) -> "ExecutionResult":
         return cls(task_id=task_id, action_id=action_id, status="FAILED",
                    error_code=error_code, error_message=error_message, **kw)
+
+
+# ══════════════════════════════════════════════════════════════════
+# 模块三：语义探索
+# ══════════════════════════════════════════════════════════════════
+
+
+@dataclass
+class FrontierCandidate:
+    """一个前沿候选（Region + 最优 Viewpoint）。
+
+    字段与队友 hyf 在 `code/v4/common/schemas.py` 里冻结的契约一致，
+    保证两个分支合并后能直接对接。
+
+    三个概念（见队长给的设计文档）：
+      · Frontier Cell —— 检测单位
+      · Frontier Region —— 记忆/决策单位（本类）
+      · Viewpoint —— 导航执行单位（safe_viewpoint）
+    """
+
+    frontier_id: str
+    centroid: Position3D
+    safe_viewpoint: Position3D
+
+    cluster_size: int = 0
+    reachable: bool = True
+    path_length: float = 0.0
+    clearance: float = 0.0
+
+    # 评分分量（均已归一化到 [0,1]）
+    information_gain: float = 0.0
+    novelty: float = 0.0
+
+    nearby_object_ids: Sequence[str] = field(default_factory=tuple)
+    associated_place_id: Optional[str] = None
+    visual_cues: Sequence[str] = field(default_factory=tuple)
+
+    visit_count: int = 0
+    failed_count: int = 0
+    status: str = "NEW"
+
+    local_utility: float = 0.0
+    semantic_utility: Optional[float] = None
+
+    def to_dict(self) -> Dict[str, Any]:
+        return {
+            "frontier_id": self.frontier_id,
+            "centroid": [float(v) for v in self.centroid],
+            "safe_viewpoint": [float(v) for v in self.safe_viewpoint],
+            "cluster_size": self.cluster_size,
+            "reachable": self.reachable,
+            "path_length": round(float(self.path_length), 3),
+            "clearance": round(float(self.clearance), 3),
+            "information_gain": round(float(self.information_gain), 4),
+            "novelty": round(float(self.novelty), 4),
+            "visit_count": self.visit_count,
+            "failed_count": self.failed_count,
+            "status": self.status,
+            "local_utility": round(float(self.local_utility), 4),
+        }
