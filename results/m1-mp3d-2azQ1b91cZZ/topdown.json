@@ -1,0 +1,24 @@
+{
+  "scene": "2azQ1b91cZZ",
+  "origin": [
+    1.9270292282104493,
+    -2.7093786239624023
+  ],
+  "shape": [
+    154,
+    147
+  ],
+  "resolution": 0.1,
+  "width": 1176,
+  "height": 1232,
+  "pixels_per_cell": 8,
+  "reference_floor_world_y": 0.12711000442504883,
+  "camera_world_y": 2.1771100044250487,
+  "near_m": 0.02,
+  "far_m": 2.5,
+  "axis_right": "world +X",
+  "axis_down": "world +Z",
+  "max_projection_error_px": 0.00018734148358461205,
+  "pinhole_probes": 32,
+  "median_probe_rgb_mae": 2.0
+}

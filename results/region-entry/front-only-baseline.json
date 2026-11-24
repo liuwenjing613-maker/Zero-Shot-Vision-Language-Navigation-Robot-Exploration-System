@@ -1,0 +1,45 @@
+{
+  "1": {
+    "criteria": {
+      "negative": true,
+      "outbound": false,
+      "inbound": false,
+      "same_portal": false
+    },
+    "proposals": [
+      {
+        "observation_id": "approach-1",
+        "cue_id": "V02",
+        "kind": "doorway",
+        "status": "PROPOSED"
+      }
+    ]
+  },
+  "6": {
+    "criteria": {
+      "negative": true,
+      "outbound": false,
+      "inbound": false,
+      "same_portal": false
+    },
+    "proposals": []
+  },
+  "2": {
+    "criteria": {
+      "negative": true,
+      "outbound": false,
+      "inbound": false,
+      "same_portal": false
+    },
+    "proposals": []
+  },
+  "5": {
+    "criteria": {
+      "negative": true,
+      "outbound": false,
+      "inbound": false,
+      "same_portal": false
+    },
+    "proposals": []
+  }
+}

@@ -1,0 +1,19 @@
+.scanviews{display:grid;grid-template-columns:1.4fr 1fr;gap:14px;margin:14px 0}
+.scanviews canvas{width:100%;height:auto;background:#eef3f5}
+.layers,#metrics{display:flex;flex-wrap:wrap;gap:12px 20px;margin-top:12px}
+.layers label{font-size:14px;cursor:pointer}
+input{accent-color:#0d776b}
+.strip{margin:14px 0}
+#metrics div{min-width:105px;background:#f3f7f7;padding:9px 12px;border-radius:6px}
+#metrics b,#metrics small{display:block}
+#metrics b{font-size:21px;color:#145c56}
+#how,#cell,#returns,#coverage{font-size:14px}
+nav a{margin-left:auto;font-size:14px}
+@media(max-width:830px){.scanviews{grid-template-columns:1fr}.layers{gap:7px}}
+
+.scanviews{grid-template-columns:repeat(2,minmax(0,1fr));grid-template-areas:"scene map" "polar score"}
+#sceneCard{grid-area:scene}#mapCard{grid-area:map}#polarCard{grid-area:polar}#scoreCard{grid-area:score;margin:0}
+#sceneCard a{font-size:14px}#sceneNote{font-size:14px}#scene,#grid{cursor:crosshair}
+#polarCard canvas{max-height:340px;object-fit:contain}
+.scanviews.room{grid-template-areas:"map polar" "score score"}.scanviews.room #sceneCard{display:none}
+@media(max-width:830px){.scanviews{grid-template-columns:1fr;grid-template-areas:"scene" "map" "polar" "score"}.scanviews.room{grid-template-areas:"map" "polar" "score"}}

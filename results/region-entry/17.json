@@ -1,0 +1,748 @@
+{
+  "scene": "2azQ1b91cZZ",
+  "index": 17,
+  "fixture": {
+    "center": [
+      8.309470000000001,
+      2.6620050000000006
+    ],
+    "normal": [
+      -0.0005941489416607815,
+      0.999999823493502
+    ],
+    "start": [
+      8.3103609085083,
+      0.12711000442504883,
+      1.1620053052902222
+    ],
+    "width": 0.795,
+    "from": 12,
+    "to": 2,
+    "labels": [
+      "h",
+      "d"
+    ]
+  },
+  "origin": [
+    3.810360908508301,
+    -3.337994694709778
+  ],
+  "perception": {
+    "schema_version": "perception_three_groups_v1",
+    "task_id": "region-entry",
+    "observation_id": "approach-17",
+    "view_id": "front",
+    "model_id": "qwen3-vl:8b",
+    "latency_ms": 268682,
+    "target_status": "VISIBLE",
+    "target_entities": [
+      {
+        "local_id": "E01",
+        "category": "chair",
+        "attributes": {
+          "color": "brown",
+          "material": "wood"
+        },
+        "bbox": [
+          295,
+          537,
+          406,
+          845
+        ],
+        "confidence": 0.8,
+        "evidence": "visible chair with ornate backrest near table"
+      },
+      {
+        "local_id": "E02",
+        "category": "chair",
+        "attributes": {
+          "color": "brown",
+          "material": "wood"
+        },
+        "bbox": [
+          371,
+          515,
+          519,
+          785
+        ],
+        "confidence": 0.8,
+        "evidence": "visible chair with ornate backrest near table"
+      }
+    ],
+    "context_entities": [
+      {
+        "local_id": "E03",
+        "category": "table",
+        "attributes": {
+          "color": "light brown",
+          "material": "wood"
+        },
+        "bbox": [
+          296,
+          574,
+          475,
+          715
+        ],
+        "confidence": 0.8,
+        "evidence": "large wooden dining table with patterned surface"
+      },
+      {
+        "local_id": "E04",
+        "category": "cabinet",
+        "attributes": {
+          "color": "dark brown",
+          "material": "wood"
+        },
+        "bbox": [
+          553,
+          542,
+          706,
+          850
+        ],
+        "confidence": 0.8,
+        "evidence": "dark wooden cabinet with decorative carvings"
+      },
+      {
+        "local_id": "E05",
+        "category": "door",
+        "attributes": {
+          "color": "brown",
+          "material": "wood"
+        },
+        "bbox": [
+          195,
+          350,
+          305,
+          645
+        ],
+        "confidence": 0.8,
+        "evidence": "wooden door panel visible through doorway"
+      },
+      {
+        "local_id": "E06",
+        "category": "door",
+        "attributes": {
+          "color": "brown",
+          "material": "wood"
+        },
+        "bbox": [
+          427,
+          350,
+          519,
+          645
+        ],
+        "confidence": 0.8,
+        "evidence": "wooden door panel visible through doorway"
+      }
+    ],
+    "visual_cues": [
+      {
+        "local_id": "V01",
+        "cue_type": "corridor",
+        "bbox": [
+          195,
+          0,
+          519,
+          998
+        ],
+        "relative_direction": "left",
+        "visibility": "clear",
+        "evidence": "long hallway with wooden ceiling and floor"
+      },
+      {
+        "local_id": "V02",
+        "cue_type": "doorway",
+        "bbox": [
+          195,
+          0,
+          305,
+          998
+        ],
+        "relative_direction": "left",
+        "visibility": "clear",
+        "evidence": "open doorway leading to dining area"
+      }
+    ]
+  },
+  "proposals": [
+    {
+      "observation_id": "approach-17",
+      "cue_id": "V02",
+      "kind": "doorway",
+      "status": "PROPOSED"
+    },
+    {
+      "observation_id": "approach-17",
+      "cue_id": "V01",
+      "kind": "corridor",
+      "status": "VALIDATED",
+      "geometry": "verified_narrowing",
+      "portal_id": "D01",
+      "step": 4
+    }
+  ],
+  "portals": [
+    {
+      "id": "D01",
+      "a": [
+        8.842552459116474,
+        2.3203541963680636
+      ],
+      "b": [
+        7.820993565839974,
+        2.5630833202236314
+      ],
+      "width": 1.05
+    }
+  ],
+  "trace": [
+    {
+      "step": 0,
+      "phase": "start",
+      "xy": [
+        8.3103609085083,
+        1.1620053052902222
+      ],
+      "regions": [
+        12
+      ],
+      "event": null,
+      "area": "A01",
+      "known_portals": []
+    },
+    {
+      "step": 1,
+      "phase": "approach",
+      "xy": [
+        8.310212135314941,
+        1.4120051860809326
+      ],
+      "regions": [
+        12
+      ],
+      "event": null,
+      "area": "A01",
+      "known_portals": []
+    },
+    {
+      "step": 2,
+      "phase": "approach",
+      "xy": [
+        8.310063362121582,
+        1.6620051860809326
+      ],
+      "regions": [
+        12
+      ],
+      "event": null,
+      "area": "A01",
+      "known_portals": []
+    },
+    {
+      "step": 3,
+      "phase": "approach",
+      "xy": [
+        8.309914588928223,
+        1.9120051860809326
+      ],
+      "regions": [
+        12
+      ],
+      "event": null,
+      "area": "A01",
+      "known_portals": []
+    },
+    {
+      "step": 4,
+      "phase": "approach",
+      "xy": [
+        8.309765815734863,
+        2.1620051860809326
+      ],
+      "regions": [
+        12
+      ],
+      "event": null,
+      "area": "A01",
+      "known_portals": [
+        "D01"
+      ]
+    },
+    {
+      "step": 5,
+      "phase": "retreat",
+      "xy": [
+        8.309914588928223,
+        1.9120051860809326
+      ],
+      "regions": [
+        12
+      ],
+      "event": null,
+      "area": "A01",
+      "known_portals": [
+        "D01"
+      ]
+    },
+    {
+      "step": 6,
+      "phase": "retreat",
+      "xy": [
+        8.310063362121582,
+        1.6620051860809326
+      ],
+      "regions": [
+        12
+      ],
+      "event": null,
+      "area": "A01",
+      "known_portals": [
+        "D01"
+      ]
+    },
+    {
+      "step": 7,
+      "phase": "retreat",
+      "xy": [
+        8.310212135314941,
+        1.4120051860809326
+      ],
+      "regions": [
+        12
+      ],
+      "event": null,
+      "area": "A01",
+      "known_portals": [
+        "D01"
+      ]
+    },
+    {
+      "step": 8,
+      "phase": "retreat",
+      "xy": [
+        8.3103609085083,
+        1.1620051860809326
+      ],
+      "regions": [
+        12
+      ],
+      "event": null,
+      "area": "A01",
+      "known_portals": [
+        "D01"
+      ]
+    },
+    {
+      "step": 9,
+      "phase": "outbound",
+      "xy": [
+        8.310212135314941,
+        1.4120051860809326
+      ],
+      "regions": [
+        12
+      ],
+      "event": null,
+      "area": "A01",
+      "known_portals": [
+        "D01"
+      ]
+    },
+    {
+      "step": 10,
+      "phase": "outbound",
+      "xy": [
+        8.310063362121582,
+        1.6620051860809326
+      ],
+      "regions": [
+        12
+      ],
+      "event": null,
+      "area": "A01",
+      "known_portals": [
+        "D01"
+      ]
+    },
+    {
+      "step": 11,
+      "phase": "outbound",
+      "xy": [
+        8.309914588928223,
+        1.9120051860809326
+      ],
+      "regions": [
+        12
+      ],
+      "event": null,
+      "area": "A01",
+      "known_portals": [
+        "D01"
+      ]
+    },
+    {
+      "step": 12,
+      "phase": "outbound",
+      "xy": [
+        8.309765815734863,
+        2.1620051860809326
+      ],
+      "regions": [
+        12
+      ],
+      "event": null,
+      "area": "A01",
+      "known_portals": [
+        "D01"
+      ]
+    },
+    {
+      "step": 13,
+      "phase": "outbound",
+      "xy": [
+        8.309617042541504,
+        2.4120051860809326
+      ],
+      "regions": [
+        12
+      ],
+      "event": null,
+      "area": "A01",
+      "known_portals": [
+        "D01"
+      ]
+    },
+    {
+      "step": 14,
+      "phase": "outbound",
+      "xy": [
+        8.309468269348145,
+        2.6620051860809326
+      ],
+      "regions": [
+        2
+      ],
+      "event": null,
+      "area": "A01",
+      "known_portals": [
+        "D01"
+      ]
+    },
+    {
+      "step": 15,
+      "phase": "outbound",
+      "xy": [
+        8.309319496154785,
+        2.9120051860809326
+      ],
+      "regions": [
+        2
+      ],
+      "event": null,
+      "area": "A01",
+      "known_portals": [
+        "D01"
+      ]
+    },
+    {
+      "step": 16,
+      "phase": "outbound",
+      "xy": [
+        8.309170722961426,
+        3.1620051860809326
+      ],
+      "regions": [
+        2
+      ],
+      "event": {
+        "portal_id": "D01",
+        "area": "A02",
+        "place": "P02",
+        "xy": [
+          8.309170722961426,
+          3.1620051860809326
+        ],
+        "observation_id": "f17-16"
+      },
+      "area": "A02",
+      "known_portals": [
+        "D01"
+      ]
+    },
+    {
+      "step": 17,
+      "phase": "outbound",
+      "xy": [
+        8.309021949768066,
+        3.4120051860809326
+      ],
+      "regions": [
+        2
+      ],
+      "event": null,
+      "area": "A02",
+      "known_portals": [
+        "D01"
+      ]
+    },
+    {
+      "step": 18,
+      "phase": "outbound",
+      "xy": [
+        8.308873176574707,
+        3.6620051860809326
+      ],
+      "regions": [
+        2
+      ],
+      "event": null,
+      "area": "A02",
+      "known_portals": [
+        "D01"
+      ]
+    },
+    {
+      "step": 19,
+      "phase": "return",
+      "xy": [
+        8.309021949768066,
+        3.4120051860809326
+      ],
+      "regions": [
+        2
+      ],
+      "event": null,
+      "area": "A02",
+      "known_portals": [
+        "D01"
+      ]
+    },
+    {
+      "step": 20,
+      "phase": "return",
+      "xy": [
+        8.309170722961426,
+        3.1620051860809326
+      ],
+      "regions": [
+        2
+      ],
+      "event": null,
+      "area": "A02",
+      "known_portals": [
+        "D01"
+      ]
+    },
+    {
+      "step": 21,
+      "phase": "return",
+      "xy": [
+        8.309319496154785,
+        2.9120051860809326
+      ],
+      "regions": [
+        2
+      ],
+      "event": null,
+      "area": "A02",
+      "known_portals": [
+        "D01"
+      ]
+    },
+    {
+      "step": 22,
+      "phase": "return",
+      "xy": [
+        8.309468269348145,
+        2.6620051860809326
+      ],
+      "regions": [
+        2
+      ],
+      "event": null,
+      "area": "A02",
+      "known_portals": [
+        "D01"
+      ]
+    },
+    {
+      "step": 23,
+      "phase": "return",
+      "xy": [
+        8.309617042541504,
+        2.4120051860809326
+      ],
+      "regions": [
+        12
+      ],
+      "event": null,
+      "area": "A02",
+      "known_portals": [
+        "D01"
+      ]
+    },
+    {
+      "step": 24,
+      "phase": "return",
+      "xy": [
+        8.309765815734863,
+        2.1620051860809326
+      ],
+      "regions": [
+        12
+      ],
+      "event": null,
+      "area": "A02",
+      "known_portals": [
+        "D01"
+      ]
+    },
+    {
+      "step": 25,
+      "phase": "return",
+      "xy": [
+        8.309914588928223,
+        1.9120051860809326
+      ],
+      "regions": [
+        12
+      ],
+      "event": null,
+      "area": "A02",
+      "known_portals": [
+        "D01"
+      ]
+    },
+    {
+      "step": 26,
+      "phase": "return",
+      "xy": [
+        8.310063362121582,
+        1.6620051860809326
+      ],
+      "regions": [
+        12
+      ],
+      "event": {
+        "portal_id": "D01",
+        "area": "A01",
+        "place": "P01",
+        "xy": [
+          8.310063362121582,
+          1.6620051860809326
+        ],
+        "observation_id": "f17-26"
+      },
+      "area": "A01",
+      "known_portals": [
+        "D01"
+      ]
+    },
+    {
+      "step": 27,
+      "phase": "return",
+      "xy": [
+        8.310212135314941,
+        1.4120051860809326
+      ],
+      "regions": [
+        12
+      ],
+      "event": null,
+      "area": "A01",
+      "known_portals": [
+        "D01"
+      ]
+    },
+    {
+      "step": 28,
+      "phase": "return",
+      "xy": [
+        8.3103609085083,
+        1.1620051860809326
+      ],
+      "regions": [
+        12
+      ],
+      "event": null,
+      "area": "A01",
+      "known_portals": [
+        "D01"
+      ]
+    }
+  ],
+  "criteria": {
+    "negative": true,
+    "outbound": true,
+    "inbound": true,
+    "same_portal": true
+  },
+  "places": [
+    {
+      "place_id": "P01",
+      "x": 8.3103609085083,
+      "y": 1.1620053052902222,
+      "visit_count": 2,
+      "created_at": 0,
+      "last_visit_time": 26,
+      "observation_ids": [
+        "f17-0",
+        "f17-26"
+      ],
+      "nearby_object_ids": [],
+      "area_id": "A01",
+      "node_types": [
+        "START",
+        "REGION_ENTRY"
+      ],
+      "entry_portal_ids": [
+        "D01"
+      ]
+    },
+    {
+      "place_id": "P02",
+      "x": 8.309170722961426,
+      "y": 3.1620051860809326,
+      "visit_count": 1,
+      "created_at": 16,
+      "last_visit_time": 16,
+      "observation_ids": [
+        "f17-16"
+      ],
+      "nearby_object_ids": [],
+      "area_id": "A02",
+      "node_types": [
+        "REGION_ENTRY"
+      ],
+      "entry_portal_ids": [
+        "D01"
+      ]
+    }
+  ],
+  "edges": [
+    {
+      "source_id": "P01",
+      "target_id": "P02",
+      "path_cost": 4.000000589061486,
+      "status": "TRAVERSED",
+      "traversal_count": 1,
+      "failure_count": 0,
+      "consecutive_failures": 0,
+      "portal_ids": [
+        "D01"
+      ]
+    },
+    {
+      "source_id": "P02",
+      "target_id": "P01",
+      "path_cost": 2.5000004426692217,
+      "status": "TRAVERSED",
+      "traversal_count": 1,
+      "failure_count": 0,
+      "consecutive_failures": 0,
+      "portal_ids": [
+        "D01"
+      ]
+    }
+  ]
+}

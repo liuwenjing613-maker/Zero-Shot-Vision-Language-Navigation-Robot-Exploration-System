@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>M1 · 360° 扫描建图</title><link rel="stylesheet" href="/style.css"><link rel="stylesheet" href="/laser.css"><script defer src="/laser.js"></script></head>
+<body><header><div class="head"><strong>VLN 研究工作台 / M1</strong><span id="state" role="status">读取服务器数据…</span></div></header>
+<main><a href="/live">手动驾驶机器人 · 在线 M1</a> · <a href="/junction">查看岔路建点逐帧实测</a> · <a href="/region-entry">查看新区域进入检测逐帧实测</a><div class="intro"><div><h1>360° 扫描建图</h1><p>每圈 720 个方向 · 0.5° 角分辨率 · 6 m 量程 · 0.10 m 栅格</p></div><button id="run">服务器重跑两组扫描</button></div>
+<nav><button class="tab active" id="mp">MP3D 餐厅</button><button class="tab" id="room">已知尺寸房间</button><a href="/depth">深度与拓扑实验</a></nav>
+<section class="timeline"><div class="bar"><strong id="title">正在读取首圈…</strong><span id="num"></span></div><p id="detail"></p>
+<div class="controls"><button id="prev">上一圈</button><button id="play">播放</button><button id="next">下一圈</button><input aria-label="扫描圈数" id="seek" type="range" min="0" max="0" value="0"></div></section>
+<div class="scanviews" id="scanviews"><section class="card" id="sceneCard">
+<div class="bar"><h2>实际场景俯视图</h2><a href="/mp3d/topdown.jpg" target="_blank" rel="noopener">查看原图</a></div>
+<div class="legend">MP3D 纹理 · +X 向右，+Z 向下</div>
+<canvas id="scene" width="740" height="510" aria-label="与占据网格配准的餐厅纹理俯视图"></canvas>
+<div class="layers"><label><input type="checkbox" id="occupiedOverlay">在实景上叠加占用格</label></div>
+<p id="sceneNote">读取餐厅纹理…</p></section><section class="card" id="mapCard"><div class="bar"><h2>累计占据网格</h2><span>地图坐标 X / Z</span></div>
+<div class="legend"><i class="unk"></i>未知 <i class="free"></i>空闲 <i class="occ"></i>占用 <i class="visit"></i>轨迹</div><canvas id="grid" width="740" height="510"></canvas>
+<div class="layers"><label><input type="checkbox" id="dots" checked>本圈命中点</label><label><input type="checkbox" id="truth">紫色参考轮廓</label><label><input type="checkbox" id="rays">全部有效射线</label></div><p id="cell">点击栅格查看占用证据。</p></section>
+<section class="card" id="polarCard"><div class="bar"><h2>当前一圈回波</h2><span>传感器坐标 · 前方朝上</span></div><p class="legend">青色为障碍回波，橙色为已确认量程内无障碍</p>
+<canvas id="polar" width="500" height="475"></canvas><p id="returns"></p></section>
+<section class="card strip" id="scoreCard"><h2>与独立几何真值对照</h2><div id="metrics"></div><p id="how"></p></section></div>
+<div class="panels lower"><section class="card"><h2>本圈验收</h2><div id="checks"></div></section><section class="card"><h2>扫描位姿与拓扑</h2><p id="pose"></p><p id="topo"></p><p id="coverage"></p><a id="raw" target="_blank" rel="noopener">查看本圈原始数据</a></section></div>
+</main></body></html>

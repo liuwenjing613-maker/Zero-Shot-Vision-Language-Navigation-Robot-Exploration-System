@@ -1,0 +1,107 @@
+[
+  {
+    "goal": {
+      "instruction": "Find a table.",
+      "target_category": "table",
+      "target_attributes": {},
+      "spatial_relations": [],
+      "completion_conditions": {
+        "target_confirmed": true,
+        "approach_required": true
+      }
+    },
+    "source_rgb_sha256": "28399650ea700e640e620c59fb1bbe4c0a7d6dabfa0e91dd8fa8541de2e3f451",
+    "candidate": {
+      "local_id": "E01",
+      "category": "table",
+      "attributes": {
+        "color": "brown",
+        "type": "dining_table"
+      },
+      "bbox": [
+        180,
+        700,
+        1000,
+        1000
+      ],
+      "confidence": 0.9,
+      "evidence": "Foreground wooden table surface with placemats and a decorative bowl."
+    },
+    "verification": {
+      "schema_version": "target_verification_v1",
+      "task_id": "find_table",
+      "observation_id": "mp3d_dining",
+      "view_id": "multiple",
+      "candidate_id": "E01",
+      "model_id": "qwen3.8:27b",
+      "latency_ms": 11312,
+      "status": "VERIFIED",
+      "supporting_evidence": [
+        "Wooden tabletop surface occupies the foreground within the cyan box",
+        "Decorative bowl placed on the surface",
+        "Placemat/runner visible on the table",
+        "Upholstered dining chairs arranged around the surface"
+      ],
+      "opposing_evidence": [],
+      "uncertainty_reason": ""
+    },
+    "evaluation_only": {
+      "mp3d_reference_id": 93,
+      "mp3d_category": "table",
+      "reference_pixels_in_candidate_box": 35011,
+      "candidate_box_pixels": 75600
+    }
+  },
+  {
+    "goal": {
+      "instruction": "Find a table.",
+      "target_category": "table",
+      "target_attributes": {},
+      "spatial_relations": [],
+      "completion_conditions": {
+        "target_confirmed": true,
+        "approach_required": true
+      }
+    },
+    "source_rgb_sha256": "28399650ea700e640e620c59fb1bbe4c0a7d6dabfa0e91dd8fa8541de2e3f451",
+    "candidate": {
+      "local_id": "E02",
+      "category": "table",
+      "attributes": {
+        "color": "brown",
+        "type": "console_table"
+      },
+      "bbox": [
+        230,
+        600,
+        540,
+        720
+      ],
+      "confidence": 0.7,
+      "evidence": "Low table against the wall beneath the framed mirror holding a lamp."
+    },
+    "verification": {
+      "schema_version": "target_verification_v1",
+      "task_id": "find_table",
+      "observation_id": "mp3d_dining",
+      "view_id": "multiple",
+      "candidate_id": "E02",
+      "model_id": "qwen3.8:27b",
+      "latency_ms": 7521,
+      "status": "VERIFIED",
+      "supporting_evidence": [
+        "Flat horizontal surface at table height within the cyan box",
+        "A lamp with a white shade rests on top of the surface",
+        "Positioned against the wall beneath the framed mirror, consistent with a console/side table"
+      ],
+      "opposing_evidence": [],
+      "uncertainty_reason": ""
+    },
+    "evaluation_only": {
+      "mp3d_reference_id": 90,
+      "mp3d_category": "cabinet",
+      "reference_pixels_in_candidate_box": 5757,
+      "candidate_box_pixels": 11542
+    }
+  }
+]

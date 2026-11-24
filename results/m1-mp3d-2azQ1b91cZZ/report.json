@@ -1,0 +1,38 @@
+{
+  "dataset": "MP3D",
+  "scene": "2azQ1b91cZZ",
+  "start_world_xyz": [
+    9.946739196777344,
+    0.12711000442504883,
+    6.490621566772461
+  ],
+  "yaw_degrees": 180.72095865598257,
+  "glb_sha256": "982d3028b6fa82ca63930122065597171c8a8e84b17fe4926f67d9489a321444",
+  "navmesh_sha256": "7f64fd59beee93adb11772256ebc0894ebb91024cd8504559f7ee904b80b4f49",
+  "resolution_m": 0.1,
+  "frames": 9,
+  "grid_counts": {
+    "unknown": 14161,
+    "free": 207,
+    "occupied": 32
+  },
+  "visit_entries": 11,
+  "places": [
+    "P01",
+    "P02"
+  ],
+  "edge": {
+    "source_id": "P01",
+    "target_id": "P02",
+    "path_cost": 0.9999989867210388,
+    "status": "TRAVERSED",
+    "traversal_count": 1,
+    "failure_count": 0,
+    "consecutive_failures": 0
+  },
+  "path_length_m": 0.9999989867210388,
+  "mesh_ray_checks": 9,
+  "max_depth_error_m": 9.207914276876394e-05,
+  "mapped_endpoint_checks": 9,
+  "max_endpoint_error_m": 0.037852911058619924
+}
