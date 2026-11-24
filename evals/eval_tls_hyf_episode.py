@@ -60,22 +60,6 @@ def reachable(backend, update, floor):
     return positions
 
 
-def face_estimate(backend, target_xz):
-    """Use the estimated object position and the simulator's configured turn actions."""
-    state = backend._agent.get_state()
-    direction = quaternion.as_rotation_matrix(state.rotation) @ np.array(
-        [0.0, 0.0, -1.0]
-    )
-    dx, dz = np.asarray(target_xz) - np.asarray(state.position)[[0, 2]]
-    desired = math.atan2(-dx, -dz)
-    current = math.atan2(-direction[0], -direction[2])
-    turn = (math.degrees(desired - current) + 180) % 360 - 180
-    action = "turn_left" if turn >= 0 else "turn_right"
-    amount = backend._agent.agent_config.action_space[action].actuation.amount
-    for _ in range(round(abs(turn) / amount)):
-        backend._agent.act(action)
-
-
 def run(args):
     out = args.output
     out.mkdir(parents=True, exist_ok=False)
@@ -117,6 +101,8 @@ def run(args):
         "terminal": "FRAME_LIMIT",
         "actions": [],
         "scene": scene_path.stem,
+        "align_with_travel": b.align_with_travel,
+        "yaw_offset": args.yaw_offset,
         "task": task,
     }
     try:
@@ -351,7 +337,7 @@ def run(args):
                         estimate = update["object_memory"]["objects"][approached][
                             "map_position_xz"
                         ]
-                        face_estimate(b, estimate)
+                        b.face_towards(estimate)
                         pending = b.scan()
                 if decision.action_type.value == "STOP":
                     row["reason"] = decision.reason

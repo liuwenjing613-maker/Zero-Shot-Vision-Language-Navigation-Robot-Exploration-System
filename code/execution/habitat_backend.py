@@ -48,6 +48,7 @@ class HabitatBackend(RobotBackend):
         scan_views: int = 4,
         seed: Optional[int] = None,
         *,
+        align_with_travel: bool = True,
         enable_physics: bool = True,
         scene_dataset: Optional[str] = None,
         navmesh: Optional[str] = None,
@@ -59,6 +60,7 @@ class HabitatBackend(RobotBackend):
 
         self._hs = habitat_sim
         self._mn = mn
+        self.align_with_travel = align_with_travel
         self.max_steps = max_steps
         self.hfov_deg = hfov_deg
         # scan 的朝向量放在构造参数里，不放进 scan() ——
@@ -207,7 +209,7 @@ class HabitatBackend(RobotBackend):
                     direction[1] = 0.0
                     norm = float(np.linalg.norm(direction))
                     if norm > 1e-6:
-                        self._set_position(pos + direction / norm * MOVE_STEP)
+                        self._set_position(pos + direction / norm * MOVE_STEP, moving=True)
             else:
                 # 路点走完但没到（阈值内就该到）——视为卡住
                 return self._failed(ErrorCode.STUCK, "路点耗尽但未到达", start_t,
@@ -281,13 +283,32 @@ class HabitatBackend(RobotBackend):
     def _position(self) -> np.ndarray:
         return np.asarray(self._agent.get_state().position, dtype=np.float64)
 
-    def _set_position(self, position: np.ndarray) -> None:
+    def _set_position(self, position: np.ndarray, *, moving: bool = False) -> None:
         snapped = self._snap(np.asarray(position, dtype=np.float64))
         if snapped is not None:
             position = snapped
+        if moving and self.align_with_travel:
+            self.face_towards(position[[0, 2]])
         state = self._agent.get_state()
         state.position = np.asarray(position, dtype=np.float32)
         self._agent.set_state(state)
+
+    def face_towards(self, target_xz: Sequence[float]) -> None:
+        """Turn along the shortest horizontal arc using the configured agent actions."""
+        import quaternion
+
+        state = self._agent.get_state()
+        dx, dz = np.asarray(target_xz) - np.asarray(state.position)[[0, 2]]
+        if math.hypot(dx, dz) < 1e-6:
+            return
+        forward = -quaternion.as_rotation_matrix(state.rotation)[:, 2]
+        desired = math.atan2(-dx, -dz)
+        current = math.atan2(-forward[0], -forward[2])
+        turn = (math.degrees(desired - current) + 180) % 360 - 180
+        action = "turn_left" if turn >= 0 else "turn_right"
+        increment = self._agent.agent_config.action_space[action].actuation.amount
+        for _ in range(round(abs(turn) / increment)):
+            self._agent.act(action)
 
     def _rotate(self, degrees: float) -> None:
         action = "turn_right" if degrees > 0 else "turn_left"

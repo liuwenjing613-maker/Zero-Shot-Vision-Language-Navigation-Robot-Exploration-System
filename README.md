@@ -1,5 +1,7 @@
 # InternVLA - Vision-Language Navigation System
 
+[完整联调、Habitat 回合与复现命令](docs/full-integration.md)
+
 基于 InternVLA 的视觉语言导航（VLN）系统实现，包含多个版本的对比实验。
 
 ## 项目结构
