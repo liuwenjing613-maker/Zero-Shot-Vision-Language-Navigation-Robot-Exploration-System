@@ -9,5 +9,8 @@ description = "Goal parsing for zero-shot object navigation"
 requires-python = ">=3.8"
 dependencies = ["Pillow>=8"]
 
+[project.optional-dependencies]
+memory = ["numpy>=1.20", "scipy>=1.6"]
+
 [tool.setuptools.packages.find]
 where = ["src"]

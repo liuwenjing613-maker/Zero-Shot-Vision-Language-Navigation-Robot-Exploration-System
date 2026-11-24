@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>M1 空间记忆实验台</title>
+    <link rel="stylesheet" href="/style.css" />
+    <script defer src="/app.js"></script>
+  </head>
+  <body>
+    <header>
+      <div class="head">
+        <div class="brand">
+          <span class="logo" aria-hidden="true">⌖</span
+          ><span>VLN 研究工作台</span>
+        </div>
+        <span id="status" role="status">连接服务器…</span>
+      </div>
+    </header>
+    <main>
+      <div class="intro">
+        <div>
+          <h1>M1 空间记忆实验台</h1>
+          <p>跟随一次观测或导航事件，检查栅格证据与位置连接怎样变化。</p>
+        </div>
+        <button id="run">服务器重新运行</button>
+      </div>
+      <nav aria-label="选择实验">
+        <button id="controlled" class="tab active">可控输入实验</button
+        ><button id="mp3d" class="tab">MP3D 餐厅实测</button>
+      </nav>
+      <section class="timeline">
+        <div class="bar">
+          <strong id="source">加载实验</strong><span id="progress"></span>
+        </div>
+        <div class="controls">
+          <button id="prev" aria-label="上一步">上一帧</button
+          ><button id="play">播放</button
+          ><button id="next" aria-label="下一步">下一帧</button
+          ><input
+            id="slide"
+            aria-label="选择实验步骤"
+            type="range"
+            min="0"
+            max="0"
+            value="0"
+          /><select id="list" aria-label="跳转到步骤"></select>
+        </div>
+        <h2 id="title">读取状态中</h2>
+        <p id="detail"></p>
+      </section>
+      <div class="panels">
+        <section class="card">
+          <div class="bar">
+            <h2>占据网格</h2>
+            <span id="scale"></span>
+          </div>
+          <div class="legend">
+            <i class="free"></i>空闲 <i class="occ"></i>占用
+            <i class="unk"></i>未知 <i class="visit"></i>底盘经过
+            <i class="robot"></i>当前位姿
+          </div>
+          <canvas
+            id="map"
+            width="600"
+            height="400"
+            aria-label="可点击检查的占据网格"
+          ></canvas>
+          <p id="inspect" class="caption"></p>
+          <div class="metrics" id="metrics"></div>
+        </section>
+        <section class="card">
+          <div class="bar">
+            <h2>拓扑图</h2>
+            <span id="graphcount"></span>
+          </div>
+          <div class="legend">节点表示 Place，箭头表示有向导航边</div>
+          <canvas
+            id="graph"
+            width="600"
+            height="400"
+            aria-label="当前拓扑图"
+          ></canvas>
+          <div id="records" class="records"></div>
+        </section>
+      </div>
+      <div class="panels lower">
+        <section class="card">
+          <h2>本步验证</h2>
+          <div id="checks"></div>
+          <p id="change" class="caption"></p>
+          <a id="raw" target="_blank" rel="noopener">查看本步原始状态 JSON</a>
+        </section>
+        <section class="card">
+          <h2>观测输入</h2>
+          <div id="inputs"></div>
+        </section>
+      </div>
+    </main>
+  </body>
+</html>

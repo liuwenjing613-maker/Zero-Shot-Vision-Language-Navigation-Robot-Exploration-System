@@ -1,0 +1,8 @@
+<!doctype html><html lang="zh-CN"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>M2 物体记忆回放</title><link rel="stylesheet" href="style.css"><main>
+<header><div><small>MP3D · OBJECT MEMORY</small><h1>物体记忆回放</h1></div><span id="meta">读取记录中…</span></header>
+<section class="toolbar"><button id="prev">上一帧</button><button id="play">播放</button><button id="next">下一帧</button><input type="range" id="slider" min="0" value="0" aria-label="帧号"><strong id="frame"></strong></section>
+<div class="columns"><section><h2>相机观测 <span id="action"></span></h2><div id="photo"><img id="rgb" alt="机器人前方真实 RGB 图像"><div id="boxes"></div></div></section>
+<section><h2>物体在地图上的位置 <select id="base" aria-label="底图"><option value="grid">M1 占据网格</option><option value="ref">场景俯视图</option></select></h2><svg id="map" viewBox="0 0 480 360" aria-label="世界 X/Z 地图"></svg><p>蓝色箭头为机器人，橙点为选中物体，绿色为其他已建档物体。</p></section></div>
+<div class="columns lower"><section><h2>本帧观测 → 记忆更新</h2><div id="events"></div></section>
+<section><h2>长期记忆 <select id="objects" aria-label="选择物体"></select></h2><div id="detail"></div></section></div>
+</main><script src="viewer.js"></script></html>

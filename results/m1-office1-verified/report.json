@@ -1,0 +1,30 @@
+{
+  "scene": "office_1",
+  "yaw_degrees": 240,
+  "resolution_m": 0.1,
+  "frames": 9,
+  "grid_counts": {
+    "unknown": 13958,
+    "free": 314,
+    "occupied": 128
+  },
+  "visit_entries": 15,
+  "places": [
+    "P01",
+    "P02"
+  ],
+  "edge": {
+    "source_id": "P01",
+    "target_id": "P02",
+    "path_cost": 1.000542163848877,
+    "status": "TRAVERSED",
+    "traversal_count": 1,
+    "failure_count": 0,
+    "consecutive_failures": 0
+  },
+  "path_length_m": 1.000542163848877,
+  "mesh_ray_checks": 9,
+  "max_depth_error_m": 4.70912489327624e-05,
+  "mapped_endpoint_checks": 9,
+  "max_endpoint_error_m": 0.03956080733451794
+}

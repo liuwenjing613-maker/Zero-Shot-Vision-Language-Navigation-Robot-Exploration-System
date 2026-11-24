@@ -1,0 +1,11 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>M1 · 机器人驾驶台</title><link rel="stylesheet" href="/live/style.css"><script defer src="/live/app.js"></script></head><body>
+<header><div><h1>M1 机器人驾驶台</h1><p>MP3D · 2azQ1b91cZZ　/　感知任务：寻找椅子</p></div><a id="export" hidden>导出本次记忆 ZIP ↗</a></header>
+<main><section class="bar"><label>起点 <select id="preset"><option value="door">厨房 · 面向拱门</option><option value="junction">走廊 · 面向 T 型路口</option></select></label><button id="start">开始新会话</button><span id="connection" role="status">等待开始</span></section>
+<div class="views"><section class="panel"><div class="title"><h2>机器人视角</h2><strong id="viewid">—</strong></div><div class="camera"><img id="rgb" hidden alt="机器人当前相机画面"><canvas id="boxes"></canvas><span id="empty">开始会话后显示机器人相机</span></div>
+<div id="drive"><button data-go="left">↶ 左转 A</button><button data-go="forward">↑ 前进 W</button><button data-go="back">↓ 后退 S</button><button data-go="right">↷ 右转 D</button><button data-go="observe">◎ 原地观察 Space</button></div><p id="pose" class="meta">每次移动 0.25 米，转向 15°。</p></section>
+<section class="panel"><div class="title"><h2>空间记忆</h2><select id="basemap" aria-label="地图底图"><option value="grid">占据网格</option><option value="ref">场景俯视图</option></select></div>
+<canvas id="map" width="650" height="485"></canvas><p class="legend">灰：未知　白：空闲　黑：占据　蓝：机器人轨迹　绿：节点　橙：门口　紫：Frontier</p><div class="front"><select id="frontier" aria-label="选择已知可达的 Frontier 观察点"></select><button id="choose">选为观察点</button></div><p class="meta" id="target">手动走到选定点 0.35 米内，再按原地观察。</p></section></div>
+<div class="views lower"><section class="panel"><div class="title"><h2>VLM 感知</h2><span id="model">Qwen3.8 27B · 检查驻留状态</span></div><p id="sync">—</p><button hidden id="retry">重试失败帧</button><div id="perception"></div></section>
+<section class="panel"><div class="title"><h2>拓扑记忆</h2><span id="commit">—</span></div><p id="graph">—</p><div id="places"></div></section></div>
+<section class="panel history"><div class="title"><h2>操作记录</h2><div><button id="live">返回实时</button></div></div><p class="meta">点击某一步可查看当时的画面、地图和感知结果。</p><div id="history"></div></section>
+</main></body></html>
