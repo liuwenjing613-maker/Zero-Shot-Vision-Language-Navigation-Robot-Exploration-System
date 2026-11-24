@@ -102,6 +102,7 @@ def run(args):
         "actions": [],
         "scene": scene_path.stem,
         "align_with_travel": b.align_with_travel,
+        "planner_at_arrival": args.planner_at_arrival,
         "yaw_offset": args.yaw_offset,
         "task": task,
     }
@@ -221,6 +222,8 @@ def run(args):
                 pose=xyz,
                 frontiers=len(ranked),
                 objects=len(update["object_memory"]["objects"]),
+                initial_reason=first.reason,
+                initial_evidence_ids=list(first.evidence_ids),
                 initial_action=first.action_type.value,
                 initial_target=first.target_id,
                 verdicts=[],
@@ -279,6 +282,8 @@ def run(args):
             decision = planner.step(context()) if row["verdicts"] else first
             dispatch = plan_tls_dispatch(decision)
             row.update(
+                reason=decision.reason,
+                evidence_ids=list(decision.evidence_ids),
                 action=decision.action_type.value,
                 operation=dispatch.operation.value,
                 target=decision.target_id,
