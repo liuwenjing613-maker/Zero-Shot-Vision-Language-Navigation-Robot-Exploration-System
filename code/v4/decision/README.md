@@ -12,6 +12,10 @@ not call Qwen, update maps, mutate Memory, or invoke a robot backend.
 - `build_planner_context(...) -> PlannerContext`
 - `goal_spec_from_lwj()` / `perception_result_from_lwj()` — adapters for the
   schemas already implemented on the `lwj` branch.
+- `planner_context_from_team_outputs(...) -> PlannerContext` — the current
+  `lwj OnlineMemory.apply()` snapshot plus `tls FrontierExplorer.rank()` list
+  boundary. It requires the live robot pose and an explicit backend
+  reachability result; it never invents either one.
 
 ## Priority order
 
@@ -54,6 +58,29 @@ SCAN / OBSERVE_TARGET / REVISIT_TARGET call `RobotBackend.scan()` through the
 orchestrator. RECOVER calls `cancel_navigation()` before Memory applies its
 recovery directives. VERIFY and RELOCALIZE deliberately remain external: they
 belong to `lwj` verification and a future localization module, respectively.
+
+## Current lwj Memory + tls Exploration integration
+
+The latest `lwj` branch has progressed beyond one-frame perception. Its
+`OnlineMemory.apply()` returns an `object_memory` snapshot (global object IDs,
+semantic evidence, geometry and verification history), topology/events, and a
+`map_version`. The latest `tls` `FrontierExplorer.rank()` returns globally
+identified `common.FrontierCandidate` records after frontier memory supplies
+history. `team_adapters.py` converts those two outputs into immutable V4
+contracts without importing or mutating either owner:
+
+```text
+current robot pose + OnlineMemory.apply() + FrontierExplorer.rank()
+    -> planner_context_from_team_outputs()
+    -> HighLevelPlanner.step()
+    -> execution_bridge.py / TaskExecutor
+```
+
+An object becomes `CONFIRMED` only if its `lwj` verification is `VERIFIED`, it
+has a mapped 3-D point, and the caller reports that exact global object ID as
+reachable after a backend/path check. A verified-but-unchecked object is only
+`CONFIRMATION` and gets `OBSERVE_TARGET`; this prevents semantics from
+authorising unsafe navigation.
 
 ## Run
 
