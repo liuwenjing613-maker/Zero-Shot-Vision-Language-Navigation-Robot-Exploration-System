@@ -47,6 +47,12 @@ class HabitatBackend(RobotBackend):
         max_steps: int = MAX_STEPS,
         scan_views: int = 4,
         seed: Optional[int] = None,
+        *,
+        enable_physics: bool = True,
+        scene_dataset: Optional[str] = None,
+        navmesh: Optional[str] = None,
+        gpu_device_id: int = 0,
+        extra_sensors: Sequence = (),
     ) -> None:
         import habitat_sim  # 延迟导入（见模块 docstring）
         import magnum as mn
@@ -67,7 +73,10 @@ class HabitatBackend(RobotBackend):
         # ── 1. 构造配置 ───────────────────────────────────────
         sim_cfg = habitat_sim.SimulatorConfiguration()
         sim_cfg.scene_id = scene_path
-        sim_cfg.enable_physics = True   # 需要 headless_bullet 构建
+        sim_cfg.enable_physics = enable_physics
+        sim_cfg.gpu_device_id = gpu_device_id
+        if scene_dataset:
+            sim_cfg.scene_dataset_config_file = scene_dataset
 
         agent_cfg = habitat_sim.agent.AgentConfiguration()
         agent_cfg.height = agent_height
@@ -87,14 +96,18 @@ class HabitatBackend(RobotBackend):
         depth_spec.hfov = hfov_deg
 
         # ⚠️ 属性名是 sensor_specifications
-        agent_cfg.sensor_specifications = [rgb_spec, depth_spec]
+        agent_cfg.sensor_specifications = [rgb_spec, depth_spec, *extra_sensors]
 
         # ── 2. 创建仿真器 ─────────────────────────────────────
         self._sim = habitat_sim.Simulator(habitat_sim.Configuration(sim_cfg, [agent_cfg]))
 
-        nav = habitat_sim.NavMeshSettings()
-        nav.set_defaults()
-        self._sim.recompute_navmesh(self._sim.pathfinder, nav)
+        if navmesh is None:
+            nav = habitat_sim.NavMeshSettings()
+            nav.set_defaults()
+            self._sim.recompute_navmesh(self._sim.pathfinder, nav)
+        elif not self._sim.pathfinder.load_nav_mesh(navmesh):
+            self.close()
+            raise ValueError(f"Could not load navmesh {navmesh}")
 
         self._agent = self._sim.initialize_agent(0)
 
