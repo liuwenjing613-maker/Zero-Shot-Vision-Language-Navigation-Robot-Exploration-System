@@ -106,7 +106,7 @@ def run(args):
     b = HabitatBackend(
         str(scene_path),
         camera_offset=1.05,
-        start_position=start["position_m"],
+        start_position=args.start_position or start["position_m"],
         enable_physics=False,
         scene_dataset=str(args.dataset / "mp3d.scene_dataset_config.json"),
         navmesh=str(scene_path.with_suffix(".navmesh")),
@@ -388,6 +388,13 @@ if __name__ == "__main__":
         "--dataset",
         type=Path,
         default=Path("/data/chenkejun/datasets/mp3d_habitat/scenes"),
+    )
+    p.add_argument(
+        "--start-position",
+        nargs=3,
+        type=float,
+        metavar=("X", "Y", "Z"),
+        help="Alternative navigable starting position in this MP3D scene.",
     )
     p.add_argument("--gpu", type=int, default=7)
     p.add_argument("--exploration-budget", type=int, default=30)
