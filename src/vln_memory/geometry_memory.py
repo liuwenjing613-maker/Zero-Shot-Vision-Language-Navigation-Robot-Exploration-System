@@ -29,6 +29,13 @@ class Intrinsics:
         return cls(width, height, focal, focal, (width - 1) / 2, (height - 1) / 2)
 
 
+def project_pixels(u, v, z, intrinsics, transform):
+    """Back-project metric axial depth at Habitat camera pixels to world XYZ."""
+    points = np.column_stack(((u - intrinsics.cx) * z / intrinsics.fx,
+                              (intrinsics.cy - v) * z / intrinsics.fy, -z.astype(float)))
+    return points @ transform[:3, :3].T + transform[:3, 3]
+
+
 def _ray_cells(start, end):
     """Traverse positive-length sections, and include the measured endpoint."""
     col, row = map(math.floor, start)
@@ -139,10 +146,8 @@ class OccupancyMemory:
         z = image[::stride, ::stride]
         valid = np.isfinite(z) & (z > near) & (z < far)
         z, u, v = z[valid], u[valid], v[valid]
-        camera_points = np.column_stack(((u - intrinsics.cx) * z / intrinsics.fx,
-                                         (intrinsics.cy - v) * z / intrinsics.fy, -z.astype(float)))
         eye = T[:3, 3]
-        world = camera_points @ R.T + eye
+        world = project_pixels(u, v, z, intrinsics, T)
         # Clip each free-space segment to the obstacle-height slab. This avoids
         # clearing cells behind high/low surfaces based on an overhead ray.
         lower, upper = floor + low, floor + high

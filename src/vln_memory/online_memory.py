@@ -3,6 +3,7 @@ from dataclasses import asdict
 import math
 import numpy as np
 from .geometry_memory import OccupancyMemory, Intrinsics
+from .object_memory import ObjectMemory
 from .junction_memory import JunctionDetector
 from .portal_memory import RegionEntryDetector, free_footprint
 from .topology_memory import TopologyMemory
@@ -37,6 +38,7 @@ class OnlineMemory:
         self.region = RegionEntryDetector(self.graph, config["radius"])
         self.junction = JunctionDetector(self.graph, config["radius"])
         self.camera = Intrinsics.from_hfov(*config["camera"])
+        self.objects = ObjectMemory()
         self.last = -1
         self.pending_views = []
 
@@ -58,6 +60,10 @@ class OnlineMemory:
             or perception["task_id"] != frame["session"]
         ):
             raise ValueError("Perception and motion frame do not match")
+        prepared = None
+        if perception.get("schema_version") == "perception_three_groups_v1":
+            prepared = self.objects.prepare(perception, data["depth"], self.camera,
+                                            data["camera_pose"], frame.get("timestamp", n))
         fuse(self.grid, frame, data["ranges"])
         r = self.region
         events = []
@@ -112,10 +118,10 @@ class OnlineMemory:
             events.append(
                 dict(reason="FRONTIER_OBSERVED", place=point, frontier=target["id"])
             )
-        # Entity IDs denote this camera observation; they are not global object tracks.
+        # Attach objects only when this camera observation belongs to the place.
         p = self.graph.places[r.place]
         near = math.dist((p.x, p.y), xy) <= self.graph.merge_radius
-        if (
+        at_place = (
             p.area_id == r.area
             and near
             and (
@@ -125,11 +131,18 @@ class OnlineMemory:
                     for q in np.linspace((p.x, p.y), xy, 8)
                 )
             )
-        ):
+        )
+        mapped = []
+        # Legacy M1-only traces lack the calibrated perception schema.
+        if prepared is not None:
+            mapped = self.objects.integrate(prepared, r.place if at_place else None)
+        if at_place:
             refs = [
                 obs + "/" + e["local_id"]
                 for e in perception["target_entities"] + perception["context_entities"]
             ]
+            if prepared is not None:
+                refs = [item.object_id for item in mapped if item.object_id]
             if obs not in p.observation_ids:
                 p.observation_ids.append(obs)
             p.nearby_object_ids.extend(
@@ -161,5 +174,6 @@ class OnlineMemory:
             places=[asdict(p) for p in self.graph.places.values()],
             edges=[asdict(e) for e in self.graph.edges.values()],
             frontier_places=self.graph.frontier_places.copy(),
+            object_memory=self.objects.snapshot(mapped),
             map_version=self.grid.map_version,
         )
