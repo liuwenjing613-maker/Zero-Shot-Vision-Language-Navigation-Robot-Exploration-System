@@ -122,7 +122,7 @@ def run(args):
     try:
         state = b._agent.get_state()
         state.rotation = quat_from_angle_axis(
-            math.radians(start["yaw_deg"]), np.array([0, 1, 0])
+            math.radians(start["yaw_deg"] + args.yaw_offset), np.array([0, 1, 0])
         )
         b._agent.set_state(state)
         floor = float(state.position[1])
@@ -391,6 +391,12 @@ if __name__ == "__main__":
     )
     p.add_argument("--gpu", type=int, default=7)
     p.add_argument("--exploration-budget", type=int, default=30)
+    p.add_argument(
+        "--yaw-offset",
+        type=float,
+        default=0,
+        help="Degrees from the recorded starting heading.",
+    )
     p.add_argument("--frames", type=int, default=8)
     p.add_argument(
         "--planner-at-arrival",
