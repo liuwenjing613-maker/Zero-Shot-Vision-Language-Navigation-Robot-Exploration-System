@@ -13,7 +13,19 @@
 
 from .detector import FrontierRegion, cluster_frontier_cells, detect_frontier_cells, detect_regions
 from .explorer import FrontierExplorer
+from .knowledge import KnowledgeBase, default_knowledge
 from .scorer import UtilityWeights, score_candidates
+from .semantic import (
+    CandidateContext,
+    CompositeProvider,
+    MemoryObject,
+    NullProvider,
+    ObjectPriorConfig,
+    ObjectPriorProvider,
+    build_candidate_contexts,
+    euclidean_object_query,
+    reliability_from_status,
+)
 from .viewpoint import Viewpoint, ViewpointConfig, best_viewpoint, generate_viewpoints
 
 __all__ = [
@@ -28,4 +40,16 @@ __all__ = [
     "generate_viewpoints",
     "best_viewpoint",
     "score_candidates",
+    # ── 语义扩展 ──
+    "KnowledgeBase",
+    "default_knowledge",
+    "MemoryObject",
+    "CandidateContext",
+    "NullProvider",
+    "ObjectPriorProvider",
+    "ObjectPriorConfig",
+    "CompositeProvider",
+    "euclidean_object_query",
+    "reliability_from_status",
+    "build_candidate_contexts",
 ]

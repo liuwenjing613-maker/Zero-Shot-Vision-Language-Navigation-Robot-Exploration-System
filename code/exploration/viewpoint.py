@@ -29,7 +29,7 @@ from typing import List, Optional, Sequence, Tuple
 import numpy as np
 
 from .detector import FrontierRegion
-from .gridops import FREE, free_mask, visible_unknown_cells
+from .gridops import FREE, free_mask, visible_unknown_cell_counts
 
 
 @dataclass
@@ -122,20 +122,25 @@ def generate_viewpoints(
     if not candidates:
         return []
 
+    # 批量计算所有候选的信息增益（一次 numpy 调用，替代逐个 Python 循环）
+    gains = visible_unknown_cell_counts(
+        values, candidates, resolution, cfg.sensor_range, cfg.num_rays)
+
     raw = []
-    for (r, c) in candidates:
-        gain = len(visible_unknown_cells(
-            values, (r, c), resolution, cfg.sensor_range, cfg.num_rays))
+    for (r, c), gain in zip(candidates, gains):
         dist = float(geodesic[r, c])
         clr = float(clearance[r, c])
         risk = max(0.0, 1.0 - clr / cfg.safe_clearance)
-        raw.append((r, c, gain, dist, clr, risk))
+        raw.append((r, c, int(gain), dist, clr, risk))
 
-    gains = [x[2] for x in raw]
-    dists = [x[3] for x in raw]
-
-    g_lo, g_hi = (min(gains), max(gains)) if gains else (0, 0)
-    d_lo, d_hi = (min(dists), max(dists)) if dists else (0, 0)
+    # 这里用 min-max，而 scorer.py 用 ratio —— 两者不是笔误：
+    #   · 观察点只在**本区域内部**比较（挑一个代表点），min-max 的绝对值不参与跨区域比较，
+    #     且它偏好"本区域内增益最高"的候选，正是设计意图；
+    #   · 区域之间要横向排序，尺度差异大，必须用 ratio 保留绝对差异（见 4.5 节）。
+    gains_v = [x[2] for x in raw]
+    dists_v = [x[3] for x in raw]
+    g_lo, g_hi = (min(gains_v), max(gains_v)) if gains_v else (0, 0)
+    d_lo, d_hi = (min(dists_v), max(dists_v)) if dists_v else (0, 0)
 
     viewpoints: List[Viewpoint] = []
     for (r, c, gain, dist, clr, risk) in raw:

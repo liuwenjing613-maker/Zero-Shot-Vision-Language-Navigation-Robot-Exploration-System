@@ -26,6 +26,7 @@ from common.schemas import FrontierCandidate, Position3D
 from .detector import detect_frontier_cells, cluster_frontier_cells
 from .gridops import clearance_map, geodesic_map
 from .scorer import UtilityWeights, score_candidates
+from .semantic import build_candidate_contexts
 from .viewpoint import ViewpointConfig, best_viewpoint
 
 
@@ -116,6 +117,9 @@ class FrontierExplorer:
         snapshot: Dict,
         records: Optional[Dict[str, Dict]] = None,
         mapping: Optional[Dict[str, str]] = None,
+        goal: Optional[object] = None,
+        semantic: Optional[object] = None,
+        object_query: Optional[object] = None,
     ) -> List[FrontierCandidate]:
         """把 snapshot 转成 FrontierCandidate 并打分排序。
 
@@ -123,6 +127,13 @@ class FrontierExplorer:
             snapshot: detect() 的产物
             records: `FrontierMemory.records`（全局 ID → 记录），可空
             mapping: `update_snapshot()` 返回的 local → global 映射，可空
+            goal: 目标类别字符串，或任何带 `.category` 属性的对象
+                （例如感知模块产出的 GoalSpec）
+            semantic: `semantic.SemanticProvider`；None 时语义分恒为 0，
+                排序结果与纯几何 FBE 完全一致
+            object_query: 形如 `(viewpoint_xy, radius) -> [(MemoryObject, 距离)]`
+                的回调，由集成层绑定到 M2。生产环境应返回**测地距离**，
+                `semantic.euclidean_object_query` 只适合测试与演示
 
         没有 records / mapping 时（单元测试场景），用 local id 当全局 id。
         """
@@ -154,6 +165,16 @@ class FrontierExplorer:
                 status=str(record.get("status", "NEW")),
             ))
 
+        # ── 语义打分（可选）────────────────────────────────
+        # 三个参数缺一不可：没有目标就不知道在找什么，没有 provider 就没有
+        # 语义来源，没有查询回调就看不到记忆里的物体。
+        if goal is not None and semantic is not None and object_query is not None and candidates:
+            goal_category = getattr(goal, "category", goal)
+            contexts = build_candidate_contexts(candidates)
+            scores = semantic.score(goal_category, contexts, object_query)
+            for cand in candidates:
+                cand.semantic_utility = float(scores.get(cand.frontier_id, 0.0))
+
         return score_candidates(candidates, self.weights)
 
     # ══════════════════════════════════════════════════════════════
@@ -171,11 +192,15 @@ class FrontierExplorer:
         mapping: Optional[Dict[str, str]] = None,
         complete: bool = True,
         floor_y: float = 0.0,
+        goal: Optional[object] = None,
+        semantic: Optional[object] = None,
+        object_query: Optional[object] = None,
     ) -> List[FrontierCandidate]:
         """detect + rank 一步到位（不需要记忆模块时用）。"""
         snapshot = self.detect(values, resolution, origin, robot_cell,
                                map_version, complete, floor_y)
-        return self.rank(snapshot, records, mapping)
+        return self.rank(snapshot, records, mapping,
+                         goal=goal, semantic=semantic, object_query=object_query)
 
     @staticmethod
     def select_best(candidates: Sequence[FrontierCandidate]) -> Optional[FrontierCandidate]:

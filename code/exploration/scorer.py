@@ -1,17 +1,19 @@
 """前沿候选的本地 Utility 打分与排序。
 
-公式（队长设计文档 7.1 节）：
+公式：
 
-    U(F) = w1·IG − w2·D + w3·S − w4·H − w5·R
+    U(F) = w_IG·IG + w_N·N + w_S·S − w_D·D − w_H·H − w_R·R
 
-     IG 信息增益（可见未知格）
-     D  路径成本（测地距离）
-     S  语义收益（第一版不做，置 0，留接口）
-     H  历史惩罚（失败/重复探索）
+     IG 信息增益（可见未知格，比值归一化）
+     N  新颖性（1/(1+访问次数)）
+     S  语义收益（由 semantic.SemanticProvider 提供，见 semantic.py）
+     D  路径成本（测地距离，比值归一化）
+     H  历史惩罚（失败占比）
      R  风险（离障碍太近 / 不可达）
 
-第一版五个分量除 S 外都实现；S 由后续 Qwen 语义重排序补上。
-所有权重、归一化后的指标都在 [0,1]，权重通过实验调（文档 4.4 节）。
+S 由语义层注入；未接线时 provider 为 NullProvider，S 恒为 0，
+排序结果与纯几何 FBE 完全一致 —— 语义是加分项，不是必需品。
+所有权重、归一化后的指标都在 [0,1]，权重通过实验调（见 S2 消融）。
 """
 
 from __future__ import annotations
@@ -25,13 +27,19 @@ from .gridops import ratio
 
 @dataclass
 class UtilityWeights:
-    """默认权重。方案要求「通过 Habitat 实验调整」，这里先给一组保守初值。"""
+    """默认权重。六项之和为 1.0，全部作用于 [0,1] 归一化后的分量。
 
-    information_gain: float = 0.35
-    novelty: float = 0.15
-    path_cost: float = 0.20
-    history_penalty: float = 0.15
-    risk: float = 0.15
+    相比纯几何版本，语义项拿走 0.30，几何/历史各项按比例压缩：
+    语义足够强时可以翻转排序，但无法单独决定结果（S=1 时贡献 0.30，
+    仍小于"信息增益 0.25 + 新颖性 0.10 + 路径 0.15"的合计 0.50）。
+    """
+
+    information_gain: float = 0.25
+    novelty: float = 0.10
+    semantic: float = 0.30
+    path_cost: float = 0.15
+    history_penalty: float = 0.10
+    risk: float = 0.10
 
 
 def novelty(visit_count: int) -> float:
@@ -74,9 +82,14 @@ def score_candidates(
         else:
             risk = max(0.0, 1.0 - cand.clearance / 0.6)
 
+        # 语义分由 semantic provider 预先写入；未接线时为 None，按 0 处理
+        s = cand.semantic_utility if cand.semantic_utility is not None else 0.0
+        s = min(1.0, max(0.0, float(s)))
+
         utility = (
             w.information_gain * g_n
             + w.novelty * n
+            + w.semantic * s
             - w.path_cost * d_n
             - w.history_penalty * h
             - w.risk * risk
