@@ -27,9 +27,14 @@ from .semantic import (
     euclidean_object_query,
 )
 from .scorer import UtilityWeights
+from .viewpoint import ViewpointConfig
 
 RES = 0.1
 ROBOT = (55, 30)
+
+# 与 demo_exploration.py 使用同一套观察点采样参数，保证两个脚本报出的
+# 绝对效用值可以直接对照（否则同一个场景会出现两套数字）。
+DEMO_VIEWPOINT = ViewpointConfig(sample_radius=2.0, sensor_range=5.0, num_rays=72)
 
 # 其他五项权重的相对比例（与 UtilityWeights 的默认值一致，和为 0.70）
 _GEOM_RATIO = {
@@ -69,7 +74,7 @@ def _describe(ranked) -> str:
 
 def run_demo() -> None:
     values = build_scene()
-    explorer = FrontierExplorer()
+    explorer = FrontierExplorer(viewpoint_config=DEMO_VIEWPOINT)
     snapshot = explorer.detect(values, RES, (0.0, 0.0), ROBOT, 1)
 
     base = explorer.rank(snapshot)
@@ -139,7 +144,7 @@ def _build_cases(explorer: FrontierExplorer, snapshot) -> List[Dict]:
 
 def run_ablation() -> None:
     values = build_scene()
-    explorer = FrontierExplorer()
+    explorer = FrontierExplorer(viewpoint_config=DEMO_VIEWPOINT)
     snapshot = explorer.detect(values, RES, (0.0, 0.0), ROBOT, 1)
     cases = _build_cases(explorer, snapshot)
 
@@ -154,7 +159,7 @@ def run_ablation() -> None:
 
     for w_s in (0.0, 0.10, 0.20, 0.30, 0.40, 0.50):
         weights = weights_with_semantic(w_s)
-        expl = FrontierExplorer(weights=weights)
+        expl = FrontierExplorer(weights=weights, viewpoint_config=DEMO_VIEWPOINT)
         row = f"  {w_s:.2f} │"
         for sigma in sigmas:
             provider = ObjectPriorProvider(config=ObjectPriorConfig(sigma=sigma))
