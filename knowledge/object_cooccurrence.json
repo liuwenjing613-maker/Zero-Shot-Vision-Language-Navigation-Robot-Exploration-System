@@ -1,0 +1,40 @@
+{
+  "version": "0.1",
+  "note": "物体—物体空间共现先验 A(o,g)∈[0,1]，对称。用于补房间先验粒度太粗的情况（例如遥控器与电视同属客厅，但共现远强于同房间的任意两物）。",
+  "pairs": {
+    "remote_control": {"tv_monitor": 0.95, "sofa": 0.65, "coffee_table": 0.55},
+    "tv_monitor":     {"sofa": 0.75, "coffee_table": 0.60},
+    "sofa":           {"coffee_table": 0.80},
+
+    "dining_table":   {"chair": 0.95},
+    "chair":          {"desk": 0.50},
+    "desk":           {"office_chair": 0.90, "laptop": 0.70, "computer": 0.65},
+    "office_chair":   {"laptop": 0.40},
+    "laptop":         {"computer": 0.60},
+
+    "bed":            {"pillow": 0.85, "nightstand": 0.80, "blanket": 0.80},
+    "pillow":         {"blanket": 0.70},
+    "nightstand":     {"lamp": 0.60, "book": 0.40},
+    "wardrobe":       {"mirror": 0.40},
+    "book":           {"bookshelf": 0.80},
+
+    "sink":           {"toilet": 0.60, "mirror": 0.70, "soap": 0.90, "towel": 0.60},
+    "toothbrush":     {"sink": 0.95, "soap": 0.70},
+    "soap":           {"shower": 0.70, "bathtub": 0.60},
+    "towel":          {"shower": 0.75, "bathtub": 0.60},
+    "bathtub":        {"shower": 0.60},
+    "washing_machine":{"dryer": 0.80},
+
+    "stove":          {"pot": 0.85, "oven": 0.60, "kettle": 0.40},
+    "oven":           {"pot": 0.60, "microwave": 0.70},
+    "microwave":      {"fridge": 0.50},
+    "fridge":         {"cupboard": 0.45},
+    "cupboard":       {"dish": 0.55},
+    "dish":           {"sink": 0.70},
+    "cup":            {"kettle": 0.60, "coffee_maker": 0.60, "dining_table": 0.50},
+
+    "plant":          {"picture": 0.30},
+    "broom":          {"trash_can": 0.35},
+    "vacuum":         {"box": 0.30}
+  }
+}
