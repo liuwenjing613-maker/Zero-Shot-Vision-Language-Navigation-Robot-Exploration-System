@@ -16,6 +16,7 @@
 
 from __future__ import annotations
 
+import math
 import pathlib
 import sys
 import unittest
@@ -38,6 +39,7 @@ from exploration.gridops import (  # noqa: E402
     clearance_map,
     geodesic_map,
     normalize,
+    visible_unknown_cell_counts,
     visible_unknown_cells,
 )
 from exploration.scorer import (  # noqa: E402
@@ -345,6 +347,77 @@ class TestExplorer(unittest.TestCase):
         values = np.zeros((40, 40), dtype=np.int16)   # 全是已知空闲
         explorer = FrontierExplorer(viewpoint_config=fast_config(), min_cells=8)
         self.assertEqual(explorer.explore(values, RES, (0.0, 0.0), (20, 20), 1), [])
+
+
+class TestRaycastEquivalence(unittest.TestCase):
+    """向量化射线扫描必须与逐格实现完全等价（性能优化不能改变语义）。"""
+
+    @staticmethod
+    def _reference(values, cell, resolution, sensor_range, num_rays=72):
+        rows, cols = values.shape
+        r0, c0 = cell
+        max_steps = max(1, int(round(sensor_range / resolution)))
+        step = resolution * 0.9
+        seen = set()
+        for k in range(num_rays):
+            angle = 2.0 * math.pi * k / num_rays
+            dx, dy = math.cos(angle), math.sin(angle)
+            for i in range(1, max_steps + 1):
+                r = int(round(r0 + i * step / resolution * dy))
+                c = int(round(c0 + i * step / resolution * dx))
+                if not (0 <= r < rows and 0 <= c < cols):
+                    break
+                v = values[r, c]
+                if v >= 50:
+                    break
+                if v == UNKNOWN:
+                    seen.add((r, c))
+        return seen
+
+    def test_matches_reference(self):
+        rng = np.random.default_rng(20261128)
+        trials = 0
+        for shape in ((30, 30), (60, 45)):
+            for _ in range(6):
+                values = rng.choice([UNKNOWN, FREE, OCCUPIED], size=shape,
+                                    p=[0.45, 0.45, 0.10])
+                for sensor_range in (2.0, 4.0):
+                    cell = (int(rng.integers(0, shape[0])),
+                            int(rng.integers(0, shape[1])))
+                    if values[cell] >= 50:
+                        continue
+                    trials += 1
+                    self.assertEqual(
+                        self._reference(values, cell, RES, sensor_range),
+                        visible_unknown_cells(values, cell, RES, sensor_range),
+                        msg=f"shape={shape} cell={cell} range={sensor_range}")
+        self.assertGreater(trials, 10)
+
+    def test_batch_matches_single(self):
+        rng = np.random.default_rng(7)
+        values = rng.choice([UNKNOWN, FREE, OCCUPIED], size=(50, 50),
+                            p=[0.45, 0.45, 0.10])
+        cells = [(int(rng.integers(0, 50)), int(rng.integers(0, 50)))
+                 for _ in range(40)]
+        batch = visible_unknown_cell_counts(values, cells, RES, 4.0)
+        single = [len(visible_unknown_cells(values, c, RES, 4.0)) for c in cells]
+        self.assertEqual(batch, single)
+
+    def test_empty_input(self):
+        values = np.zeros((10, 10), dtype=np.int16)
+        self.assertEqual(visible_unknown_cell_counts(values, [], RES, 4.0), [])
+
+    def test_occlusion_blocks_far_cells(self):
+        """一整堵墙后面的未知格不应被计入。"""
+        values = np.full((30, 30), UNKNOWN, dtype=np.int16)
+        values[:, 15] = OCCUPIED             # 贯穿全高的竖墙，射线绕不过去
+
+        left = visible_unknown_cells(values, (15, 10), RES, 5.0)
+        right = visible_unknown_cells(values, (15, 20), RES, 5.0)
+        self.assertTrue(left)
+        self.assertTrue(right)
+        self.assertTrue(all(c < 15 for _, c in left))
+        self.assertTrue(all(c > 15 for _, c in right))
 
 
 if __name__ == "__main__":
